@@ -767,3 +767,38 @@ if (heroStory && heroStoryCanvas) {
   window.addEventListener('resize', updateHeroStory, { passive: true });
   updateHeroStory();
 }
+
+const sceneSections = [...document.querySelectorAll('[data-scene]')];
+
+function setSceneProgress(section, ratio) {
+  const progress = Math.max(0, Math.min(1, ratio * 1.7));
+  section.style.setProperty('--scene-progress', progress.toFixed(3));
+  section.classList.toggle('scene-active', progress > 0.08);
+}
+
+if ('IntersectionObserver' in window && sceneSections.length) {
+  const sceneObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => setSceneProgress(entry.target, entry.intersectionRatio));
+    },
+    { threshold: [0, 0.08, 0.18, 0.32, 0.48, 0.64, 0.8, 1] },
+  );
+  sceneSections.forEach((section) => sceneObserver.observe(section));
+}
+
+if (window.matchMedia('(pointer: fine)').matches && !reduceMotion) {
+  sceneSections.forEach((section) => {
+    section.addEventListener('pointermove', (event) => {
+      const bounds = section.getBoundingClientRect();
+      const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+      const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+      section.style.setProperty('--pointer-x', `${x}%`);
+      section.style.setProperty('--pointer-y', `${y}%`);
+    });
+
+    section.addEventListener('pointerleave', () => {
+      section.style.setProperty('--pointer-x', '50%');
+      section.style.setProperty('--pointer-y', '50%');
+    });
+  });
+}

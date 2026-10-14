@@ -28,6 +28,7 @@ The page uses native browser APIs only:
 
 - Intersection Observer for scroll reveals, active section navigation, timeline state, and mobile scene progression.
 - A pinned, scroll-driven hero sequence that turns a live canvas signal network from question to shipped work.
+- Section scenes that carry the same visual language through the manifesto, project workbench, Build Lab, experience route map, about signal field, resume capsule, and contact landing zone.
 - Canvas for the interactive Build Lab, with separate visual scenes for Sonder, the C++ Search Engine, and Rocket Landing RL.
 - Pointer input for the hero tilt and canvas scene exploration.
 - Native tabs, buttons, and details elements for keyboard-accessible project exploration.

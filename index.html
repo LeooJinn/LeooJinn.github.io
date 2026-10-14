@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#f4f1eb" />
     <title>Jiaxiang Jin | Software and systems</title>
     <script>document.documentElement.classList.add('js');</script>
-    <link rel="stylesheet" href="styles.css?v=4279515" />
+    <link rel="stylesheet" href="styles.css?v=whole-experience" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -69,15 +69,27 @@
         </div>
       </section>
 
-      <section class="intro-band shell reveal" aria-label="Portfolio introduction">
-        <p class="intro-statement">I like turning open-ended ideas into clear, working systems. The best projects make the underlying decisions easy to understand.</p>
-        <div class="intro-aside">
-          <span class="aside-line" aria-hidden="true"></span>
-          <p>Currently learning through shipped products, benchmarks, and experiments.</p>
+      <section class="intro-band manifesto-scene scene-section shell reveal" id="manifesto" data-scene="manifesto" aria-label="Portfolio introduction">
+        <div class="manifesto-constellation" aria-hidden="true">
+          <span class="manifesto-orbit manifesto-orbit-one"></span>
+          <span class="manifesto-orbit manifesto-orbit-two"></span>
+          <span class="manifesto-node manifesto-node-one"></span>
+          <span class="manifesto-node manifesto-node-two"></span>
+          <span class="manifesto-node manifesto-node-three"></span>
+          <span class="manifesto-path"></span>
         </div>
+        <div class="manifesto-copy">
+          <p class="intro-statement">I like turning open-ended ideas into clear, working systems. The best projects make the underlying decisions easy to understand.</p>
+          <div class="intro-aside">
+            <span class="aside-line" aria-hidden="true"></span>
+            <p>Currently learning through shipped products, benchmarks, and experiments.</p>
+          </div>
+        </div>
+        <div class="manifesto-footer" aria-hidden="true"><span>signal</span><span>structure</span><span>useful result</span></div>
       </section>
 
-      <section class="section shell" id="work" aria-labelledby="work-title">
+      <section class="section scene-section work-scene shell" id="work" data-scene="work" aria-labelledby="work-title">
+        <div class="work-atmosphere" aria-hidden="true"><span class="work-beam work-beam-one"></span><span class="work-beam work-beam-two"></span><span class="work-crosshair"></span></div>
         <div class="section-heading reveal">
           <h2 id="work-title">Projects with a reason to exist.</h2>
           <p class="section-lede">A few projects where I have focused on useful behavior, inspectable architecture, and honest tradeoffs.</p>
@@ -159,7 +171,7 @@
         </div>
       </section>
 
-      <section class="scene-lab shell" id="lab" aria-labelledby="lab-title">
+      <section class="scene-lab scene-section lab-scene shell" id="lab" data-scene="lab" aria-labelledby="lab-title">
         <div class="scene-lab-copy reveal">
           <h2 id="lab-title">See the systems move.</h2>
           <p>Three projects, three different ways of thinking. Choose a build, then move through its stages.</p>
@@ -184,7 +196,8 @@
         </div>
       </section>
 
-      <section class="section section-experience shell" id="experience" aria-labelledby="experience-title">
+      <section class="section section-experience scene-section experience-scene shell" id="experience" data-scene="experience" aria-labelledby="experience-title">
+        <div class="experience-scanline" aria-hidden="true"></div>
         <div class="experience-heading reveal">
           <h2 id="experience-title">Learning how good work gets done.</h2>
         </div>
@@ -223,7 +236,8 @@
         </div>
       </section>
 
-      <section class="section toolkit shell" id="about" aria-labelledby="about-title">
+      <section class="section toolkit scene-section about-scene shell" id="about" data-scene="about" aria-labelledby="about-title">
+        <div class="about-signal" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
         <div class="toolkit-copy reveal">
           <h2 id="about-title">Curious by default. Practical on purpose.</h2>
           <p>I am early in my software career and serious about building the fundamentals. I enjoy projects that make me move between product thinking and low-level details, from a public car history to an indexed search path.</p>
@@ -245,7 +259,8 @@
         </div>
       </section>
 
-      <section class="resume-callout shell reveal" aria-labelledby="resume-title">
+      <section class="resume-callout scene-section resume-scene shell reveal" id="resume" data-scene="resume" aria-labelledby="resume-title">
+        <div class="resume-ring" aria-hidden="true"><span>CV</span></div>
         <div>
           <h2 id="resume-title">The one-page version.</h2>
           <p>Education, experience, skills, and the details that do not fit on this page.</p>
@@ -254,7 +269,7 @@
       </section>
     </main>
 
-    <footer class="site-footer" id="contact">
+    <footer class="site-footer scene-section footer-scene" id="contact" data-scene="contact">
       <div class="shell footer-top">
         <div class="footer-heading reveal">
           <h2>Let’s build something useful.</h2>
@@ -273,6 +288,6 @@
       </div>
     </footer>
 
-    <script src="script.js?v=4279515" defer></script>
+    <script src="script.js?v=whole-experience" defer></script>
   </body>
 </html>
