@@ -43,40 +43,28 @@
     </nav>
 
     <main id="main">
-      <section class="hero shell" id="top" aria-labelledby="hero-title">
-        <div class="hero-copy reveal">
-          <h1 id="hero-title">I build useful<br />software.</h1>
-          <p class="hero-summary">I am Jiaxiang, a Las Positas College computer science student exploring product engineering, C++ systems, and machine learning.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#work">See selected work <span aria-hidden="true">↘</span></a>
-            <a class="button button-secondary" href="mailto:jiaxiangjin213@gmail.com">Get in touch</a>
+      <section class="hero-story" id="top" aria-labelledby="hero-title">
+        <div class="hero-story-sticky">
+          <canvas id="hero-story-canvas" width="1600" height="1000" aria-label="Animated build signal representing product, systems, and machine learning work"></canvas>
+          <div class="hero-story-vignette" aria-hidden="true"></div>
+          <div class="hero-story-grid" aria-hidden="true"></div>
+          <div class="hero-story-content shell">
+            <div class="hero-story-kicker">Jiaxiang Jin / software systems</div>
+            <h1 id="hero-title"><span>Useful</span><span>software.</span></h1>
+            <p class="hero-story-summary">I build products and systems that make complicated ideas easier to use, inspect, and carry forward.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#work">See selected work <span aria-hidden="true">↘</span></a>
+              <a class="button button-secondary" href="mailto:jiaxiangjin213@gmail.com">Get in touch</a>
+            </div>
           </div>
-          <div class="hero-notes" aria-label="Current focus">
-            <span>Based in Livermore, CA</span>
-            <span>Open to software opportunities</span>
-          </div>
-        </div>
-
-        <div class="hero-visual reveal reveal-delay" aria-label="Preview of the Sonder vehicle passport project">
-          <div class="visual-frame">
-            <div class="visual-topline">
-              <span>Recent build</span>
-              <span class="visual-status"><span class="status-dot" aria-hidden="true"></span> <span data-hero-status>deployed</span></span>
-            </div>
-            <div class="hero-switcher" role="tablist" aria-label="Featured projects">
-              <button class="hero-switch is-active" type="button" role="tab" aria-selected="true" data-hero-project="sonder">Sonder</button>
-              <button class="hero-switch" type="button" role="tab" aria-selected="false" data-hero-project="search">Search engine</button>
-            </div>
-            <figure class="hero-image-wrap">
-              <img src="assets/sonder-welcome.jpg" alt="Sonder vehicle passport welcome screen" data-hero-image />
-            </figure>
-            <div class="visual-caption">
-              <div>
-                <p class="caption-kicker" data-hero-kicker>Sonder</p>
-                <p class="caption-title" data-hero-title>A transferable history for every car.</p>
-              </div>
-              <a href="https://www.imsonder.com" target="_blank" rel="noreferrer" aria-label="Visit Sonder" data-hero-link>Visit <span aria-hidden="true">↗</span></a>
-            </div>
+          <div class="hero-story-object-label hero-story-label-one" aria-hidden="true">product</div>
+          <div class="hero-story-object-label hero-story-label-two" aria-hidden="true">systems</div>
+          <div class="hero-story-object-label hero-story-label-three" aria-hidden="true">machine learning</div>
+          <div class="hero-story-bottom shell">
+            <span data-hero-phase>01 / 04</span>
+            <strong data-hero-phase-name>Start with a question</strong>
+            <span class="hero-story-line" aria-hidden="true"></span>
+            <span data-hero-progress>0%</span>
           </div>
         </div>
       </section>
