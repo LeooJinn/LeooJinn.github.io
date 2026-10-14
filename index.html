@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Jiaxiang Jin is a computer science student building useful software, systems, and experiments." />
+    <meta name="theme-color" content="#f4f1eb" />
+    <title>Jiaxiang Jin | Software and systems</title>
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="wordmark" href="#top" aria-label="Jiaxiang Jin home">
+          <span class="wordmark-mark">JJ</span>
+          <span>Jiaxiang Jin</span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#work">Work</a>
+          <a href="#experience">Experience</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a class="nav-resume" href="assets/Jiaxiang-Jin-Resume.pdf" target="_blank" rel="noreferrer">Resume <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero shell" id="top" aria-labelledby="hero-title">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Computer science student / builder</p>
+          <h1 id="hero-title">I build software<br />that stays useful.</h1>
+          <p class="hero-summary">I am Jiaxiang, a Las Positas College computer science student exploring product engineering, C++ systems, and machine learning.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#work">See selected work <span aria-hidden="true">↘</span></a>
+            <a class="button button-secondary" href="mailto:jiaxiangjin213@gmail.com">Get in touch</a>
+          </div>
+          <div class="hero-notes" aria-label="Current focus">
+            <span>Based in Livermore, CA</span>
+            <span>Open to software opportunities</span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal reveal-delay" aria-label="Preview of the Sonder vehicle passport project">
+          <div class="visual-frame">
+            <div class="visual-topline">
+              <span>Recent build</span>
+              <span class="visual-status"><span class="status-dot" aria-hidden="true"></span> deployed</span>
+            </div>
+            <figure class="hero-image-wrap">
+              <img src="assets/sonder-welcome.jpg" alt="Sonder vehicle passport welcome screen" />
+            </figure>
+            <div class="visual-caption">
+              <div>
+                <p class="caption-kicker">Sonder</p>
+                <p class="caption-title">A transferable history for every car.</p>
+              </div>
+              <a href="https://www.imsonder.com" target="_blank" rel="noreferrer" aria-label="Visit Sonder">Visit <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro-band shell reveal" aria-label="Portfolio introduction">
+        <p class="intro-statement">I like turning open-ended ideas into clear, working systems. The best projects make the underlying decisions easy to understand.</p>
+        <div class="intro-aside">
+          <span class="aside-line" aria-hidden="true"></span>
+          <p>Currently learning through shipped products, benchmarks, and experiments.</p>
+        </div>
+      </section>
+
+      <section class="section shell" id="work" aria-labelledby="work-title">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Selected work</p>
+          <h2 id="work-title">Projects with a reason to exist.</h2>
+          <p class="section-lede">A few projects where I have focused on useful behavior, inspectable architecture, and honest tradeoffs.</p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card project-card-featured reveal">
+            <a class="project-media" href="https://github.com/LeooJinn/Sonder" target="_blank" rel="noreferrer">
+              <img src="assets/sonder-welcome.jpg" alt="Sonder welcome screen" loading="lazy" />
+              <span class="media-link">Open repository <span aria-hidden="true">↗</span></span>
+            </a>
+            <div class="project-content">
+              <div class="project-meta"><span>Product</span><span>Deployed</span></div>
+              <h3>Sonder</h3>
+              <p>A car passport that keeps a vehicle's mods, service, photos, and ownership history together as it changes hands.</p>
+              <ul class="project-tags" aria-label="Sonder technologies">
+                <li>React Native</li><li>Expo</li><li>Supabase</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <a class="project-media project-media-tall" href="https://github.com/LeooJinn/cpp-search-engine" target="_blank" rel="noreferrer">
+              <img src="assets/search-ui-result.jpg" alt="C++ search engine result view" loading="lazy" />
+              <span class="media-link">Open repository <span aria-hidden="true">↗</span></span>
+            </a>
+            <div class="project-content">
+              <div class="project-meta"><span>Systems</span><span>Complete</span></div>
+              <h3>C++ Search Engine</h3>
+              <p>An inspectable document search engine with linear and indexed paths, parallel indexing, benchmarks, tests, and a browser UI.</p>
+              <ul class="project-tags" aria-label="C++ search engine technologies">
+                <li>C++17</li><li>CMake</li><li>Concurrency</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="project-card project-card-text reveal">
+            <div class="project-signal" aria-hidden="true">
+              <span class="signal-orbit signal-orbit-one"></span>
+              <span class="signal-orbit signal-orbit-two"></span>
+              <span class="signal-core"></span>
+            </div>
+            <div class="project-content">
+              <div class="project-meta"><span>Machine learning</span><span>In progress</span></div>
+              <h3>Rocket Landing RL</h3>
+              <p>A reinforcement-learning environment where a simulated rocket learns to land through physics, rewards, and repeatable evaluation.</p>
+              <ul class="project-tags" aria-label="Rocket Landing RL technologies">
+                <li>Python</li><li>PyTorch</li><li>Gymnasium</li>
+              </ul>
+              <a class="text-link" href="https://github.com/LeooJinn/rocket-landing-rl" target="_blank" rel="noreferrer">Follow the build <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+        </div>
+
+        <div class="work-footer reveal">
+          <p>More code, notes, and experiments live on GitHub.</p>
+          <a class="text-link" href="https://github.com/LeooJinn" target="_blank" rel="noreferrer">View all repositories <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="section section-experience shell" id="experience" aria-labelledby="experience-title">
+        <div class="experience-heading reveal">
+          <h2 id="experience-title">Learning how good work gets done.</h2>
+        </div>
+        <div class="experience-layout">
+          <div class="experience-intro reveal">
+            <p>My work experience started in fast-paced customer-facing teams. It taught me to communicate clearly, notice what needs doing, and keep standards high when the pace changes.</p>
+            <a class="button button-secondary" href="assets/Jiaxiang-Jin-Resume.pdf" target="_blank" rel="noreferrer">Read the full resume <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="timeline" role="list">
+            <article class="timeline-item reveal" role="listitem">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <div class="timeline-main">
+                <div class="timeline-top"><h3>Simply Fondue</h3><span>March 2025 - Present</span></div>
+                <p class="timeline-role">Busser / Livermore, CA</p>
+                <p>Support guests and coworkers in a busy restaurant while keeping the dining area organized, responsive, and welcoming.</p>
+              </div>
+            </article>
+            <article class="timeline-item reveal" role="listitem">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <div class="timeline-main">
+                <div class="timeline-top"><h3>In-N-Out Burger</h3><span>December 2022 - May 2025</span></div>
+                <p class="timeline-role">Associate / Livermore, CA</p>
+                <p>Built communication, reliability, and problem-solving skills while training new associates and working in a high-volume environment.</p>
+              </div>
+            </article>
+            <article class="timeline-item timeline-item-education reveal" role="listitem">
+              <div class="timeline-marker" aria-hidden="true"></div>
+              <div class="timeline-main">
+                <div class="timeline-top"><h3>Las Positas College</h3><span>August 2024 - Present</span></div>
+                <p class="timeline-role">Associate's Degree in Computer Science</p>
+                <p>Studying programming, software design, calculus, and the problem-solving foundations behind reliable systems.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section toolkit shell" id="about" aria-labelledby="about-title">
+        <div class="toolkit-copy reveal">
+          <h2 id="about-title">Curious by default. Practical on purpose.</h2>
+          <p>I am early in my software career and serious about building the fundamentals. I enjoy projects that make me move between product thinking and low-level details, from a public car history to an indexed search path.</p>
+          <p>Outside of code, I am building communication skills through work, learning from collaborators, and looking for the next problem worth taking apart.</p>
+        </div>
+        <div class="toolkit-list reveal reveal-delay">
+          <div class="toolkit-group">
+            <h3>Languages</h3>
+            <div class="tag-cloud"><span>C++</span><span>Java</span><span>JavaScript</span><span>Python</span><span>SQL</span><span>TypeScript</span></div>
+          </div>
+          <div class="toolkit-group">
+            <h3>Strengths</h3>
+            <div class="tag-cloud"><span>Systems thinking</span><span>Debugging</span><span>Product sense</span><span>Teamwork</span><span>Documentation</span></div>
+          </div>
+          <div class="toolkit-group">
+            <h3>Languages spoken</h3>
+            <div class="tag-cloud"><span>English</span><span>Mandarin</span><span>Japanese</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="resume-callout shell reveal" aria-labelledby="resume-title">
+        <div>
+          <h2 id="resume-title">The one-page version.</h2>
+          <p>Education, experience, skills, and the details that do not fit on this page.</p>
+        </div>
+        <a class="button button-primary" href="assets/Jiaxiang-Jin-Resume.pdf" target="_blank" rel="noreferrer">Open resume <span aria-hidden="true">↗</span></a>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <div class="shell footer-top">
+        <div class="footer-heading reveal">
+          <h2>Let’s build something useful.</h2>
+        </div>
+        <div class="footer-contact reveal reveal-delay">
+          <a class="footer-email" href="mailto:jiaxiangjin213@gmail.com">jiaxiangjin213@gmail.com <span aria-hidden="true">↗</span></a>
+          <div class="footer-links">
+            <a href="https://github.com/LeooJinn" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="assets/Jiaxiang-Jin-Resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+          </div>
+        </div>
+      </div>
+      <div class="shell footer-bottom">
+        <span>Jiaxiang Jin</span>
+        <span>© <span id="year">2026</span> Jiaxiang Jin</span>
+      </div>
+    </footer>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
