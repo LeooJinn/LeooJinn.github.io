@@ -1,0 +1,148 @@
+/* Hero name: large display name with per-letter motion (see hero-name.js).
+   Letters are <b class="nc"> and words <i class="nw"> on purpose: the existing
+   `.hero-story h1 span` parallax rules only target <span>, so these stay untouched. */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hero-story h1.hero-name {
+  position: relative;
+  max-width: none;
+  margin: 0 0 28px;
+  font-size: clamp(5rem, 10.4vw, 10.5rem);
+  letter-spacing: -0.055em;
+  line-height: 0.92;
+  text-wrap: nowrap;
+}
+
+.hero-name .name-line {
+  white-space: nowrap;
+  --nc-base: #f7f9fc;
+  --nc-hot: #83aaff;
+}
+
+.hero-name .name-line:last-child {
+  --nc-base: #92b7ff;
+  --nc-hot: #ffffff;
+}
+
+.hero-name .nw,
+.hero-name .nc {
+  font: inherit;
+  font-style: normal;
+  letter-spacing: inherit;
+}
+
+.hero-name .nw {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.hero-name .nc {
+  display: inline-block;
+  color: color-mix(in srgb, var(--nc-base, #f7f9fc), var(--nc-hot, #83aaff) calc(var(--k, 0) * 100%));
+  translate: var(--tx, 0px) var(--ty, 0px);
+  scale: var(--s, 1);
+  rotate: var(--r, 0deg);
+  transform-origin: 50% 78%;
+  will-change: translate, scale, rotate;
+  animation: name-letter-in 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 52ms + 180ms);
+}
+
+/* the word space between "Jiaxiang" and "Jin" */
+.hero-name .name-gap {
+  display: inline-block;
+  width: 0.22em;
+}
+
+.hero-name.is-ready .nc {
+  animation: none;
+}
+
+.hero-name.is-wave .nc {
+  animation: name-letter-wave 0.8s cubic-bezier(0.3, 0.7, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 38ms);
+}
+
+@keyframes name-letter-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5em) rotate(7deg);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes name-letter-wave {
+  0%,
+  100% {
+    transform: none;
+  }
+  38% {
+    transform: translateY(-0.13em) rotate(-4deg);
+  }
+}
+
+/* soft spotlight that follows the cursor across the hero */
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    520px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(131, 170, 255, 0.2),
+    rgba(131, 170, 255, 0.07) 42%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  transition: opacity 400ms ease;
+}
+
+.hero-story.is-pointer-in .hero-glow {
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  .hero-story h1.hero-name {
+    font-size: clamp(3.6rem, 12vw, 7rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-story h1.hero-name {
+    margin-bottom: 22px;
+    font-size: clamp(2.35rem, 12.6vw, 4.4rem);
+    line-height: 0.96;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-name .nc,
+  .hero-name.is-ready .nc,
+  .hero-name.is-wave .nc {
+    animation: none;
+    translate: none;
+    scale: none;
+    rotate: none;
+  }
+
+  .hero-glow {
+    display: none;
+  }
+}

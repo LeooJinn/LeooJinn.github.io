@@ -4,11 +4,33 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Jiaxiang Jin is a computer science student building useful software, systems, and experiments." />
-    <meta name="theme-color" content="#f4f1eb" />
+    <meta name="theme-color" content="#07101d" />
+    <link rel="canonical" href="https://jiaxiangjin.com/" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/brand/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="assets/brand/favicon-192.png" type="image/png" sizes="192x192" />
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Jiaxiang Jin" />
+    <meta property="og:title" content="Jiaxiang Jin (Leo) | Software and systems" />
+    <meta property="og:description" content="Portfolio of Jiaxiang Jin: products and systems that make complicated ideas easier to use and inspect." />
+    <meta property="og:url" content="https://jiaxiangjin.com/" />
+    <meta property="og:image" content="https://jiaxiangjin.com/assets/brand/og-banner.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Jiaxiang Jin (Leo), software and systems portfolio, with the JJ monogram" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Jiaxiang Jin (Leo) | Software and systems" />
+    <meta name="twitter:description" content="Portfolio of Jiaxiang Jin: products and systems that make complicated ideas easier to use and inspect." />
+    <meta name="twitter:image" content="https://jiaxiangjin.com/assets/brand/og-banner.jpg" />
     <title>Jiaxiang Jin | Software and systems</title>
     <script>document.documentElement.classList.add('js');</script>
     <link rel="stylesheet" href="styles.css?v=whole-experience" />
     <link rel="stylesheet" href="experience.css?v=instrument-4" />
+    <link rel="stylesheet" href="hero-name.css?v=name-1" />
+    <link rel="stylesheet" href="hero-logo.css?v=logo-1" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -22,7 +44,7 @@
     <header class="site-header">
       <div class="shell header-inner">
         <a class="wordmark" href="#top" aria-label="Jiaxiang Jin home">
-          <span class="wordmark-mark">JJ</span>
+          <span class="wordmark-mark"><img src="favicon.svg" alt="" width="30" height="30" /></span>
           <span>Jiaxiang Jin</span>
         </a>
         <nav class="main-nav" aria-label="Main navigation">
@@ -54,10 +76,18 @@
         <div class="hero-story-sticky">
           <canvas id="hero-story-canvas" width="1600" height="1000" aria-label="Animated build signal representing product, systems, and machine learning work"></canvas>
           <div class="hero-story-vignette" aria-hidden="true"></div>
+          <div class="hero-glow" aria-hidden="true"></div>
+          <div class="hero-logo" data-hero-logo data-cursor-label="spin" aria-hidden="true">
+            <img class="hero-logo-fallback" src="assets/brand/logo-mark.svg" alt="" width="460" height="460" />
+          </div>
           <div class="hero-story-grid" aria-hidden="true"></div>
           <div class="hero-story-content shell">
-            <div class="hero-story-kicker">Jiaxiang Jin / software systems</div>
-            <h1 id="hero-title"><span>Useful</span><span>software.</span></h1>
+            <div class="hero-story-kicker">Software engineering / systems / products</div>
+            <h1 id="hero-title" class="hero-name" data-hero-name>
+              <span class="sr-only">Jiaxiang Jin (Leo)</span>
+              <span class="name-line" aria-hidden="true" data-name-line>Jiaxiang Jin</span>
+              <span class="name-line" aria-hidden="true" data-name-line>(Leo)</span>
+            </h1>
             <p class="hero-story-summary">Building products and systems that make complicated ideas easier to use and inspect.</p>
             <div class="hero-actions">
               <a class="button button-primary" href="#work">See selected work <span aria-hidden="true">↘</span></a>
@@ -362,5 +392,7 @@
 
     <script src="script.js?v=whole-experience" defer></script>
     <script src="interaction-layer.js?v=instrument-2" defer></script>
+    <script src="hero-name.js?v=name-1" defer></script>
+    <script type="module" src="hero-logo.js?v=logo-1"></script>
   </body>
 </html>

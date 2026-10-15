@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="JJ monogram">
+  <defs>
+    <linearGradient id="jj" gradientUnits="userSpaceOnUse" x1="14" y1="16" x2="88" y2="84">
+      <stop offset="0" stop-color="#c9daff"/>
+      <stop offset="1" stop-color="#5b8cff"/>
+    </linearGradient>
+  </defs>
+  <path d="M20 22H82M34 22V58C34 70 28 78 18 78M68 22V58C68 70 62 78 52 78" fill="none" stroke="url(#jj)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
