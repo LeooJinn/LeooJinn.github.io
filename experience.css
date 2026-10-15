@@ -32,19 +32,6 @@ body {
   letter-spacing: -0.012em;
 }
 
-body::before {
-  position: fixed;
-  z-index: 90;
-  inset: 0;
-  background: radial-gradient(circle 220px at var(--cursor-x, 50vw) var(--cursor-y, 50vh), rgba(144, 183, 255, 0.045), transparent 72%);
-  content: "";
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 320ms ease;
-}
-
-body.cursor-active::before { opacity: 1; }
-
 ::selection {
   background: var(--accent);
   color: #07101d;
@@ -146,17 +133,20 @@ p { color: var(--ink-soft); }
 .footer-scene .footer-email { color: var(--accent); }
 .footer-scene .footer-email:hover, .footer-scene .footer-email:focus-visible { color: #d5e3ff; }
 
-/* Cursor companion. It never replaces the native pointer. */
-.cursor-system { position: fixed; z-index: 200; inset: 0; pointer-events: none; opacity: 0; transition: opacity 240ms ease; }
+/* Cursor companion. It never replaces the native pointer.
+   JS moves each piece with the `translate` property only; everything else here is
+   static offsets and state transitions, so nothing restarts while the pointer moves. */
+.cursor-system { position: fixed; z-index: 200; inset: 0; pointer-events: none; opacity: 0; transition: opacity 240ms ease; contain: strict; }
 .cursor-active .cursor-system { opacity: 1; }
-.cursor-orb, .cursor-ring, .cursor-cross, .cursor-label { position: absolute; top: 0; left: 0; transform: translate3d(var(--cursor-x, -100px), var(--cursor-y, -100px), 0); }
+.cursor-glow, .cursor-orb, .cursor-ring, .cursor-cross, .cursor-label { position: absolute; top: 0; left: 0; translate: -100px -100px; will-change: translate; }
+.cursor-glow { width: 440px; height: 440px; margin: -220px; border-radius: 50%; background: radial-gradient(circle closest-side, rgba(144, 183, 255, 0.045), transparent 72%); }
 .cursor-orb { width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 5px rgba(103, 226, 209, 0.12), 0 0 20px rgba(103, 226, 209, 0.45); }
-.cursor-ring { width: 58px; height: 58px; margin: -29px; border: 1px solid rgba(169, 199, 255, 0.68); border-radius: 50%; transform: translate3d(var(--cursor-x, -100px), var(--cursor-y, -100px), 0) scale(0.55); transition: transform 260ms var(--ease), border-color 200ms ease, background 200ms ease; }
-.cursor-cross { margin: -8px 0 0 -3px; color: rgba(169, 199, 255, 0.72); font: 13px/1 var(--mono); transform: translate3d(calc(var(--cursor-x, -100px) + 18px), calc(var(--cursor-y, -100px) - 18px), 0); transition: opacity 180ms ease; }
-.cursor-label { margin: -8px 0 0 24px; color: var(--accent); font: 10px/1 var(--mono); letter-spacing: 0.06em; opacity: 0; transform: translate3d(calc(var(--cursor-x, -100px) + 24px), calc(var(--cursor-y, -100px) + 22px), 0); transition: opacity 180ms ease, transform 260ms var(--ease); text-transform: lowercase; white-space: nowrap; }
-.cursor-hover .cursor-ring { transform: translate3d(var(--cursor-x, -100px), var(--cursor-y, -100px), 0) scale(1); background: rgba(169, 199, 255, 0.055); border-color: var(--accent); }
-.cursor-label-visible .cursor-label { opacity: 1; transform: translate3d(calc(var(--cursor-x, -100px) + 28px), calc(var(--cursor-y, -100px) + 26px), 0); }
-.cursor-press .cursor-ring { transform: translate3d(var(--cursor-x, -100px), var(--cursor-y, -100px), 0) scale(0.72); background: rgba(103, 226, 209, 0.12); }
+.cursor-ring { width: 58px; height: 58px; margin: -29px; border: 1px solid rgba(169, 199, 255, 0.68); border-radius: 50%; scale: 0.55; transition: scale 260ms var(--ease), border-color 200ms ease, background 200ms ease; }
+.cursor-cross { margin: -8px 0 0 -3px; color: rgba(169, 199, 255, 0.72); font: 13px/1 var(--mono); transform: translate(18px, -18px); transition: opacity 180ms ease; }
+.cursor-label { margin: -8px 0 0 24px; color: var(--accent); font: 10px/1 var(--mono); letter-spacing: 0.06em; opacity: 0; transform: translate(0, 22px); transition: opacity 180ms ease, transform 260ms var(--ease); text-transform: lowercase; white-space: nowrap; }
+.cursor-hover .cursor-ring { scale: 1; background: rgba(169, 199, 255, 0.055); border-color: var(--accent); }
+.cursor-label-visible .cursor-label { opacity: 1; transform: translate(4px, 26px); }
+.cursor-press .cursor-ring { scale: 0.72; background: rgba(103, 226, 209, 0.12); }
 
 @media (max-width: 900px) {
   .section-rail { right: 50%; }
