@@ -51,6 +51,13 @@
     \end{tabular*}\vspace{-7pt}
 }
 
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
 \newcommand{\resumeProjectHeading}[2]{
     \item
     \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
@@ -76,23 +83,22 @@
 
 %----------HEADING----------
 \begin{center}
-    \textbf{\Huge \scshape Jiaxiang (Leo) Jin} \\ \vspace{1pt}
-    \small Seeking Summer 2027 Software Engineering Internship \\ \vspace{1pt}
+    \textbf{\Huge \scshape Jiaxiang Jin (Leo)} \\ \vspace{1pt}
     \small Livermore, CA $|$ 510-520-8129 $|$
-    \href{mailto:Jiaxiangjin213@gmail.com}{\underline{Jiaxiangjin213@gmail.com}} $|$
-    \href{https://www.linkedin.com/in/leoojin/}{\underline{linkedin.com/in/leoojin}} $|$
-    \href{https://github.com/LeooJinn}{\underline{github.com/LeooJinn}}
+    \href{mailto:Jiaxiangjin213@gmail.com}{\underline{Jiaxiangjin213@gmail.com}} \\ \vspace{1pt}
+    \small \href{https://www.linkedin.com/in/leoojin/}{\underline{linkedin.com/in/leoojin}} $|$
+    \href{https://github.com/LeooJinn}{\underline{github.com/LeooJinn}} $|$
+    \href{https://jiaxiangjin.com}{\underline{jiaxiangjin.com}}
 \end{center}
 
 %-----------EDUCATION-----------
 \section{Education}
   \resumeSubHeadingListStart
     \resumeSubheading
-      {Las Positas College (Transfer Track)}{Livermore, CA}
-      {Associate of Science in Computer Science, in progress; Major GPA: 3.35/4.0}{Anticipated B.S. Graduation: May 2030}
-      \resumeItemListStart
-        \resumeItem{Relevant coursework: C++, object-oriented programming, discrete mathematics, Calculus I--II, ethics}
-      \resumeItemListEnd
+      {Las Positas College}{Livermore, CA}
+      {Associate of Science in Computer Science}{Anticipated B.S. Graduation: May 2030}
+      \resumeSubSubheading
+        {Coursework: C++, object-oriented programming, discrete math, Calculus I--II}{Major GPA: 3.35/4.0}
   \resumeSubHeadingListEnd
 
 %-----------PROJECTS-----------
@@ -101,7 +107,7 @@
       \resumeProjectHeadingWithTech
           {\textbf{\href{https://github.com/LeooJinn/cpp-search-engine}{\underline{C++ Search Engine}}} $|$ \href{https://github.com/LeooJinn/cpp-search-engine}{\underline{GitHub}}}
           {C++17, CMake, SQLite, libcurl, multithreading}
-          {2026 -- Present}
+          {Oct. 2026}
           \resumeItemListStart
             \resumeItem{Built a document-search engine with a linear-scan baseline, inverted index, versioned persistent indexes, and exact, fuzzy, and synonym-aware queries.}
             \resumeItem{Benchmarked 5,950 English Wikipedia articles (74.5 MB): optimized worker-local indexing reduced peak RSS 14.6\% from 1.04 GB to 892 MB, while parallel build improved from 496 ms to 434 ms and indexed-query p95 measured 0.026 ms.}
@@ -111,7 +117,7 @@
       \resumeProjectHeadingWithTech
           {\textbf{Sonder} $|$ \href{https://imsonder.com}{\underline{imsonder.com}} $|$ \href{https://github.com/LeooJinn/Sonder}{\underline{GitHub}}}
           {React Native, Expo, TypeScript, Supabase, PostgreSQL, Vercel}
-          {2026 -- Present}
+          {Aug. 2026 -- Present}
           \resumeItemListStart
             \resumeItem{Built and deployed a full-stack community application; designed the PostgreSQL schema around ownership periods so vehicle history transfers between owners while preserving authorship and access boundaries.}
             \resumeItem{Integrated the NHTSA vPIC API into VIN onboarding to populate vehicle year, make, model, engine, and trim; implemented authentication and public vehicle pages.}
