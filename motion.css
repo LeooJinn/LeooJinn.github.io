@@ -450,6 +450,21 @@ body .footer-bottom {
   color: var(--ink-faint);
 }
 
+/* ------------------------------------------------------------------ section rail */
+
+/* On mid-width screens the rail sat on top of content (and blocked sliders). Keep just the
+   numbers, tucked into the right margin; the full labels return on wide screens. */
+@media (max-width: 1599px) {
+  .section-rail {
+    right: 10px;
+  }
+
+  .section-rail a strong,
+  .section-rail-current {
+    display: none;
+  }
+}
+
 /* ------------------------------------------------------------------ spacing + small fixes */
 
 .button {

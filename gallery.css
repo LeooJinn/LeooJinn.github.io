@@ -1,0 +1,462 @@
+/* Capability gallery: tools grouped by kind, highlighted by project, with a persistent
+   detail panel (see gallery.js). Replaces the old uniform tile grid. Type stays at 12px+. */
+
+body .about-scene {
+  display: block;
+  padding-block: clamp(90px, 11vw, 130px);
+}
+
+.about-head {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(28px, 5vw, 80px);
+  align-items: end;
+  margin-bottom: clamp(36px, 5vw, 60px);
+}
+
+.about-head h2 {
+  max-width: 10ch;
+}
+
+.about-lede {
+  max-width: 46ch;
+  margin: 0 0 8px;
+  color: var(--ink-soft);
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
+/* ------------------------------------------------------------------ frame + header */
+
+.cap {
+  position: relative;
+  z-index: 1;
+  overflow: clip;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: linear-gradient(160deg, rgba(131, 170, 255, 0.07), rgba(255, 255, 255, 0.02));
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.cap-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px 32px;
+  padding: 26px 28px 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.cap-kicker {
+  margin: 0 0 10px;
+  color: var(--signal);
+  font: 600 12px/1 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cap-heading h3 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  line-height: 1;
+}
+
+.cap-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cap-chip {
+  --pc: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font: 600 13px/1 var(--display);
+  transition: border-color 220ms ease, background 220ms ease, color 220ms ease, translate 300ms var(--ease);
+}
+
+.cap-chip i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--pc);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--pc) 70%, transparent);
+}
+
+.cap-chip b {
+  color: var(--ink-faint);
+  font: 600 12px/1 var(--mono);
+}
+
+.cap-chip:hover,
+.cap-chip:focus-visible {
+  border-color: color-mix(in srgb, var(--pc) 60%, transparent);
+  color: var(--ink);
+  translate: 0 -2px;
+}
+
+.cap-chip.is-active {
+  border-color: var(--pc);
+  background: color-mix(in srgb, var(--pc) 16%, transparent);
+  color: var(--ink);
+}
+
+.cap-chip.is-active b {
+  color: var(--pc);
+}
+
+/* ------------------------------------------------------------------ body */
+
+.cap-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 370px);
+}
+
+.cap-grid {
+  display: grid;
+  gap: 26px;
+  padding: 26px 28px 30px;
+}
+
+.cap-group h4 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+  color: var(--ink-faint);
+  font: 600 12px/1 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cap-group h4::after {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+  content: "";
+  order: 1;
+}
+
+.cap-group h4 b {
+  order: 2;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.cap-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(124px, 1fr));
+  gap: 10px;
+}
+
+.cap-tile {
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  gap: 16px;
+  min-height: 118px;
+  padding: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    border-color 240ms ease,
+    background 240ms ease,
+    opacity 360ms ease,
+    filter 360ms ease,
+    translate 320ms var(--ease),
+    box-shadow 320ms ease;
+}
+
+.cap-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: background 240ms ease, border-color 240ms ease, scale 320ms var(--ease);
+}
+
+.cap-icon img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.cap-name {
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.cap-dots {
+  display: flex;
+  gap: 5px;
+  min-height: 8px;
+}
+
+.cap-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--dc, var(--ink-faint));
+  box-shadow: 0 0 8px color-mix(in srgb, var(--dc, #fff) 60%, transparent);
+}
+
+.cap-dots i[data-p="sonder"] { --dc: #e0b457; }
+.cap-dots i[data-p="search"] { --dc: #ff7b6b; }
+.cap-dots i[data-p="rocket"] { --dc: #5fe3d0; }
+.cap-dots i[data-p="site"] { --dc: #9aa8ff; }
+.cap-dots i[data-p="course"] { --dc: #c3cad8; }
+
+.cap-tile:hover,
+.cap-tile:focus-visible {
+  border-color: var(--line-strong);
+  translate: 0 -3px;
+}
+
+.cap-tile:hover .cap-icon,
+.cap-tile:focus-visible .cap-icon {
+  scale: 1.08;
+}
+
+.cap-tile.is-active {
+  border-color: color-mix(in srgb, var(--accent) 65%, transparent);
+  background: linear-gradient(150deg, rgba(131, 170, 255, 0.22), rgba(131, 170, 255, 0.04));
+  box-shadow: 0 14px 40px rgba(60, 100, 200, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.cap-tile.is-active .cap-icon {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: rgba(131, 170, 255, 0.16);
+}
+
+.cap-tile.is-dim {
+  opacity: 0.26;
+  filter: saturate(0.2);
+}
+
+.cap-tile.is-lit {
+  border-color: color-mix(in srgb, var(--hc, var(--accent)) 55%, transparent);
+}
+
+/* ------------------------------------------------------------------ detail panel */
+
+.cap-detail {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+  display: grid;
+  gap: 18px;
+  padding: 28px;
+  border-left: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(131, 170, 255, 0.06), transparent);
+  transition: opacity 220ms ease, translate 260ms var(--ease);
+}
+
+.cap-detail.is-swapping {
+  opacity: 0;
+  translate: 0 8px;
+}
+
+.cap-detail-top {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.cap-detail-icon {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 18px;
+  background: rgba(131, 170, 255, 0.12);
+  box-shadow: 0 0 40px rgba(91, 140, 255, 0.25);
+}
+
+.cap-detail-icon img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.cap-detail-kicker {
+  margin: 0 0 8px;
+  color: var(--signal);
+  font: 600 12px/1.2 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cap-detail h4 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.05;
+}
+
+.cap-detail-copy {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.cap-detail-block {
+  display: grid;
+  gap: 9px;
+}
+
+.cap-detail-block small {
+  color: var(--ink-faint);
+  font: 600 12px/1 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cap-used {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.cap-used button {
+  --pc: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid color-mix(in srgb, var(--pc) 50%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pc) 10%, transparent);
+  color: var(--ink);
+  cursor: pointer;
+  font: 600 13px/1 var(--display);
+  transition: background 200ms ease, translate 260ms var(--ease);
+}
+
+.cap-used button i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pc);
+}
+
+.cap-used button:hover,
+.cap-used button:focus-visible {
+  background: color-mix(in srgb, var(--pc) 24%, transparent);
+  translate: 0 -2px;
+}
+
+.cap-proof {
+  margin: 0;
+  padding: 11px 14px;
+  border-left: 3px solid var(--signal);
+  border-radius: 0 10px 10px 0;
+  background: rgba(103, 226, 209, 0.07);
+  color: var(--ink);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.cap-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.cap-tags span {
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font: 12px/1 var(--mono);
+}
+
+.cap-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 18px 28px 22px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-faint);
+  font: 12px/1.2 var(--mono);
+}
+
+.cap-foot b {
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------ responsive + motion */
+
+@media (max-width: 980px) {
+  .about-head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .about-head h2 {
+    max-width: none;
+  }
+
+  .cap-body {
+    grid-template-columns: 1fr;
+  }
+
+  .cap-detail {
+    position: static;
+    order: -1;
+    border-left: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 640px) {
+  .cap-bar,
+  .cap-grid,
+  .cap-detail,
+  .cap-foot {
+    padding-inline: 18px;
+  }
+
+  .cap-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cap-tile {
+    min-height: 104px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cap-detail,
+  .cap-tile,
+  .cap-icon,
+  .cap-chip {
+    transition: none;
+  }
+}

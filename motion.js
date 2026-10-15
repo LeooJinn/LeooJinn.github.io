@@ -371,11 +371,11 @@
     // grids of small tiles pop in as a wave
     const groups = [
       ['.experience-snapshot', 3],
-      ['.skills-gallery-grid', 3],
+      ['.cap-tiles', 5],
       ['.section-filters', 6],
-      ['.skills-filter', 5],
-      ['.scene-tabs', 3],
-      ['.scene-steps', 1],
+      ['.cap-filters', 6],
+      ['.lab-tabs', 1],
+      ['.lab-try ol', 1],
       ['.project-deck-controls', 3],
       ['.footer-nav-grid', 2],
     ];
@@ -453,7 +453,7 @@
     safely(() => {
       const defs = [
         ['.project-card', 4.2],
-        ['.skill-tile', 7.5],
+        ['.cap-tile', 6],
         ['.experience-snapshot > span', 6],
         ['.timeline-item', 1.8],
       ];

@@ -31,7 +31,9 @@
     <link rel="stylesheet" href="experience.css?v=instrument-4" />
     <link rel="stylesheet" href="hero-name.css?v=name-1" />
     <link rel="stylesheet" href="hero-logo.css?v=logo-1" />
-    <link rel="stylesheet" href="motion.css?v=motion-1" />
+    <link rel="stylesheet" href="motion.css?v=motion-2" />
+    <link rel="stylesheet" href="lab.css?v=lab-2" />
+    <link rel="stylesheet" href="gallery.css?v=gallery-1" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -238,32 +240,127 @@
       </section>
 
       <section class="scene-lab scene-section lab-scene shell" id="lab" data-scene="lab" aria-labelledby="lab-title">
-        <div class="scene-lab-copy reveal">
+        <div class="lab-copy reveal">
           <h2 id="lab-title">See the systems move.</h2>
-          <p>Three projects, three different ways of thinking. Choose a build, then move through its stages.</p>
-          <div class="scene-tabs" role="tablist" aria-label="Interactive project scenes">
-            <button class="scene-tab is-active" type="button" role="tab" aria-selected="true" data-scene="sonder">Sonder</button>
-            <button class="scene-tab" type="button" role="tab" aria-selected="false" data-scene="search">Search engine</button>
-            <button class="scene-tab" type="button" role="tab" aria-selected="false" data-scene="rocket">Rocket RL</button>
+          <p class="lab-lede">Three projects, three different ways of thinking. Pick one and play with the idea behind it.</p>
+
+          <div class="lab-tabs" role="tablist" aria-label="Interactive demos">
+            <button class="lab-tab is-active" type="button" role="tab" id="lab-tab-sonder" aria-selected="true" aria-controls="lab-panel-sonder" data-demo="sonder"><span>01</span><strong>Sonder</strong><small>ownership</small></button>
+            <button class="lab-tab" type="button" role="tab" id="lab-tab-search" aria-selected="false" aria-controls="lab-panel-search" tabindex="-1" data-demo="search"><span>02</span><strong>Search engine</strong><small>inverted index</small></button>
+            <button class="lab-tab" type="button" role="tab" id="lab-tab-rocket" aria-selected="false" aria-controls="lab-panel-rocket" tabindex="-1" data-demo="rocket"><span>03</span><strong>Rocket landing</strong><small>reward loop</small></button>
           </div>
-          <div class="scene-telemetry" aria-live="polite">
-            <span><small>mode</small><strong data-telemetry-mode>ownership periods</strong></span>
-            <span><small>signal</small><strong data-telemetry-signal>history transfer</strong></span>
-            <span><small>output</small><strong data-telemetry-output>public passport</strong></span>
+
+          <div class="lab-brief" aria-live="polite">
+            <p class="lab-brief-kicker" data-lab-kicker></p>
+            <p class="lab-brief-copy" data-lab-copy></p>
+            <ul class="lab-facts" data-lab-facts></ul>
           </div>
-          <div class="scene-steps" role="list" aria-label="Project stages">
-            <button class="scene-step is-active" type="button" data-stage="0"><span>01</span><strong data-stage-title>Start with the vehicle</strong><small data-stage-copy>One car, one history, ready to be carried forward.</small></button>
-            <button class="scene-step" type="button" data-stage="1"><span>02</span><strong data-stage-title>Make the path visible</strong><small data-stage-copy>Turn the idea into a sequence people can inspect.</small></button>
-            <button class="scene-step" type="button" data-stage="2"><span>03</span><strong data-stage-title>Leave a useful record</strong><small data-stage-copy>Ship the part that remains valuable after the demo.</small></button>
+
+          <div class="lab-try">
+            <p class="lab-try-title">Try this</p>
+            <ol data-lab-try></ol>
           </div>
-          <button class="scene-motion-toggle" type="button" aria-pressed="false"><span class="scene-motion-icon" aria-hidden="true">Ⅱ</span><span>Pause scene</span></button>
         </div>
-        <div class="scene-stage reveal reveal-delay">
-          <div class="scene-stage-topline"><span data-scene-label>Sonder / vehicle history</span><span data-scene-stage>01 / 03</span></div>
-          <div class="scene-canvas-wrap">
-            <canvas id="scene-canvas" width="900" height="640" aria-label="Animated visualization of the selected project system"></canvas>
-            <div class="scene-canvas-note" aria-hidden="true"><span data-scene-hint>Move across the scene</span><span class="scene-canvas-cursor">↗</span></div>
+
+        <div class="lab-stage reveal reveal-delay">
+          <div class="lab-stage-bar">
+            <span class="lab-stage-title" data-lab-title></span>
+            <span class="lab-live" aria-hidden="true"><i></i>interactive</span>
           </div>
+
+          <div class="lab-panels">
+            <!-- Sonder: ownership passport -->
+            <div class="lab-panel is-active" id="lab-panel-sonder" role="tabpanel" aria-labelledby="lab-tab-sonder" data-panel="sonder">
+              <div class="sd">
+                <header class="sd-car">
+                  <div class="sd-car-mark" aria-hidden="true">
+                    <svg viewBox="0 0 64 36" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 24h52M10 24l5-10c1-2 3-3 5-3h24c2 0 4 1 5 3l5 10M6 24v6h8v-4M58 24v6h-8v-4"/><circle cx="19" cy="27" r="4"/><circle cx="45" cy="27" r="4"/></svg>
+                  </div>
+                  <div class="sd-car-id"><strong>2016 Subaru WRX</strong><small>VIN 4S3VA…  ·  illustrative</small></div>
+                  <div class="sd-odo"><small>odometer</small><strong data-sd-odo>0 mi</strong></div>
+                </header>
+
+                <div class="sd-viewer" role="group" aria-label="Who is looking">
+                  <span>View as</span>
+                  <button type="button" class="is-active" aria-pressed="true" data-viewer="owner"></button>
+                  <button type="button" aria-pressed="false" data-viewer="previous"></button>
+                  <button type="button" aria-pressed="false" data-viewer="public">The public</button>
+                </div>
+
+                <div class="sd-timeline">
+                  <div class="sd-track" data-sd-track></div>
+                  <label class="sd-scrub-label" for="sd-year"><span>Scrub through the car's life</span><output data-sd-year>2026</output></label>
+                  <input class="sd-scrub" id="sd-year" type="range" min="2016" max="2026" step="1" value="2026" />
+                </div>
+
+                <ol class="sd-entries" data-sd-entries></ol>
+
+                <footer class="sd-foot">
+                  <p class="sd-perm" data-sd-perm aria-live="polite"></p>
+                  <div class="sd-actions">
+                    <button type="button" class="sd-btn" data-sd-add>+ Add entry</button>
+                    <button type="button" class="sd-btn sd-btn-primary" data-sd-sell>Sell this car</button>
+                  </div>
+                </footer>
+              </div>
+            </div>
+
+            <!-- Search engine: query path -->
+            <div class="lab-panel" id="lab-panel-search" role="tabpanel" aria-labelledby="lab-tab-search" data-panel="search" hidden>
+              <div class="sx">
+                <form class="sx-form" role="search" data-sx-form>
+                  <label class="sr-only" for="sx-query">Search query</label>
+                  <input id="sx-query" type="text" value="search index" autocomplete="off" spellcheck="false" />
+                  <div class="sx-toggles">
+                    <label><input type="checkbox" data-sx-fuzzy checked /><span>Fuzzy spelling</span></label>
+                    <label><input type="checkbox" data-sx-syn checked /><span>Synonyms</span></label>
+                  </div>
+                </form>
+
+                <ol class="sx-pipe">
+                  <li><span class="sx-step">1</span><div><strong>Tokenize</strong><div class="sx-chips" data-sx-tokens></div></div></li>
+                  <li><span class="sx-step">2</span><div><strong>Look up postings</strong><div class="sx-postings" data-sx-postings></div></div></li>
+                  <li><span class="sx-step">3</span><div><strong>Rank the matches</strong><div class="sx-results" data-sx-results></div></div></li>
+                </ol>
+
+                <div class="sx-compare" data-sx-compare></div>
+              </div>
+            </div>
+
+            <!-- Rocket landing: reward loop -->
+            <div class="lab-panel" id="lab-panel-rocket" role="tabpanel" aria-labelledby="lab-tab-rocket" data-panel="rocket" hidden>
+              <div class="rk">
+                <div class="rk-modes" role="group" aria-label="Who flies">
+                  <button type="button" class="is-active" aria-pressed="true" data-rk-mode="manual">Fly it yourself</button>
+                  <button type="button" aria-pressed="false" data-rk-mode="auto">Autopilot</button>
+                  <span class="rk-keys" aria-hidden="true"><kbd>↑</kbd> thrust <kbd>←</kbd><kbd>→</kbd> tilt</span>
+                </div>
+                <div class="rk-screen" data-rk-screen tabindex="0" aria-label="Rocket landing simulation. Use the arrow keys to fly.">
+                  <canvas data-rk-canvas width="640" height="420"></canvas>
+                  <div class="rk-hud" aria-hidden="true">
+                    <div><small>altitude</small><strong data-rk-alt>0</strong></div>
+                    <div><small>speed</small><strong data-rk-speed>0</strong></div>
+                    <div><small>tilt</small><strong data-rk-tilt>0°</strong></div>
+                    <div class="rk-fuel"><small>fuel</small><span><i data-rk-fuel></i></span></div>
+                  </div>
+                  <div class="rk-reward" aria-hidden="true">
+                    <small>reward</small><strong data-rk-reward>0.0</strong>
+                  </div>
+                  <div class="rk-overlay" data-rk-overlay><strong data-rk-msg></strong><span data-rk-sub></span><button type="button" data-rk-again>Fly again</button></div>
+                </div>
+                <div class="rk-foot">
+                  <div class="rk-parts" aria-hidden="true" data-rk-parts></div>
+                  <div class="rk-history"><small>episodes</small><div data-rk-history></div><strong data-rk-score></strong></div>
+                </div>
+                <div class="rk-touch" aria-label="Touch controls">
+                  <button type="button" data-rk-touch="left" aria-label="Tilt left">◀</button>
+                  <button type="button" data-rk-touch="thrust" aria-label="Thrust">▲ thrust</button>
+                  <button type="button" data-rk-touch="right" aria-label="Tilt right">▶</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="lab-note" data-lab-note></p>
         </div>
       </section>
 
@@ -306,48 +403,72 @@
 
       <section class="section toolkit scene-section about-scene shell" id="about" data-scene="about" aria-labelledby="about-title">
         <div class="about-signal" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-        <div class="toolkit-copy reveal">
-          <h2 id="about-title">Curious by default. Practical on purpose.</h2>
-          <p>I am a computer science student building toward software engineering. My projects move between systems work, full-stack product development, and the practical discipline of supporting real users and infrastructure.</p>
+        <div class="about-head">
+          <div class="toolkit-copy reveal">
+            <h2 id="about-title">Curious by default. Practical on purpose.</h2>
+          </div>
+          <p class="about-lede reveal">I am a computer science student building toward software engineering. My projects move between systems work, full-stack product development, and the practical discipline of supporting real users and infrastructure.</p>
         </div>
-        <div class="skills-gallery reveal" aria-label="Interactive technology and engineering capability gallery">
-          <div class="skills-gallery-head">
-            <div>
-              <p class="skills-gallery-kicker">Capability gallery</p>
-              <h3>Tools I use to turn decisions into software.</h3>
+
+        <div class="cap reveal" aria-label="Technology and engineering capability gallery">
+          <div class="cap-bar">
+            <div class="cap-heading">
+              <p class="cap-kicker">Capability gallery</p>
+              <h3>Where each tool earned its place.</h3>
             </div>
-            <span class="skills-gallery-count" data-skill-count>15 technologies</span>
+            <div class="cap-filters" role="group" aria-label="Highlight tools by project">
+        <button class="cap-chip is-active" type="button" data-project="all" aria-pressed="true"><span>All tools</span><b>15</b></button>
+        <button class="cap-chip" type="button" data-project="sonder" aria-pressed="false" style="--pc:#e0b457"><i aria-hidden="true"></i><span>Sonder</span><b>6</b></button>
+        <button class="cap-chip" type="button" data-project="search" aria-pressed="false" style="--pc:#ff7b6b"><i aria-hidden="true"></i><span>C++ Search Engine</span><b>5</b></button>
+        <button class="cap-chip" type="button" data-project="rocket" aria-pressed="false" style="--pc:#5fe3d0"><i aria-hidden="true"></i><span>Rocket Landing RL</span><b>2</b></button>
+        <button class="cap-chip" type="button" data-project="site" aria-pressed="false" style="--pc:#9aa8ff"><i aria-hidden="true"></i><span>This site</span><b>1</b></button>
+        <button class="cap-chip" type="button" data-project="course" aria-pressed="false" style="--pc:#c3cad8"><i aria-hidden="true"></i><span>Coursework</span><b>1</b></button>
+            </div>
           </div>
-          <div class="skills-filter" role="tablist" aria-label="Filter capability gallery">
-            <button class="skill-filter is-active" type="button" role="tab" aria-selected="true" data-skill-filter="all">All</button>
-            <button class="skill-filter" type="button" role="tab" aria-selected="false" data-skill-filter="language">Languages</button>
-            <button class="skill-filter" type="button" role="tab" aria-selected="false" data-skill-filter="product">Product</button>
-            <button class="skill-filter" type="button" role="tab" aria-selected="false" data-skill-filter="systems">Systems</button>
-            <button class="skill-filter" type="button" role="tab" aria-selected="false" data-skill-filter="infra">Infrastructure</button>
+
+          <div class="cap-body">
+            <div class="cap-grid">
+        <section class="cap-group" data-family="language" aria-label="Languages"><h4><span>Languages</span><b>5</b></h4><div class="cap-tiles">
+          <button class="cap-tile" type="button" data-skill="cpp" data-family="language" data-used="search" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/cpp.svg" alt="" /></span><span class="cap-name">C++</span><span class="cap-dots" aria-hidden="true"><i data-p="search"></i></span></button>
+          <button class="cap-tile" type="button" data-skill="python" data-family="language" data-used="rocket" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/python.svg" alt="" /></span><span class="cap-name">Python</span><span class="cap-dots" aria-hidden="true"><i data-p="rocket"></i></span></button>
+          <button class="cap-tile" type="button" data-skill="java" data-family="language" data-used="course" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/java.svg" alt="" /></span><span class="cap-name">Java</span><span class="cap-dots" aria-hidden="true"><i data-p="course"></i></span></button>
+          <button class="cap-tile" type="button" data-skill="typescript" data-family="language" data-used="sonder" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/typescript.svg" alt="" /></span><span class="cap-name">TypeScript</span><span class="cap-dots" aria-hidden="true"><i data-p="sonder"></i></span></button>
+          <button class="cap-tile" type="button" data-skill="javascript" data-family="language" data-used="site" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/javascript.svg" alt="" /></span><span class="cap-name">JavaScript</span><span class="cap-dots" aria-hidden="true"><i data-p="site"></i></span></button>
+        </div></section>
+        <section class="cap-group" data-family="product" aria-label="Product"><h4><span>Product</span><b>4</b></h4><div class="cap-tiles">
+          <button class="cap-tile" type="button" data-skill="postgresql" data-family="product" data-used="sonder" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/postgresql.svg" alt="" /></span><span class="cap-name">PostgreSQL</span><span class="cap-dots" aria-hidden="true"><i data-p="sonder"></i></span></button>
+          <button class="cap-tile" type="button" data-skill="react" data-family="product" data-used="sonder" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/react.svg" alt="" /></span><span class="cap-name">React Native</span><span class="cap-dots" aria-hidden="true"><i data-p="sonder"></i></span></button>
+          <button class="cap-tile" type="button" data-skill="expo" data-family="product" data-used="sonder" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/expo.svg" alt="" /></span><span class="cap-name">Expo</span><span class="cap-dots" aria-hidden="true"><i data-p="sonder"></i></span></button>
+          <button class="cap-tile" type="button" data-skill="supabase" data-family="product" data-used="sonder" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/supabase.svg" alt="" /></span><span class="cap-name">Supabase</span><span class="cap-dots" aria-hidden="true"><i data-p="sonder"></i></span></button>
+        </div></section>
+        <section class="cap-group" data-family="systems" aria-label="Systems"><h4><span>Systems</span><b>4</b></h4><div class="cap-tiles">
+          <button class="cap-tile" type="button" data-skill="cmake" data-family="systems" data-used="search" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/cmake.svg" alt="" /></span><span class="cap-name">CMake</span><span class="cap-dots" aria-hidden="true"><i data-p="search"></i></span></button>
+          <button class="cap-tile" type="button" data-skill="sqlite" data-family="systems" data-used="search" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/sqlite.svg" alt="" /></span><span class="cap-name">SQLite</span><span class="cap-dots" aria-hidden="true"><i data-p="search"></i></span></button>
+          <button class="cap-tile" type="button" data-skill="curl" data-family="systems" data-used="search" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/curl.svg" alt="" /></span><span class="cap-name">libcurl</span><span class="cap-dots" aria-hidden="true"><i data-p="search"></i></span></button>
+          <button class="cap-tile" type="button" data-skill="pytorch" data-family="systems" data-used="rocket" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/pytorch.svg" alt="" /></span><span class="cap-name">PyTorch</span><span class="cap-dots" aria-hidden="true"><i data-p="rocket"></i></span></button>
+        </div></section>
+        <section class="cap-group" data-family="infra" aria-label="Infrastructure"><h4><span>Infrastructure</span><b>2</b></h4><div class="cap-tiles">
+          <button class="cap-tile" type="button" data-skill="githubactions" data-family="infra" data-used="search" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/githubactions.svg" alt="" /></span><span class="cap-name">GitHub Actions</span><span class="cap-dots" aria-hidden="true"><i data-p="search"></i></span></button>
+          <button class="cap-tile" type="button" data-skill="vercel" data-family="infra" data-used="sonder" aria-pressed="false"><span class="cap-icon"><img src="assets/skill-icons/vercel.svg" alt="" /></span><span class="cap-name">Vercel</span><span class="cap-dots" aria-hidden="true"><i data-p="sonder"></i></span></button>
+        </div></section>
+            </div>
+
+            <aside class="cap-detail" aria-live="polite" data-cap-detail>
+              <div class="cap-detail-top">
+                <span class="cap-detail-icon"><img data-cap-icon src="assets/skill-icons/cpp.svg" alt="" /></span>
+                <div>
+                  <p class="cap-detail-kicker" data-cap-kicker>Language / systems</p>
+                  <h4 data-cap-title>C++ makes the path inspectable.</h4>
+                </div>
+              </div>
+              <p class="cap-detail-copy" data-cap-copy></p>
+              <div class="cap-detail-block"><small>Used in</small><div class="cap-used" data-cap-used></div></div>
+              <div class="cap-detail-block"><small>Evidence</small><p class="cap-proof" data-cap-proof></p></div>
+              <div class="cap-tags" data-cap-tags></div>
+            </aside>
           </div>
-          <div class="skills-gallery-grid">
-            <button class="skill-tile is-active" type="button" data-skill="cpp" data-skill-family="language" aria-pressed="true"><img src="assets/skill-icons/cpp.svg" alt="" /><span>C++</span><small>search engine</small></button>
-            <button class="skill-tile" type="button" data-skill="python" data-skill-family="language" aria-pressed="false"><img src="assets/skill-icons/python.svg" alt="" /><span>Python</span><small>reinforcement learning</small></button>
-            <button class="skill-tile" type="button" data-skill="java" data-skill-family="language" aria-pressed="false"><img src="assets/skill-icons/java.svg" alt="" /><span>Java</span><small>coursework</small></button>
-            <button class="skill-tile" type="button" data-skill="typescript" data-skill-family="language" aria-pressed="false"><img src="assets/skill-icons/typescript.svg" alt="" /><span>TypeScript</span><small>Sonder</small></button>
-            <button class="skill-tile" type="button" data-skill="javascript" data-skill-family="language" aria-pressed="false"><img src="assets/skill-icons/javascript.svg" alt="" /><span>JavaScript</span><small>web tooling</small></button>
-            <button class="skill-tile" type="button" data-skill="postgresql" data-skill-family="product" aria-pressed="false"><img src="assets/skill-icons/postgresql.svg" alt="" /><span>PostgreSQL</span><small>ownership periods</small></button>
-            <button class="skill-tile" type="button" data-skill="react" data-skill-family="product" aria-pressed="false"><img src="assets/skill-icons/react.svg" alt="" /><span>React Native</span><small>mobile product</small></button>
-            <button class="skill-tile" type="button" data-skill="expo" data-skill-family="product" aria-pressed="false"><img src="assets/skill-icons/expo.svg" alt="" /><span>Expo</span><small>app delivery</small></button>
-            <button class="skill-tile" type="button" data-skill="supabase" data-skill-family="product" aria-pressed="false"><img src="assets/skill-icons/supabase.svg" alt="" /><span>Supabase</span><small>auth + data</small></button>
-            <button class="skill-tile" type="button" data-skill="cmake" data-skill-family="systems" aria-pressed="false"><img src="assets/skill-icons/cmake.svg" alt="" /><span>CMake</span><small>build systems</small></button>
-            <button class="skill-tile" type="button" data-skill="sqlite" data-skill-family="systems" aria-pressed="false"><img src="assets/skill-icons/sqlite.svg" alt="" /><span>SQLite</span><small>ingestion</small></button>
-            <button class="skill-tile" type="button" data-skill="curl" data-skill-family="systems" aria-pressed="false"><img src="assets/skill-icons/curl.svg" alt="" /><span>libcurl</span><small>web ingestion</small></button>
-            <button class="skill-tile" type="button" data-skill="pytorch" data-skill-family="systems" aria-pressed="false"><img src="assets/skill-icons/pytorch.svg" alt="" /><span>PyTorch</span><small>policy learning</small></button>
-            <button class="skill-tile" type="button" data-skill="githubactions" data-skill-family="infra" aria-pressed="false"><img src="assets/skill-icons/githubactions.svg" alt="" /><span>GitHub Actions</span><small>CI on Ubuntu/macOS</small></button>
-            <button class="skill-tile" type="button" data-skill="vercel" data-skill-family="infra" aria-pressed="false"><img src="assets/skill-icons/vercel.svg" alt="" /><span>Vercel</span><small>deployment</small></button>
-          </div>
-          <div class="skill-evidence" aria-live="polite">
-            <div class="skill-evidence-mark"><img data-skill-detail-icon src="assets/skill-icons/cpp.svg" alt="" /></div>
-            <div class="skill-evidence-copy"><p class="skill-detail-kicker" data-skill-kicker>Languages / systems</p><h4 data-skill-title>C++ is where I make the path inspectable.</h4><p data-skill-copy>Used in the C++ Search Engine for tokenization, indexing, persistent storage, and multithreaded builds.</p></div>
-            <div class="skill-evidence-tags" data-skill-tags><span>data structures</span><span>concurrency</span><span>benchmarks</span></div>
-          </div>
-          <div class="skills-concepts"><span>Also grounded in</span><strong>data structures</strong><strong>algorithms</strong><strong>data modeling</strong><strong>automated testing</strong><strong>access control</strong></div>
+
+          <p class="cap-foot"><span>Also grounded in</span><b>data structures</b><b>algorithms</b><b>data modeling</b><b>automated testing</b><b>access control</b></p>
         </div>
       </section>
 
@@ -404,10 +525,13 @@
       </div>
     </footer>
 
-    <script src="script.js?v=whole-experience" defer></script>
-    <script src="interaction-layer.js?v=instrument-2" defer></script>
+    <script src="script.js?v=whole-experience-2" defer></script>
+    <script src="interaction-layer.js?v=instrument-3" defer></script>
     <script src="hero-name.js?v=name-1" defer></script>
     <script type="module" src="hero-logo.js?v=logo-1"></script>
-    <script src="motion.js?v=motion-1" defer></script>
+    <script src="motion.js?v=motion-2" defer></script>
+    <script src="rocket-sim.js?v=lab-2" defer></script>
+    <script src="lab.js?v=lab-2" defer></script>
+    <script src="gallery.js?v=gallery-1" defer></script>
   </body>
 </html>
