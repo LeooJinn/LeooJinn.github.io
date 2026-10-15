@@ -363,14 +363,14 @@
 
   // ------------------------------------------------------------------ staggered entrances
   safely(() => {
-    // timeline entries and project cards: stagger the existing reveal
-    [['.project-deck', '.project-card'], ['.timeline', '.timeline-item']].forEach(([parent, child]) => {
+    // project and experience cards: stagger the existing reveal
+    [['.project-deck', '.project-card'], ['.exp-cards', '.exp-card']].forEach(([parent, child]) => {
       $$(parent).forEach((group) => $$(child, group).forEach((item, index) => item.style.setProperty('--rd', `${index * 110}ms`)));
     });
 
     // grids of small tiles pop in as a wave
     const groups = [
-      ['.experience-snapshot', 3],
+      ['.exp-stats', 2],
       ['.cap-tiles', 5],
       ['.section-filters', 6],
       ['.cap-filters', 6],
@@ -409,7 +409,7 @@
 
   // ------------------------------------------------------------------ count-up numbers
   safely(() => {
-    const numbers = $$('.project-proof strong, .experience-snapshot strong, [data-count]').filter((el) =>
+    const numbers = $$('.project-proof strong, .exp-stats strong:not(.exp-text-stat), [data-count]').filter((el) =>
       /^[^0-9]*[0-9][0-9,]*\.?[0-9]*/.test(el.textContent.trim()) && !/^[A-Za-z]+ \d{4}$/.test(el.textContent.trim())
     );
     const observer = new IntersectionObserver(
@@ -454,8 +454,7 @@
       const defs = [
         ['.project-card', 4.2],
         ['.cap-tile', 6],
-        ['.experience-snapshot > span', 6],
-        ['.timeline-item', 1.8],
+        ['.exp-card', 2.2],
       ];
       defs.forEach(([selector, max]) => {
         $$(selector).forEach((el) => {
@@ -520,7 +519,7 @@
   const magnets = [];
   if (fine) {
     safely(() => {
-      $$('.button, .nav-resume, .footer-email, .project-deck-control, .scene-tab, .wordmark').forEach((el) => {
+      $$('.button, .footer-email, .project-deck-control, .lab-tab').forEach((el) => {
         magnets.push({ el, x: 0, y: 0, active: false });
       });
       frames.push(() => {
@@ -627,18 +626,6 @@
     }
     return false;
   });
-
-  // ------------------------------------------------------------------ timeline scrub
-  const timeline = $('.timeline');
-  const timelineBar = $('.timeline-progress');
-  if (timeline && timelineBar) {
-    frames.push(() => {
-      const rect = timeline.getBoundingClientRect();
-      const progress = clamp((scroll.vh * 0.62 - rect.top) / Math.max(1, rect.height), 0, 1);
-      timelineBar.style.setProperty('--timeline-progress', progress.toFixed(4));
-      return false;
-    });
-  }
 
   wake();
 })();

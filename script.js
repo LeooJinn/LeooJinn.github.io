@@ -103,35 +103,6 @@ projectFilters.forEach((filter) => {
   });
 });
 
-const timeline = document.querySelector('.timeline');
-const timelineItems = [...document.querySelectorAll('.timeline-item')];
-const timelineProgress = document.querySelector('.timeline-progress');
-
-function setCurrentTimelineItem(item) {
-  const index = timelineItems.indexOf(item);
-  if (index < 0) return;
-  timelineItems.forEach((timelineItem) => timelineItem.classList.toggle('is-current', timelineItem === item));
-  // motion.js scrubs the timeline with scroll when it is running; this is the no-motion fallback
-  if (timeline && timelineProgress && document.documentElement.dataset.motion !== 'on') {
-    const progress = (item.offsetTop + item.querySelector('.timeline-marker').offsetTop + 5) / timeline.offsetHeight;
-    timelineProgress.style.setProperty('--timeline-progress', String(Math.min(1, progress)));
-  }
-}
-
-if (timelineItems.length) {
-  setCurrentTimelineItem(timelineItems[0]);
-  if ('IntersectionObserver' in window) {
-    const timelineObserver = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) setCurrentTimelineItem(visible[0].target);
-      },
-      { rootMargin: '-42% 0px -42% 0px', threshold: [0.1, 0.5, 0.9] },
-    );
-    timelineItems.forEach((item) => timelineObserver.observe(item));
-  }
-}
-
 const details = document.querySelectorAll('.project-details');
 
 function monoFont(size, weight = 500) {

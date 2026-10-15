@@ -1,0 +1,47 @@
+/* 3D torus-knot graphic beside the manifesto statement (see manifesto-3d.js). */
+
+.manifesto-3d {
+  position: absolute;
+  z-index: 1;
+  top: 46%;
+  right: -2%;
+  width: min(40vw, 540px);
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.manifesto-3d canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1000ms ease;
+}
+
+.manifesto-3d.is-3d canvas {
+  opacity: 1;
+}
+
+/* once the 3D version is running, the flat orbit drawing steps aside */
+.manifesto-scene .manifesto-constellation {
+  transition: opacity 800ms ease;
+}
+
+.manifesto-scene.has-3d .manifesto-constellation {
+  opacity: 0;
+}
+
+@media (max-width: 900px) {
+  /* the section reserved a 230px empty column for the decoration, which squeezed the text */
+  body .manifesto-scene {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .manifesto-3d {
+    top: 22%;
+    right: -14%;
+    width: 64vw;
+    opacity: 0.55;
+  }
+}

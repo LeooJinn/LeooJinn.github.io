@@ -1,0 +1,304 @@
+/* Experience and education: one card per role or school, with its logo and its own numbers.
+   Replaces the old stat row + timeline, which had no connection to what the numbers measured. */
+
+body .experience-scene {
+  display: block;
+  padding-block: clamp(90px, 11vw, 130px);
+  border-top: 0;
+}
+
+/* the old decorative scan line that cut across the section */
+.experience-scanline {
+  display: none;
+}
+
+.exp-head {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(28px, 5vw, 80px);
+  align-items: end;
+  margin-bottom: clamp(36px, 5vw, 60px);
+}
+
+.exp-eyebrow {
+  margin: 0 0 16px;
+  color: var(--signal);
+  font: 600 12px/1 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.experience-heading {
+  margin-bottom: 0;
+}
+
+.experience-heading h2 {
+  max-width: 9ch;
+}
+
+.experience-intro {
+  display: grid;
+  justify-items: start;
+  gap: 22px;
+}
+
+.experience-intro p {
+  max-width: 44ch;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
+/* ------------------------------------------------------------------ cards */
+
+.exp-cards {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.exp-card {
+  --tone: #83aaff;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto auto; /* copy stretches so stats and tags line up across cards */
+  gap: 20px;
+  padding: 30px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--tone) 14%, transparent), transparent 46%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.018));
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  transition: border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.exp-card::before {
+  position: absolute;
+  top: 0;
+  right: 30px;
+  left: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--tone), transparent);
+  content: "";
+  opacity: 0.7;
+  transition: opacity 300ms ease, left 500ms var(--ease), right 500ms var(--ease);
+}
+
+.exp-card:hover {
+  border-color: color-mix(in srgb, var(--tone) 45%, var(--line));
+}
+
+.exp-card:hover::before {
+  right: 0;
+  left: 0;
+  opacity: 1;
+}
+
+.exp-card-work {
+  --tone: #ff7b6b;
+}
+
+.exp-card-school {
+  --tone: #d4607a;
+}
+
+.exp-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.exp-logo {
+  display: inline-grid;
+  padding: 12px 20px;
+  place-items: center;
+  border-radius: 18px;
+  background: #f5f8fc;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  transition: translate 400ms var(--ease), box-shadow 400ms ease, rotate 400ms var(--ease);
+}
+
+.exp-logo-fs {
+  background: #cfe3f3;
+}
+
+.exp-logo img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 58px;
+}
+
+.exp-logo:hover,
+.exp-logo:focus-visible {
+  translate: 0 -4px;
+  rotate: -1.2deg;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4), 0 0 0 3px color-mix(in srgb, var(--tone) 40%, transparent);
+}
+
+.exp-dates {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink);
+  font: 600 12px/1 var(--mono);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.exp-dates i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 12px var(--signal);
+  animation: exp-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes exp-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.exp-card-title h3 {
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 2.4vw, 2.05rem);
+  line-height: 1.02;
+}
+
+.exp-org {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+
+.exp-org span {
+  margin-inline: 6px;
+  color: var(--ink-faint);
+}
+
+.exp-copy {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.exp-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.exp-stats li {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(7, 12, 20, 0.35);
+}
+
+.exp-stats strong {
+  color: var(--ink);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.exp-stats strong.exp-text-stat {
+  font-size: clamp(1.35rem, 2.3vw, 1.85rem);
+  padding-top: 0.2em;
+}
+
+.exp-stats span {
+  color: var(--ink-faint);
+  font: 12px/1.35 var(--mono);
+}
+
+.exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.exp-tags li {
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font: 12px/1 var(--mono);
+}
+
+/* ------------------------------------------------------------------ responsive + motion */
+
+@media (max-width: 980px) {
+  .exp-head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .experience-heading h2 {
+    max-width: none;
+  }
+
+  .exp-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .exp-card {
+    padding: 22px 18px;
+  }
+
+  .exp-logo img {
+    height: 48px;
+  }
+
+  .exp-card-top {
+    flex-wrap: wrap;
+  }
+
+  .exp-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .exp-stats li {
+    padding: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-dates i {
+    animation: none;
+  }
+
+  .exp-logo,
+  .exp-card::before {
+    transition: none;
+  }
+}

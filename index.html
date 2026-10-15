@@ -34,6 +34,9 @@
     <link rel="stylesheet" href="motion.css?v=motion-2" />
     <link rel="stylesheet" href="lab.css?v=lab-2" />
     <link rel="stylesheet" href="gallery.css?v=gallery-1" />
+    <link rel="stylesheet" href="exp.css?v=exp-2" />
+    <link rel="stylesheet" href="manifesto-3d.css?v=m3d-2" />
+    <link rel="stylesheet" href="topbar.css?v=top-3" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -44,21 +47,24 @@
       <span class="cursor-label">move</span>
     </div>
 
-    <header class="site-header">
-      <div class="shell header-inner">
-        <a class="wordmark" href="#top" aria-label="Jiaxiang Jin home">
-          <span class="wordmark-mark"><img src="favicon.svg" alt="" width="30" height="30" /></span>
-          <span>Jiaxiang Jin</span>
-        </a>
-        <nav class="main-nav" aria-label="Main navigation">
-          <a href="#work">Work</a>
-          <a href="#lab">Lab</a>
-          <a href="#experience">Experience</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-          <a class="nav-resume" href="Leo_Jin_Resume.pdf" target="_blank" rel="noreferrer">Resume <span aria-hidden="true">↗</span></a>
-        </nav>
-      </div>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Jiaxiang Jin (Leo), home">
+        <span class="brand-mark"><img src="favicon.svg" alt="" width="40" height="40" /></span>
+        <span class="brand-text" aria-hidden="true">
+          <span class="brand-name">Jiaxiang Jin</span>
+          <span class="brand-tag">(Leo)<i></i></span>
+        </span>
+      </a>
+      <nav class="dock" aria-label="Main navigation">
+        <span class="dock-pill" aria-hidden="true"></span>
+      <a class="dock-item" href="#work" data-nav="work" aria-label="Work"><svg class="ico ico-work" viewBox="0 0 24 24" aria-hidden="true"><path class="i-l" d="M8.5 7.5 3.5 12l5 4.5"/><path class="i-r" d="M15.5 7.5l5 4.5-5 4.5"/><path class="i-s" d="M13.8 5.5 10.2 18.5"/></svg><span class="dock-tip" aria-hidden="true">Work</span></a>
+      <a class="dock-item" href="#lab" data-nav="lab" aria-label="Lab"><svg class="ico ico-lab" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3.5h5"/><path class="i-fl" d="M10.5 3.5v5.2L5 18a2 2 0 0 0 1.7 3h10.6A2 2 0 0 0 19 18l-5.5-9.3V3.5"/><path d="M7.4 15h9.2"/><circle class="b1" cx="10.5" cy="17.8" r=".9"/><circle class="b2" cx="13.8" cy="18.4" r=".7"/></svg><span class="dock-tip" aria-hidden="true">Lab</span></a>
+      <a class="dock-item" href="#experience" data-nav="experience" aria-label="Experience"><svg class="ico ico-exp" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="12" rx="2.5"/><path class="i-h" d="M9 8V6.5A1.5 1.5 0 0 1 10.5 5h3A1.5 1.5 0 0 1 15 6.5V8"/><path d="M3 13.5h18"/><path d="M11 13.5v2h2v-2"/></svg><span class="dock-tip" aria-hidden="true">Experience</span></a>
+      <a class="dock-item" href="#about" data-nav="about" aria-label="About"><svg class="ico ico-about" viewBox="0 0 24 24" aria-hidden="true"><circle class="i-hd" cx="12" cy="8" r="3.7"/><path class="i-bd" d="M4.7 20.5c.9-3.9 3.9-6 7.3-6s6.4 2.1 7.3 6"/></svg><span class="dock-tip" aria-hidden="true">About</span></a>
+      <a class="dock-item" href="#contact" data-nav="contact" aria-label="Contact"><svg class="ico ico-mail" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path class="i-fp" d="M3.8 7.3 12 13.2l8.2-5.9"/></svg><span class="dock-tip" aria-hidden="true">Contact</span></a>
+      <span class="dock-sep" aria-hidden="true"></span>
+      <a class="dock-item dock-resume" href="Leo_Jin_Resume.pdf" target="_blank" rel="noreferrer" aria-label="Resume, opens a PDF"><svg class="ico ico-doc" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5"/><path class="i-l1" d="M8.5 13h7"/><path class="i-l2" d="M8.5 16.5h5"/></svg><span class="dock-tip" aria-hidden="true">Resume</span></a>
+      </nav>
     </header>
 
     <nav class="section-rail" aria-label="Page progress">
@@ -124,6 +130,7 @@
           <span class="manifesto-node manifesto-node-three"></span>
           <span class="manifesto-path"></span>
         </div>
+        <div class="manifesto-3d" data-manifesto-3d aria-hidden="true"></div>
         <div class="manifesto-copy">
           <p class="intro-statement" data-scrub>I like turning open-ended ideas into clear, working systems. The best projects make the underlying decisions easy to understand.</p>
           <div class="intro-aside">
@@ -365,39 +372,59 @@
       </section>
 
       <section class="section section-experience scene-section experience-scene shell" id="experience" data-scene="experience" aria-labelledby="experience-title">
-        <div class="experience-scanline" aria-hidden="true"></div>
-        <div class="experience-snapshot reveal" aria-label="Engineering experience snapshot">
-          <span><strong>100+</strong><small>end users supported</small></span>
-          <span><strong>95%+</strong><small>issue resolution rate</small></span>
-          <span><strong>May 2030</strong><small>anticipated B.S. graduation</small></span>
-        </div>
-        <div class="experience-heading reveal">
-          <h2 id="experience-title">Learning how good work gets done.</h2>
-        </div>
-        <div class="experience-layout">
+        <div class="exp-head">
+          <div class="experience-heading reveal">
+            <p class="exp-eyebrow">Experience and education</p>
+            <h2 id="experience-title">Learning how good work gets done.</h2>
+          </div>
           <div class="experience-intro reveal">
             <p>My current work combines hands-on IT support with software engineering projects. Supporting real users and infrastructure keeps my code grounded in reliability, documentation, and clear problem-solving.</p>
             <a class="button button-secondary" href="Leo_Jin_Resume.pdf" target="_blank" rel="noreferrer">Read the full resume <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="timeline" role="list">
-            <span class="timeline-progress" aria-hidden="true"></span>
-            <article class="timeline-item reveal" role="listitem">
-              <div class="timeline-marker" aria-hidden="true"></div>
-              <div class="timeline-main">
-                <div class="timeline-top"><h3>Five Star Networking</h3><span>February 2026 - Present</span></div>
-                <p class="timeline-role">IT Support Technician / Livermore, CA</p>
-                <p>Provide on-site hardware, network, and infrastructure support for 100+ end users, including high-profile client assignments at Meta corporate offices. Install and maintain Windows and macOS systems, troubleshoot VPN and printer issues, and manage Active Directory access.</p>
-              </div>
-            </article>
-            <article class="timeline-item timeline-item-education reveal" role="listitem">
-              <div class="timeline-marker" aria-hidden="true"></div>
-              <div class="timeline-main">
-                <div class="timeline-top"><h3>Las Positas College</h3><span>In progress / May 2030</span></div>
-                <p class="timeline-role">Associate of Science in Computer Science / Livermore, CA</p>
-                <p>Computer science student with a 3.35 major GPA, studying C++, object-oriented programming, discrete math, and Calculus I-II.</p>
-              </div>
-            </article>
-          </div>
+        </div>
+
+        <div class="exp-cards">
+          <article class="exp-card exp-card-work reveal">
+            <div class="exp-card-top">
+              <a class="exp-logo exp-logo-fs" href="https://www.5starnetworking.net/" target="_blank" rel="noreferrer" aria-label="Five Star Networking website">
+                <img src="assets/logos/five-star-networking.png" alt="Five Star Networking logo" width="296" height="101" loading="lazy" />
+              </a>
+              <span class="exp-dates"><i aria-hidden="true"></i>Feb. 2026 – Present</span>
+            </div>
+            <div class="exp-card-title">
+              <h3>IT Support Technician</h3>
+              <p class="exp-org">Five Star Networking <span aria-hidden="true">·</span> Livermore, CA</p>
+            </div>
+            <p class="exp-copy">Provide on-site hardware, network, and infrastructure support across client environments, including high-profile assignments at Meta corporate offices. Install and maintain Windows and macOS systems, troubleshoot VPN and printer issues, and manage Active Directory access.</p>
+            <ul class="exp-stats" aria-label="Impact">
+              <li><strong>100+</strong><span>end users supported</span></li>
+              <li><strong>95%+</strong><span>issue resolution rate</span></li>
+            </ul>
+            <ul class="exp-tags" aria-label="Skills used">
+              <li>Windows</li><li>macOS</li><li>Active Directory</li><li>VPN and networking</li><li>On-site support</li>
+            </ul>
+          </article>
+
+          <article class="exp-card exp-card-school reveal">
+            <div class="exp-card-top">
+              <a class="exp-logo exp-logo-lpc" href="https://www.laspositascollege.edu/" target="_blank" rel="noreferrer" aria-label="Las Positas College website">
+                <img src="assets/logos/las-positas-college.png" alt="Las Positas College logo" width="500" height="146" loading="lazy" />
+              </a>
+              <span class="exp-dates"><i aria-hidden="true"></i>In progress</span>
+            </div>
+            <div class="exp-card-title">
+              <h3>A.S. in Computer Science</h3>
+              <p class="exp-org">Las Positas College <span aria-hidden="true">·</span> Livermore, CA</p>
+            </div>
+            <p class="exp-copy">Computer science student studying C++, object-oriented programming, discrete math, and Calculus I-II, with the goal of earning a B.S. and building software for a living.</p>
+            <ul class="exp-stats" aria-label="Academics">
+              <li><strong>3.35</strong><span>major GPA, out of 4.0</span></li>
+              <li><strong class="exp-text-stat">May 2030</strong><span>anticipated B.S. graduation</span></li>
+            </ul>
+            <ul class="exp-tags" aria-label="Coursework">
+              <li>C++</li><li>Object-oriented programming</li><li>Discrete math</li><li>Calculus I-II</li>
+            </ul>
+          </article>
         </div>
       </section>
 
@@ -525,13 +552,15 @@
       </div>
     </footer>
 
-    <script src="script.js?v=whole-experience-2" defer></script>
+    <script src="script.js?v=whole-experience-3" defer></script>
     <script src="interaction-layer.js?v=instrument-3" defer></script>
     <script src="hero-name.js?v=name-1" defer></script>
     <script type="module" src="hero-logo.js?v=logo-1"></script>
-    <script src="motion.js?v=motion-2" defer></script>
+    <script src="motion.js?v=motion-3" defer></script>
     <script src="rocket-sim.js?v=lab-2" defer></script>
     <script src="lab.js?v=lab-2" defer></script>
     <script src="gallery.js?v=gallery-1" defer></script>
+    <script type="module" src="manifesto-3d.js?v=m3d-1"></script>
+    <script src="topbar.js?v=top-1" defer></script>
   </body>
 </html>
