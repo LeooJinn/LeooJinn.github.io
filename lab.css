@@ -722,12 +722,6 @@ body .lab-scene {
   font: normal 12px/1.2 var(--mono);
 }
 
-.sx-chip.is-ghost {
-  border-style: dashed;
-  background: transparent;
-  color: var(--ink-faint);
-}
-
 .sx-postings {
   display: grid;
   gap: 6px;

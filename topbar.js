@@ -12,7 +12,6 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const phone = () => window.matchMedia('(max-width: 760px)').matches;
-  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
   // ---- firm up the glass after the first scroll
   const onScroll = () => bar.classList.toggle('is-scrolled', window.scrollY > 40);

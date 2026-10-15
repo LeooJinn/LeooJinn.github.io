@@ -23,11 +23,11 @@ if (cursorSystem && pointerFine && motionOkay) {
 
   const targetLabel = (target) => {
     if (target.dataset.cursorLabel) return target.dataset.cursorLabel;
-    if (target.matches('.project-card')) return 'inspect';
-    if (target.matches('.scene-stage, #scene-canvas')) return 'explore';
+    if (target.matches('.pj-stage')) return 'inspect';
+    if (target.matches('.lab-stage')) return 'explore';
     if (target.matches('.lab-tab, .pj-tab, .cap-chip')) return 'change';
     if (target.matches('.footer-email, [href^="mailto:"]')) return 'contact';
-    if (target.matches('.button, .nav-resume, [href$=".pdf"]')) return 'open';
+    if (target.matches('.button, [href$=".pdf"]')) return 'open';
     if (target.matches('a')) return 'navigate';
     return 'move';
   };
@@ -62,17 +62,17 @@ if (cursorSystem && pointerFine && motionOkay) {
     body.classList.add('cursor-active');
     if (!frame) frame = requestAnimationFrame(tick);
 
-    const target = event.target.closest?.('a, button, .project-card, .scene-stage, #scene-canvas, .resume-scene');
+    const target = event.target.closest?.('a, button, .pj-stage, .lab-stage, .resume-scene');
     activateTarget(target, event);
   });
 
   document.addEventListener('pointerover', (event) => {
-    const target = event.target.closest?.('a, button, .project-card, .scene-stage, #scene-canvas, .resume-scene');
+    const target = event.target.closest?.('a, button, .pj-stage, .lab-stage, .resume-scene');
     if (target) activateTarget(target, event);
   });
 
   document.addEventListener('pointerout', (event) => {
-    const target = event.target.closest?.('a, button, .project-card, .scene-stage, #scene-canvas, .resume-scene');
+    const target = event.target.closest?.('a, button, .pj-stage, .lab-stage, .resume-scene');
     if (!target || target.contains(event.relatedTarget)) return;
     target.classList.remove('cursor-target');
     if (activeTarget === target) activateTarget(null, event);
@@ -81,17 +81,4 @@ if (cursorSystem && pointerFine && motionOkay) {
   document.addEventListener('pointerdown', () => body.classList.add('cursor-press'));
   document.addEventListener('pointerup', () => body.classList.remove('cursor-press'));
   document.addEventListener('pointerleave', () => body.classList.remove('cursor-active'));
-
-  const sceneSections = [...document.querySelectorAll('[data-scene]')];
-  if ('IntersectionObserver' in window && sceneSections.length) {
-    const sceneObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) document.body.dataset.scene = entry.target.dataset.scene;
-        });
-      },
-      { rootMargin: '-38% 0px -45% 0px', threshold: 0.08 },
-    );
-    sceneSections.forEach((section) => sceneObserver.observe(section));
-  }
 }

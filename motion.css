@@ -132,17 +132,6 @@ html.js .reveal-delay {
 }
 
 /* large surfaces: skip the blur, it is costly on big layers */
-html.js .project-card.reveal,
-html.js .scene-stage.reveal,
-html.js .skills-gallery.reveal,
-html.js .timeline-item.reveal {
-  filter: none;
-}
-
-html.js .work-scene .project-card.reveal,
-html.js .work-scene.scene-active .project-card.reveal {
-  transition-delay: var(--rd, 0ms);
-}
 
 /* staggered pop-in for grids of small tiles */
 html.js .pop-item {
@@ -245,27 +234,7 @@ h2 {
   pointer-events: none;
 }
 
-.skill-tile,
-.experience-snapshot span,
-.timeline-item {
-  position: relative;
-}
-
-.skill-tile {
-  overflow: hidden;
-}
-
 /* hover lift moves to `translate` so JS can own `transform` for the tilt */
-body .project-card:hover,
-body .skill-tile:hover,
-body .skill-tile:focus-visible,
-body .skill-tile.is-active {
-  transform: none;
-}
-
-body .project-card:hover {
-  translate: 0 -6px;
-}
 
 /* ------------------------------------------------------------------ marquee */
 
@@ -320,10 +289,6 @@ body .project-card:hover {
 }
 
 /* ------------------------------------------------------------------ timeline */
-
-html[data-motion="on"] .timeline-progress {
-  transition: none;
-}
 
 /* ------------------------------------------------------------------ footer */
 

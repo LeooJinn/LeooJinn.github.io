@@ -45,17 +45,6 @@
 }
 
 /* nav mark: the real monogram instead of a text tile */
-.wordmark-mark {
-  padding: 0;
-  background: none;
-  border-radius: 0;
-}
-
-.wordmark-mark img {
-  display: block;
-  width: 30px;
-  height: 30px;
-}
 
 @media (max-width: 900px) {
   .hero-logo {

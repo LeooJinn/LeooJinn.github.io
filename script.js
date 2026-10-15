@@ -106,10 +106,6 @@ function heroScrollProgress() {
   return clamp(-heroStory.getBoundingClientRect().top / travel, 0, 1);
 }
 
-function heroColor(name, fallback) {
-  return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
-}
-
 function drawHeroSignal(ctx, width, height, progress, time) {
   const accent = '#86adff';
   const cyan = '#60e3d1';

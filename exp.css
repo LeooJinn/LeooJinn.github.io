@@ -8,9 +8,6 @@ body .experience-scene {
 }
 
 /* the old decorative scan line that cut across the section */
-.experience-scanline {
-  display: none;
-}
 
 .exp-head {
   position: relative;

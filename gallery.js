@@ -52,7 +52,6 @@
   const usedBy = (tile) => tile.dataset.used.split(' ');
 
   let selected = 'cpp';
-  let project = 'all';
   let swapTimer = 0;
 
   function fillDetail(key) {
@@ -110,7 +109,6 @@
   }
 
   function setProject(id) {
-    project = id;
     chips.forEach((chip) => {
       const on = chip.dataset.project === id;
       chip.classList.toggle('is-active', on);
