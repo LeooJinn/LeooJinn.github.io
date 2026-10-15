@@ -25,7 +25,7 @@ if (cursorSystem && pointerFine && motionOkay) {
     if (target.dataset.cursorLabel) return target.dataset.cursorLabel;
     if (target.matches('.project-card')) return 'inspect';
     if (target.matches('.scene-stage, #scene-canvas')) return 'explore';
-    if (target.matches('.project-filter, .scene-tab, .scene-step')) return 'change';
+    if (target.matches('.lab-tab, .pj-tab, .cap-chip')) return 'change';
     if (target.matches('.footer-email, [href^="mailto:"]')) return 'contact';
     if (target.matches('.button, .nav-resume, [href$=".pdf"]')) return 'open';
     if (target.matches('a')) return 'navigate';
@@ -95,25 +95,3 @@ if (cursorSystem && pointerFine && motionOkay) {
     sceneSections.forEach((section) => sceneObserver.observe(section));
   }
 }
-
-const deckControls = [...document.querySelectorAll('[data-deck-target]')];
-const deckCards = [...document.querySelectorAll('[data-deck-index]')];
-const deckCurrent = document.querySelector('[data-deck-current]');
-
-function setDeckTarget(targetIndex) {
-  const index = String(targetIndex);
-  deckControls.forEach((control) => {
-    const active = control.dataset.deckTarget === index;
-    control.classList.toggle('is-active', active);
-    control.setAttribute('aria-pressed', String(active));
-  });
-  deckCards.forEach((card) => {
-    const active = card.dataset.deckIndex === index;
-    card.classList.toggle('deck-focus', active);
-    card.classList.toggle('deck-muted', !active);
-  });
-  if (deckCurrent) deckCurrent.textContent = String(Number(index) + 1).padStart(2, '0');
-}
-
-deckControls.forEach((control) => control.addEventListener('click', () => setDeckTarget(control.dataset.deckTarget)));
-if (deckControls.length) setDeckTarget(0);

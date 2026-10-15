@@ -139,5 +139,139 @@
     return { thrust, left, right };
   }
 
-  return { W, H, GROUND, HALF_HEIGHT, PAD_W, create, step, autopilot };
+  // ---- drawing (shared by the lab demo and the project preview)
+  const stars = Array.from({ length: 70 }, (_, i) => ({ x: ((i * 97) % 640) + 3, y: (i * 53) % 330, r: 0.6 + ((i * 7) % 10) / 12 }));
+
+  function hillY(x) {
+    return GROUND - 18 - 16 * Math.sin(x * 0.011) - 10 * Math.sin(x * 0.027 + 1.3);
+  }
+
+  function render(ctx, sim, view) {
+    const { now = 0, trail = [], particles = [] } = view || {};
+    const sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0, '#050a18');
+    sky.addColorStop(0.6, '#0b1a3a');
+    sky.addColorStop(1, '#15305e');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.fillStyle = 'rgba(210, 225, 255, 0.75)';
+    stars.forEach((star) => {
+      ctx.globalAlpha = 0.35 + 0.4 * Math.abs(Math.sin(now / 1400 + star.x));
+      ctx.beginPath();
+      ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+
+    ctx.beginPath();
+    ctx.moveTo(0, H);
+    for (let x = 0; x <= W; x += 8) ctx.lineTo(x, hillY(x));
+    ctx.lineTo(W, H);
+    ctx.fillStyle = '#0a1830';
+    ctx.fill();
+
+    ctx.fillStyle = '#0d1f3d';
+    ctx.fillRect(0, GROUND, W, H - GROUND);
+    ctx.fillStyle = 'rgba(131, 170, 255, 0.25)';
+    ctx.fillRect(0, GROUND, W, 2);
+
+    // landing pad
+    const pad = sim.pad;
+    const glow = ctx.createRadialGradient(pad.x, GROUND, 4, pad.x, GROUND, pad.w);
+    glow.addColorStop(0, 'rgba(103, 226, 209, 0.35)');
+    glow.addColorStop(1, 'rgba(103, 226, 209, 0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(pad.x - pad.w, GROUND - pad.w, pad.w * 2, pad.w);
+    ctx.fillStyle = '#67e2d1';
+    ctx.fillRect(pad.x - pad.w / 2, GROUND - 2, pad.w, 6);
+    ctx.fillStyle = '#07101d';
+    for (let i = 0; i < 6; i += 1) ctx.fillRect(pad.x - pad.w / 2 + 8 + i * 21, GROUND - 1, 9, 3);
+
+    // trail
+    if (trail.length > 1) {
+      for (let i = 1; i < trail.length; i += 1) {
+        ctx.strokeStyle = `rgba(160, 195, 255, ${(i / trail.length) * 0.4})`;
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.moveTo(trail[i - 1][0], trail[i - 1][1]);
+        ctx.lineTo(trail[i][0], trail[i][1]);
+        ctx.stroke();
+      }
+    }
+
+    // particles
+    particles.forEach((particle) => {
+      ctx.globalAlpha = clamp(particle.life, 0, 1);
+      ctx.fillStyle = particle.color;
+      ctx.beginPath();
+      ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+
+    if (sim.status !== 'crashed') drawRocket(ctx, sim, now);
+  }
+
+  function drawRocket(ctx, sim, now) {
+    ctx.save();
+    ctx.translate(sim.x, sim.y);
+    ctx.rotate(sim.a);
+    if (sim.thrusting) {
+      const length = 16 + Math.sin(now / 38) * 5 + 6;
+      const flame = ctx.createLinearGradient(0, 18, 0, 18 + length);
+      flame.addColorStop(0, '#fff6d6');
+      flame.addColorStop(0.35, '#ffb347');
+      flame.addColorStop(1, 'rgba(255, 90, 60, 0)');
+      ctx.fillStyle = flame;
+      ctx.beginPath();
+      ctx.moveTo(-5.5, 18);
+      ctx.lineTo(0, 18 + length);
+      ctx.lineTo(5.5, 18);
+      ctx.fill();
+    }
+    ctx.strokeStyle = '#9fb7e8';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-8, 16);
+    ctx.lineTo(-13, 22);
+    ctx.moveTo(8, 16);
+    ctx.lineTo(13, 22);
+    ctx.stroke();
+    ctx.fillStyle = '#5b8cff';
+    ctx.beginPath();
+    ctx.moveTo(-9, 4);
+    ctx.lineTo(-17, 18);
+    ctx.lineTo(-9, 16);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(9, 4);
+    ctx.lineTo(17, 18);
+    ctx.lineTo(9, 16);
+    ctx.fill();
+    const body = ctx.createLinearGradient(-9, 0, 9, 0);
+    body.addColorStop(0, '#c9daff');
+    body.addColorStop(0.5, '#f4f8ff');
+    body.addColorStop(1, '#9db8f0');
+    ctx.fillStyle = body;
+    ctx.beginPath();
+    ctx.moveTo(0, -24);
+    ctx.bezierCurveTo(9, -14, 9, -6, 9, 0);
+    ctx.lineTo(9, 18);
+    ctx.lineTo(-9, 18);
+    ctx.lineTo(-9, 0);
+    ctx.bezierCurveTo(-9, -6, -9, -14, 0, -24);
+    ctx.fill();
+    ctx.fillStyle = '#0b1a3a';
+    ctx.beginPath();
+    ctx.arc(0, -5, 4.2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = '#67e2d1';
+    ctx.beginPath();
+    ctx.arc(-1, -6, 1.4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  return { W, H, GROUND, HALF_HEIGHT, PAD_W, create, step, autopilot, render };
 });

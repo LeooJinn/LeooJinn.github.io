@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="exp.css?v=exp-2" />
     <link rel="stylesheet" href="manifesto-3d.css?v=m3d-2" />
     <link rel="stylesheet" href="topbar.css?v=top-3" />
+    <link rel="stylesheet" href="projects.css?v=pj-3" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -143,101 +144,109 @@
 
       <section class="section scene-section work-scene shell" id="work" data-scene="work" aria-labelledby="work-title">
         <div class="work-atmosphere" aria-hidden="true"><span class="work-beam work-beam-one"></span><span class="work-beam work-beam-two"></span><span class="work-crosshair"></span></div>
-        <div class="section-heading reveal">
-          <h2 id="work-title">Projects with a reason to exist.</h2>
-          <p class="section-lede">A few projects where I have focused on useful behavior, inspectable architecture, and honest tradeoffs.</p>
+        <div class="pj-head">
+          <div class="section-heading reveal">
+            <h2 id="work-title">Projects with a reason to exist.</h2>
+          </div>
+          <p class="pj-lede reveal">A few projects where I have focused on useful behavior, inspectable architecture, and honest tradeoffs. Pick one to see the real thing.</p>
         </div>
 
-        <div class="section-filters reveal" role="group" aria-label="Filter projects by focus">
-          <span class="filter-label">Focus</span>
-          <button class="project-filter is-active" type="button" data-filter="all" aria-pressed="true">All work</button>
-          <button class="project-filter" type="button" data-filter="product" aria-pressed="false">Product</button>
-          <button class="project-filter" type="button" data-filter="systems" aria-pressed="false">Systems</button>
-          <button class="project-filter" type="button" data-filter="ml" aria-pressed="false">Machine learning</button>
-          <span class="filter-status" aria-live="polite">Showing 3 projects</span>
-        </div>
-
-        <div class="project-deck project-grid">
-          <div class="project-deck-index" aria-hidden="true"><span data-deck-current>01</span><span>/ 03</span></div>
-          <article class="project-card project-card-featured reveal" data-category="product" data-deck-index="0">
-            <a class="project-media" href="https://github.com/LeooJinn/Sonder" target="_blank" rel="noreferrer">
-              <img src="assets/sonder-welcome.jpg" alt="Sonder welcome screen" loading="lazy" />
-              <span class="media-link">Open repository <span aria-hidden="true">↗</span></span>
-            </a>
-            <div class="project-content">
-              <div class="project-meta"><span>Product</span><span>August 2026 - Present</span></div>
-              <h3>Sonder</h3>
-              <p>A full-stack community application where vehicle history transfers between owners while authorship and access boundaries remain intact.</p>
-              <ul class="project-tags" aria-label="Sonder technologies">
-                <li>React Native</li><li>Expo</li><li>Supabase</li>
-              </ul>
-              <div class="project-proof" aria-label="Sonder project proof">
-                <span><strong>full-stack</strong><small>community product</small></span>
-                <span><strong>RLS</strong><small>permission tests</small></span>
-                <span><strong>VIN</strong><small>API onboarding</small></span>
+        <div class="pj reveal" data-pj>
+          <div class="pj-list" role="tablist" aria-label="Projects" aria-orientation="vertical">
+          <article class="pj-item is-active" data-project="sonder" style="--pc:#e0b457">
+            <button class="pj-tab" type="button" role="tab" id="pj-tab-sonder" aria-selected="true" aria-controls="pj-panel-sonder" tabindex="0">
+              <span class="pj-num">01</span>
+              <span class="pj-id"><span class="pj-name">Sonder</span><span class="pj-meta">Product · Aug 2026 – present</span></span>
+              <span class="pj-bar" aria-hidden="true"><i></i></span>
+            </button>
+            <div class="pj-panel" id="pj-panel-sonder" role="tabpanel" aria-labelledby="pj-tab-sonder">
+              <div class="pj-panel-inner">
+                <p class="pj-summary">A full-stack community application where vehicle history transfers between owners while authorship and access boundaries remain intact.</p>
+                <ul class="pj-stats" aria-label="Sonder highlights">
+                  <li><strong>Live</strong><span>deployed on Vercel</span></li><li><strong>RLS</strong><span>role-based permission tests</span></li><li><strong>vPIC</strong><span>VIN decoding via NHTSA</span></li>
+                </ul>
+                <p class="pj-how">PostgreSQL ownership periods preserve authorship and access boundaries. VIN onboarding uses the NHTSA vPIC API, with authentication, public vehicle pages, row-level security, and role-based permission tests.</p>
+                <ul class="pj-tags" aria-label="Sonder technologies"><li>React Native</li><li>Expo</li><li>TypeScript</li><li>Supabase</li><li>PostgreSQL</li><li>Vercel</li></ul>
+                <div class="pj-actions">
+                <a class="button button-primary" href="https://github.com/LeooJinn/Sonder" target="_blank" rel="noreferrer">Open repository <span aria-hidden="true">↗</span></a>
+                <a class="button button-secondary" href="https://imsonder.com" target="_blank" rel="noreferrer">Visit imsonder.com <span aria-hidden="true">↗</span></a>
+                <button class="pj-lab" type="button" data-pj-lab="sonder">Play with the idea in the lab <span aria-hidden="true">→</span></button>
+                </div>
               </div>
-              <details class="project-details">
-                <summary>Inspect the build <span aria-hidden="true">+</span></summary>
-                <p>PostgreSQL ownership periods preserve authorship and access boundaries. VIN onboarding uses the NHTSA vPIC API, with authentication, public vehicle pages, row-level security, and role-based permission tests.</p>
-              </details>
             </div>
           </article>
-
-          <article class="project-card reveal" data-category="systems" data-deck-index="1">
-            <a class="project-media project-media-tall" href="https://github.com/LeooJinn/cpp-search-engine" target="_blank" rel="noreferrer">
-              <img src="assets/search-ui-result.jpg" alt="C++ search engine result view" loading="lazy" />
-              <span class="media-link">Open repository <span aria-hidden="true">↗</span></span>
-            </a>
-            <div class="project-content">
-              <div class="project-meta"><span>Systems</span><span>October 2026</span></div>
-              <h3>C++ Search Engine</h3>
-              <p>An inspectable C++17 search engine with a linear baseline, inverted index, persistent indexes, multithreading, and exact, fuzzy, and synonym-aware queries.</p>
-              <ul class="project-tags" aria-label="C++ search engine technologies">
-                <li>C++17</li><li>CMake</li><li>Concurrency</li>
-              </ul>
-              <div class="project-proof" aria-label="C++ search engine proof">
-                <span><strong>5,950</strong><small>articles tested</small></span>
-                <span><strong>-14.6%</strong><small>peak RSS</small></span>
-                <span><strong>0.026ms</strong><small>query p95</small></span>
+          <article class="pj-item" data-project="search" style="--pc:#ff7b6b">
+            <button class="pj-tab" type="button" role="tab" id="pj-tab-search" aria-selected="false" aria-controls="pj-panel-search" tabindex="-1">
+              <span class="pj-num">02</span>
+              <span class="pj-id"><span class="pj-name">C++ Search Engine</span><span class="pj-meta">Systems · Oct 2026</span></span>
+              <span class="pj-bar" aria-hidden="true"><i></i></span>
+            </button>
+            <div class="pj-panel" id="pj-panel-search" role="tabpanel" aria-labelledby="pj-tab-search">
+              <div class="pj-panel-inner">
+                <p class="pj-summary">An inspectable C++17 search engine with a linear baseline, inverted index, persistent indexes, multithreading, and exact, fuzzy, and synonym-aware queries.</p>
+                <ul class="pj-stats" aria-label="C++ Search Engine highlights">
+                  <li><strong data-pj-count data-value="5950" data-decimals="0" data-commas="1" data-prefix="" data-suffix="">5,950</strong><span>articles indexed</span></li><li><strong data-pj-count data-value="14.6" data-decimals="1" data-commas="0" data-prefix="-" data-suffix="%">-14.6%</strong><span>peak memory</span></li><li><strong data-pj-count data-value="0.026" data-decimals="3" data-commas="0" data-prefix="" data-suffix=" ms">0.026 ms</strong><span>query time, p95</span></li>
+                </ul>
+                <p class="pj-how">Benchmarked 5,950 English Wikipedia articles and added PDF, web, and SQLite ingestion, a localhost browser UI, GitHub Actions CI, and multi-size reports. Parallel indexing improved from 496 ms to 434 ms while reducing peak RSS by 14.6%.</p>
+                <ul class="pj-tags" aria-label="C++ Search Engine technologies"><li>C++17</li><li>CMake</li><li>SQLite</li><li>libcurl</li><li>Concurrency</li><li>GitHub Actions</li></ul>
+                <div class="pj-actions">
+                <a class="button button-primary" href="https://github.com/LeooJinn/cpp-search-engine" target="_blank" rel="noreferrer">Open repository <span aria-hidden="true">↗</span></a>
+                <button class="pj-lab" type="button" data-pj-lab="search">Try the query path in the lab <span aria-hidden="true">→</span></button>
+                </div>
               </div>
-              <details class="project-details">
-                <summary>Inspect the build <span aria-hidden="true">+</span></summary>
-                <p>Benchmarked 5,950 English Wikipedia articles and added PDF, web, and SQLite ingestion, a localhost browser UI, GitHub Actions CI, and multi-size reports. Parallel indexing improved from 496 ms to 434 ms while reducing peak RSS by 14.6%.</p>
-              </details>
             </div>
           </article>
-
-          <article class="project-card project-card-text reveal" data-category="ml" data-deck-index="2">
-            <div class="project-signal" aria-hidden="true">
-              <span class="signal-orbit signal-orbit-one"></span>
-              <span class="signal-orbit signal-orbit-two"></span>
-              <span class="signal-core"></span>
-            </div>
-            <div class="project-content">
-              <div class="project-meta"><span>Machine learning</span><span>In progress</span></div>
-              <h3>Rocket Landing RL</h3>
-              <p>A reinforcement-learning environment where a simulated rocket learns to land through physics, rewards, and repeatable evaluation.</p>
-              <ul class="project-tags" aria-label="Rocket Landing RL technologies">
-                <li>Python</li><li>PyTorch</li><li>Gymnasium</li>
-              </ul>
-              <div class="project-proof" aria-label="Rocket Landing RL focus">
-                <span><strong>state</strong><small>observe</small></span>
-                <span><strong>reward</strong><small>shape</small></span>
-                <span><strong>eval</strong><small>land</small></span>
+          <article class="pj-item" data-project="rocket" style="--pc:#5fe3d0">
+            <button class="pj-tab" type="button" role="tab" id="pj-tab-rocket" aria-selected="false" aria-controls="pj-panel-rocket" tabindex="-1">
+              <span class="pj-num">03</span>
+              <span class="pj-id"><span class="pj-name">Rocket Landing RL</span><span class="pj-meta">Machine learning · In progress</span></span>
+              <span class="pj-bar" aria-hidden="true"><i></i></span>
+            </button>
+            <div class="pj-panel" id="pj-panel-rocket" role="tabpanel" aria-labelledby="pj-tab-rocket">
+              <div class="pj-panel-inner">
+                <p class="pj-summary">A reinforcement-learning environment where a simulated rocket learns to land through physics, rewards, and repeatable evaluation.</p>
+                <ul class="pj-stats" aria-label="Rocket Landing RL highlights">
+                  <li><strong>2D</strong><span>physics environment</span></li><li><strong>Reward</strong><span>shaped and versioned</span></li><li><strong>Eval</strong><span>held-out landings</span></li>
+                </ul>
+                <p class="pj-how">Models a 2D landing task with physics state, reward shaping, fuel constraints, crash checks, and held-out evaluation. The environment is playable in the lab; the learning agent is still in training.</p>
+                <ul class="pj-tags" aria-label="Rocket Landing RL technologies"><li>Python</li><li>PyTorch</li><li>Gymnasium</li><li>NumPy</li></ul>
+                <div class="pj-actions">
+                <a class="button button-primary" href="https://github.com/LeooJinn/rocket-landing-rl" target="_blank" rel="noreferrer">Open repository <span aria-hidden="true">↗</span></a>
+                <button class="pj-lab" type="button" data-pj-lab="rocket">Fly it in the lab <span aria-hidden="true">→</span></button>
+                </div>
               </div>
-              <a class="text-link" href="https://github.com/LeooJinn/rocket-landing-rl" target="_blank" rel="noreferrer">Follow the build <span aria-hidden="true">↗</span></a>
-              <details class="project-details">
-                <summary>Inspect the build <span aria-hidden="true">+</span></summary>
-                <p>Models a 2D landing task with physics state, reward shaping, fuel constraints, crash checks, and held-out evaluation.</p>
-              </details>
             </div>
           </article>
-        </div>
-
-        <div class="project-deck-controls" role="group" aria-label="Choose a project">
-          <button class="project-deck-control is-active" type="button" data-deck-target="0" aria-label="Show Sonder project">01</button>
-          <button class="project-deck-control" type="button" data-deck-target="1" aria-label="Show C++ Search Engine project">02</button>
-          <button class="project-deck-control" type="button" data-deck-target="2" aria-label="Show Rocket Landing RL project">03</button>
+          </div>
+          <div class="pj-stage" data-pj-stage>
+            <div class="pj-glow" aria-hidden="true"></div>
+            <div class="pj-views">
+          <figure class="pj-view is-active" data-view="sonder" style="--pc:#e0b457">
+            <div class="pj-frame">
+              <div class="pj-frame-bar"><i></i><i></i><i></i><span>imsonder.com</span></div>
+              <img src="assets/projects/sonder-home.jpg" alt="Sonder&#x27;s home page: every car has a life of its own, with a mileage odometer and a start-a-passport button" width="1280" height="628" loading="lazy" />
+            </div>
+            <span class="pj-chip pj-chip-a">Live at imsonder.com</span>
+            <span class="pj-chip pj-chip-b">Row-level security</span>
+          </figure>
+          <figure class="pj-view" data-view="search" style="--pc:#ff7b6b">
+            <div class="pj-frame">
+              <div class="pj-frame-bar"><i></i><i></i><i></i><span>127.0.0.1:8080</span></div>
+              <img src="assets/projects/search-engine-ui.jpg" alt="The C++ search engine&#x27;s browser UI showing a search for &#x27;search index&#x27; with the matching document opened" width="1280" height="628" loading="lazy" />
+            </div>
+            <span class="pj-chip pj-chip-a">0.026 ms query p95</span>
+            <span class="pj-chip pj-chip-b">5,950 articles</span>
+          </figure>
+          <figure class="pj-view" data-view="rocket" style="--pc:#5fe3d0">
+            <div class="pj-frame">
+              <div class="pj-frame-bar"><i></i><i></i><i></i><span>rocket-landing-rl / simulation</span></div>
+              <canvas class="pj-rocket" data-pj-rocket width="640" height="420" role="img" aria-label="A rocket flown by an autopilot, landing on a pad"></canvas>
+            </div>
+            <span class="pj-chip pj-chip-a">Autopilot flying</span>
+            <span class="pj-chip pj-chip-b">Playable in the lab</span>
+          </figure>
+            </div>
+          </div>
         </div>
 
         <div class="work-footer reveal">
@@ -552,15 +561,16 @@
       </div>
     </footer>
 
-    <script src="script.js?v=whole-experience-3" defer></script>
-    <script src="interaction-layer.js?v=instrument-3" defer></script>
+    <script src="script.js?v=whole-experience-4" defer></script>
+    <script src="interaction-layer.js?v=instrument-4" defer></script>
     <script src="hero-name.js?v=name-1" defer></script>
     <script type="module" src="hero-logo.js?v=logo-1"></script>
-    <script src="motion.js?v=motion-3" defer></script>
-    <script src="rocket-sim.js?v=lab-2" defer></script>
-    <script src="lab.js?v=lab-2" defer></script>
+    <script src="motion.js?v=motion-4" defer></script>
+    <script src="rocket-sim.js?v=lab-3" defer></script>
+    <script src="lab.js?v=lab-3" defer></script>
     <script src="gallery.js?v=gallery-1" defer></script>
     <script type="module" src="manifesto-3d.js?v=m3d-1"></script>
     <script src="topbar.js?v=top-1" defer></script>
+    <script src="projects.js?v=pj-1" defer></script>
   </body>
 </html>

@@ -558,7 +558,6 @@
     const history = [];
     const keys = { thrust: false, left: false, right: false };
     const touch = { thrust: false, left: false, right: false };
-    const stars = Array.from({ length: 70 }, (_, i) => ({ x: ((i * 97) % 640) + 3, y: (i * 53) % 330, r: 0.6 + ((i * 7) % 10) / 12 }));
     let scale = 1;
 
     function fit() {
@@ -573,135 +572,9 @@
       draw(performance.now());
     }).observe(screen);
 
-    function hillY(x) {
-      return Sim.GROUND - 18 - 16 * Math.sin(x * 0.011) - 10 * Math.sin(x * 0.027 + 1.3);
-    }
-
     function draw(now) {
       ctx.setTransform(scale, 0, 0, scale, 0, 0);
-      const sky = ctx.createLinearGradient(0, 0, 0, Sim.H);
-      sky.addColorStop(0, '#050a18');
-      sky.addColorStop(0.6, '#0b1a3a');
-      sky.addColorStop(1, '#15305e');
-      ctx.fillStyle = sky;
-      ctx.fillRect(0, 0, Sim.W, Sim.H);
-
-      ctx.fillStyle = 'rgba(210, 225, 255, 0.75)';
-      stars.forEach((star) => {
-        ctx.globalAlpha = 0.35 + 0.4 * Math.abs(Math.sin(now / 1400 + star.x));
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-      ctx.globalAlpha = 1;
-
-      ctx.beginPath();
-      ctx.moveTo(0, Sim.H);
-      for (let x = 0; x <= Sim.W; x += 8) ctx.lineTo(x, hillY(x));
-      ctx.lineTo(Sim.W, Sim.H);
-      ctx.fillStyle = '#0a1830';
-      ctx.fill();
-
-      ctx.fillStyle = '#0d1f3d';
-      ctx.fillRect(0, Sim.GROUND, Sim.W, Sim.H - Sim.GROUND);
-      ctx.fillStyle = 'rgba(131, 170, 255, 0.25)';
-      ctx.fillRect(0, Sim.GROUND, Sim.W, 2);
-
-      // landing pad
-      const pad = sim.pad;
-      const glow = ctx.createRadialGradient(pad.x, Sim.GROUND, 4, pad.x, Sim.GROUND, pad.w);
-      glow.addColorStop(0, 'rgba(103, 226, 209, 0.35)');
-      glow.addColorStop(1, 'rgba(103, 226, 209, 0)');
-      ctx.fillStyle = glow;
-      ctx.fillRect(pad.x - pad.w, Sim.GROUND - pad.w, pad.w * 2, pad.w);
-      ctx.fillStyle = '#67e2d1';
-      ctx.fillRect(pad.x - pad.w / 2, Sim.GROUND - 2, pad.w, 6);
-      ctx.fillStyle = '#07101d';
-      for (let i = 0; i < 6; i += 1) ctx.fillRect(pad.x - pad.w / 2 + 8 + i * 21, Sim.GROUND - 1, 9, 3);
-
-      // trail
-      if (trail.length > 1) {
-        for (let i = 1; i < trail.length; i += 1) {
-          ctx.strokeStyle = `rgba(160, 195, 255, ${(i / trail.length) * 0.4})`;
-          ctx.lineWidth = 1.6;
-          ctx.beginPath();
-          ctx.moveTo(trail[i - 1][0], trail[i - 1][1]);
-          ctx.lineTo(trail[i][0], trail[i][1]);
-          ctx.stroke();
-        }
-      }
-
-      // particles
-      particles.forEach((particle) => {
-        ctx.globalAlpha = clamp(particle.life, 0, 1);
-        ctx.fillStyle = particle.color;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-      ctx.globalAlpha = 1;
-
-      if (sim.status !== 'crashed') drawRocket(now);
-    }
-
-    function drawRocket(now) {
-      ctx.save();
-      ctx.translate(sim.x, sim.y);
-      ctx.rotate(sim.a);
-      if (sim.thrusting) {
-        const length = 16 + Math.sin(now / 38) * 5 + 6;
-        const flame = ctx.createLinearGradient(0, 18, 0, 18 + length);
-        flame.addColorStop(0, '#fff6d6');
-        flame.addColorStop(0.35, '#ffb347');
-        flame.addColorStop(1, 'rgba(255, 90, 60, 0)');
-        ctx.fillStyle = flame;
-        ctx.beginPath();
-        ctx.moveTo(-5.5, 18);
-        ctx.lineTo(0, 18 + length);
-        ctx.lineTo(5.5, 18);
-        ctx.fill();
-      }
-      ctx.strokeStyle = '#9fb7e8';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(-8, 16);
-      ctx.lineTo(-13, 22);
-      ctx.moveTo(8, 16);
-      ctx.lineTo(13, 22);
-      ctx.stroke();
-      ctx.fillStyle = '#5b8cff';
-      ctx.beginPath();
-      ctx.moveTo(-9, 4);
-      ctx.lineTo(-17, 18);
-      ctx.lineTo(-9, 16);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.moveTo(9, 4);
-      ctx.lineTo(17, 18);
-      ctx.lineTo(9, 16);
-      ctx.fill();
-      const body = ctx.createLinearGradient(-9, 0, 9, 0);
-      body.addColorStop(0, '#c9daff');
-      body.addColorStop(0.5, '#f4f8ff');
-      body.addColorStop(1, '#9db8f0');
-      ctx.fillStyle = body;
-      ctx.beginPath();
-      ctx.moveTo(0, -24);
-      ctx.bezierCurveTo(9, -14, 9, -6, 9, 0);
-      ctx.lineTo(9, 18);
-      ctx.lineTo(-9, 18);
-      ctx.lineTo(-9, 0);
-      ctx.bezierCurveTo(-9, -6, -9, -14, 0, -24);
-      ctx.fill();
-      ctx.fillStyle = '#0b1a3a';
-      ctx.beginPath();
-      ctx.arc(0, -5, 4.2, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#67e2d1';
-      ctx.beginPath();
-      ctx.arc(-1, -6, 1.4, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
+      Sim.render(ctx, sim, { now, trail, particles });
     }
 
     function burst(color, count, spread) {

@@ -69,42 +69,6 @@ sectionLinks.forEach((link) => {
   link.addEventListener('click', () => setActiveSection(link.dataset.sectionLink));
 });
 
-const projectFilters = document.querySelectorAll('[data-filter]');
-const projectCards = document.querySelectorAll('[data-category]');
-const filterStatus = document.querySelector('.filter-status');
-
-projectFilters.forEach((filter) => {
-  filter.addEventListener('click', () => {
-    const category = filter.dataset.filter;
-    let visibleCount = 0;
-
-    projectFilters.forEach((button) => {
-      const isActive = button === filter;
-      button.classList.toggle('is-active', isActive);
-      button.setAttribute('aria-pressed', String(isActive));
-    });
-
-    projectCards.forEach((card) => {
-      const isDimmed = category !== 'all' && card.dataset.category !== category;
-      card.dataset.filtered = String(isDimmed);
-      if (isDimmed) {
-        window.setTimeout(() => {
-          if (card.dataset.filtered === 'true') card.hidden = true;
-        }, reduceMotion ? 0 : 280);
-      } else {
-        card.hidden = false;
-      }
-      if (!isDimmed) visibleCount += 1;
-    });
-
-    if (filterStatus) {
-      filterStatus.textContent = `Showing ${visibleCount} project${visibleCount === 1 ? '' : 's'}`;
-    }
-  });
-});
-
-const details = document.querySelectorAll('.project-details');
-
 function monoFont(size, weight = 500) {
   return `${weight} ${size}px ui-monospace, SFMono-Regular, Menlo, monospace`;
 }

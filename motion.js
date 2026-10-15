@@ -364,7 +364,7 @@
   // ------------------------------------------------------------------ staggered entrances
   safely(() => {
     // project and experience cards: stagger the existing reveal
-    [['.project-deck', '.project-card'], ['.exp-cards', '.exp-card']].forEach(([parent, child]) => {
+    [['.exp-cards', '.exp-card']].forEach(([parent, child]) => {
       $$(parent).forEach((group) => $$(child, group).forEach((item, index) => item.style.setProperty('--rd', `${index * 110}ms`)));
     });
 
@@ -372,11 +372,9 @@
     const groups = [
       ['.exp-stats', 2],
       ['.cap-tiles', 5],
-      ['.section-filters', 6],
       ['.cap-filters', 6],
       ['.lab-tabs', 1],
       ['.lab-try ol', 1],
-      ['.project-deck-controls', 3],
       ['.footer-nav-grid', 2],
     ];
     const observer = new IntersectionObserver(
@@ -409,7 +407,7 @@
 
   // ------------------------------------------------------------------ count-up numbers
   safely(() => {
-    const numbers = $$('.project-proof strong, .exp-stats strong:not(.exp-text-stat), [data-count]').filter((el) =>
+    const numbers = $$('.exp-stats strong:not(.exp-text-stat), [data-count]').filter((el) =>
       /^[^0-9]*[0-9][0-9,]*\.?[0-9]*/.test(el.textContent.trim()) && !/^[A-Za-z]+ \d{4}$/.test(el.textContent.trim())
     );
     const observer = new IntersectionObserver(
@@ -452,7 +450,6 @@
   if (fine) {
     safely(() => {
       const defs = [
-        ['.project-card', 4.2],
         ['.cap-tile', 6],
         ['.exp-card', 2.2],
       ];
@@ -519,7 +516,7 @@
   const magnets = [];
   if (fine) {
     safely(() => {
-      $$('.button, .footer-email, .project-deck-control, .lab-tab').forEach((el) => {
+      $$('.button, .footer-email, .lab-tab, .pj-lab').forEach((el) => {
         magnets.push({ el, x: 0, y: 0, active: false });
       });
       frames.push(() => {
@@ -609,7 +606,6 @@
       ['.about-signal', 'y', 0.14],
       ['.resume-ring', 'rotate', 0.22],
     ].forEach(([selector, mode, factor]) => $$(selector).forEach((el) => parallax.push({ el, mode, factor })));
-    $$('.project-media img').forEach((el) => parallax.push({ el, mode: 'zoom', factor: 0.14 }));
   });
 
   frames.push(() => {
