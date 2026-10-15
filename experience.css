@@ -136,7 +136,7 @@ p { color: var(--ink-soft); }
 /* Cursor companion. It never replaces the native pointer.
    JS moves each piece with the `translate` property only; everything else here is
    static offsets and state transitions, so nothing restarts while the pointer moves. */
-.cursor-system { position: fixed; z-index: 200; inset: 0; pointer-events: none; opacity: 0; transition: opacity 240ms ease; contain: strict; }
+.cursor-system { position: fixed; z-index: 200; inset: 0; pointer-events: none; opacity: 0; transition: opacity 240ms ease; }
 .cursor-active .cursor-system { opacity: 1; }
 .cursor-glow, .cursor-orb, .cursor-ring, .cursor-cross, .cursor-label { position: absolute; top: 0; left: 0; translate: -100px -100px; will-change: translate; }
 .cursor-glow { width: 440px; height: 440px; margin: -220px; border-radius: 50%; background: radial-gradient(circle closest-side, rgba(144, 183, 255, 0.045), transparent 72%); }

@@ -104,5 +104,5 @@ if (cursorSystem && pointerFine && motionOkay) {
 
   document.addEventListener('pointerdown', () => body.classList.add('cursor-press'));
   document.addEventListener('pointerup', () => body.classList.remove('cursor-press'));
-  document.documentElement.addEventListener('pointerleave', () => body.classList.remove('cursor-active'));
+  document.addEventListener('pointerleave', () => body.classList.remove('cursor-active'));
 }
