@@ -37,7 +37,7 @@ The page uses native browser APIs only:
 ## Content to update
 
 - Replace the current project descriptions or add more repository cards in `index.html`.
-- Keep `assets/Jiaxiang-Jin-Resume.pdf` up to date when the public resume changes.
-- Update the experience timeline as new roles or internships are added.
-- Add a profile photo only if you want one. The current hero uses a real project image so the page is not dependent on a placeholder portrait.
+- Keep `assets/Leo_Jin_Resume.pdf` up to date when the public resume changes.
+- Update the Five Star Networking experience and Las Positas College education timeline as they change.
+- Update the project descriptions and technical skills in `index.html` alongside the resume.
 - If the public GitHub username changes, update repository and profile links in `index.html`.
