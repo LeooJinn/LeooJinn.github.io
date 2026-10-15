@@ -139,58 +139,67 @@ sceneTabButtons.forEach((tab) => {
 });
 
 const skills = {
-  systems: {
-    kicker: 'Systems thinking',
-    title: 'Trace the whole path.',
-    copy: 'From input to output, I like understanding the contracts, failure modes, and decisions that make a system dependable.',
-    tags: ['architecture', 'debugging'],
-  },
-  data: {
-    kicker: 'Data and algorithms',
-    title: 'Make the structure do the work.',
-    copy: 'Indexes, schemas, queries, and models should make the next decision faster, clearer, and easier to test.',
-    tags: ['C++', 'PostgreSQL'],
-  },
-  product: {
-    kicker: 'Product engineering',
-    title: 'Ship the useful slice.',
-    copy: 'I connect user needs to concrete software, from VIN onboarding and public pages to browser tools for inspecting search results.',
-    tags: ['React Native', 'TypeScript'],
-  },
-  infra: {
-    kicker: 'Infrastructure support',
-    title: 'Keep real systems moving.',
-    copy: 'Supporting 100+ end users taught me to troubleshoot carefully, document the path, and finish the issue instead of guessing.',
-    tags: ['Windows / macOS', 'Active Directory'],
-  },
-  quality: {
-    kicker: 'Quality and evidence',
-    title: 'Measure before claiming.',
-    copy: 'Benchmarks, permission tests, CI, and reproducible reports turn a promising build into something other engineers can trust.',
-    tags: ['GitHub Actions', 'automated testing'],
-  },
+  cpp: { family: 'language', kicker: 'Language / systems', title: 'C++ makes the path inspectable.', copy: 'Used in the search engine for tokenization, indexing, persistent storage, and multithreaded builds.', tags: ['data structures', 'concurrency', 'benchmarks'], icon: 'cpp' },
+  python: { family: 'language', kicker: 'Language / learning', title: 'Python turns experiments into loops.', copy: 'Used for the Rocket Landing RL environment, evaluation, and the training path around it.', tags: ['PyTorch', 'evaluation', 'simulation'], icon: 'python' },
+  java: { family: 'language', kicker: 'Language / foundations', title: 'Java reinforces object thinking.', copy: 'Part of the coursework foundation behind object-oriented programming and software design.', tags: ['OOP', 'coursework'], icon: 'java' },
+  typescript: { family: 'language', kicker: 'Language / product', title: 'TypeScript keeps product edges clear.', copy: 'Used in Sonder to make mobile product behavior and backend contracts easier to reason about.', tags: ['React Native', 'Supabase'], icon: 'typescript' },
+  javascript: { family: 'language', kicker: 'Language / web', title: 'JavaScript makes the interface respond.', copy: 'Used here for scroll scenes, canvas systems, focus states, and the interaction layer behind this portfolio.', tags: ['Canvas', 'browser APIs'], icon: 'javascript' },
+  postgresql: { family: 'product', kicker: 'Data / product', title: 'PostgreSQL carries the ownership model.', copy: 'Sonder uses ownership periods to keep vehicle history transferable while authorship and access boundaries remain intact.', tags: ['RLS', 'data modeling'], icon: 'postgresql' },
+  react: { family: 'product', kicker: 'Product / mobile', title: 'React Native turns models into moments.', copy: 'The mobile surface for Sonder connects VIN onboarding, history, and community workflows in one product.', tags: ['Expo', 'mobile UI'], icon: 'react' },
+  expo: { family: 'product', kicker: 'Product / delivery', title: 'Expo keeps iteration close to users.', copy: 'Used as the delivery layer for a deployed React Native community application.', tags: ['React Native', 'deployment'], icon: 'expo' },
+  supabase: { family: 'product', kicker: 'Product / platform', title: 'Supabase connects auth to real data.', copy: 'Used in Sonder for authentication, storage, PostgreSQL access, and public vehicle pages.', tags: ['PostgreSQL', 'auth'], icon: 'supabase' },
+  cmake: { family: 'systems', kicker: 'Systems / build', title: 'CMake makes the build repeatable.', copy: 'The C++ Search Engine uses CMake to keep local builds, tests, and CI aligned across environments.', tags: ['C++17', 'CI'], icon: 'cmake' },
+  sqlite: { family: 'systems', kicker: 'Systems / ingestion', title: 'SQLite keeps local data useful.', copy: 'Part of the search engine ingestion path and the persistent, inspectable data story around it.', tags: ['ingestion', 'persistence'], icon: 'sqlite' },
+  curl: { family: 'systems', kicker: 'Systems / network', title: 'libcurl brings the outside world in.', copy: 'Used for web ingestion so the search engine can work with more than a folder of local files.', tags: ['web ingestion', 'C++'], icon: 'curl' },
+  pytorch: { family: 'systems', kicker: 'Learning / policy', title: 'PyTorch turns feedback into policy.', copy: 'The Rocket Landing RL project uses it to explore how a controller can learn from state, reward, and evaluation.', tags: ['RL', 'reward shaping'], icon: 'pytorch' },
+  githubactions: { family: 'infra', kicker: 'Infrastructure / quality', title: 'CI makes trust repeatable.', copy: 'GitHub Actions runs the C++ project across Ubuntu and macOS so changes are tested before they travel.', tags: ['automation', 'regression'], icon: 'githubactions' },
+  vercel: { family: 'infra', kicker: 'Infrastructure / deploy', title: 'Vercel keeps the product reachable.', copy: 'Used to deploy Sonder while the data model, permissions, and public surface stay connected.', tags: ['deployment', 'production'], icon: 'vercel' },
 };
-const skillControls = [...document.querySelectorAll('[data-skill]')];
+const skillTiles = [...document.querySelectorAll('.skill-tile[data-skill]')];
+const skillFilters = [...document.querySelectorAll('[data-skill-filter]')];
 const skillKicker = document.querySelector('[data-skill-kicker]');
 const skillTitle = document.querySelector('[data-skill-title]');
 const skillCopy = document.querySelector('[data-skill-copy]');
 const skillTags = document.querySelector('[data-skill-tags]');
-const skillWheel = document.querySelector('.skill-wheel');
+const skillIcon = document.querySelector('[data-skill-detail-icon]');
+const skillCount = document.querySelector('[data-skill-count]');
 
 function setSkill(skillName) {
   const skill = skills[skillName];
   if (!skill) return;
-  skillControls.forEach((control) => {
-    const active = control.dataset.skill === skillName;
-    control.classList.toggle('is-active', active);
-    control.setAttribute('aria-selected', String(active));
+  skillTiles.forEach((tile) => {
+    const active = tile.dataset.skill === skillName;
+    tile.classList.toggle('is-active', active);
+    tile.setAttribute('aria-pressed', String(active));
   });
   if (skillKicker) skillKicker.textContent = skill.kicker;
   if (skillTitle) skillTitle.textContent = skill.title;
   if (skillCopy) skillCopy.textContent = skill.copy;
   if (skillTags) skillTags.innerHTML = skill.tags.map((tag) => `<span>${tag}</span>`).join('');
-  if (skillWheel) skillWheel.dataset.skill = skillName;
+  if (skillIcon) {
+    skillIcon.src = `assets/skill-icons/${skill.icon}.svg`;
+    skillIcon.alt = `${skillName} technology mark`;
+  }
 }
 
-skillControls.forEach((control) => control.addEventListener('click', () => setSkill(control.dataset.skill)));
-if (skillControls.length) setSkill('systems');
+function filterSkills(filterName) {
+  skillFilters.forEach((filter) => {
+    const active = filter.dataset.skillFilter === filterName;
+    filter.classList.toggle('is-active', active);
+    filter.setAttribute('aria-selected', String(active));
+  });
+  let count = 0;
+  skillTiles.forEach((tile) => {
+    const visible = filterName === 'all' || tile.dataset.skillFamily === filterName;
+    tile.hidden = !visible;
+    if (visible) count += 1;
+  });
+  if (skillCount) skillCount.textContent = `${count} ${count === 1 ? 'technology' : 'technologies'}`;
+  const activeTile = skillTiles.find((tile) => !tile.hidden && tile.dataset.skill === skillTiles.find((item) => item.classList.contains('is-active'))?.dataset.skill) || skillTiles.find((tile) => !tile.hidden);
+  if (activeTile) setSkill(activeTile.dataset.skill);
+}
+
+skillTiles.forEach((tile) => tile.addEventListener('click', () => setSkill(tile.dataset.skill)));
+skillFilters.forEach((filter) => filter.addEventListener('click', () => filterSkills(filter.dataset.skillFilter)));
+if (skillTiles.length) setSkill('cpp');
+if (skillFilters.length) filterSkills('all');
