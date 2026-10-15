@@ -111,7 +111,8 @@ function setCurrentTimelineItem(item) {
   const index = timelineItems.indexOf(item);
   if (index < 0) return;
   timelineItems.forEach((timelineItem) => timelineItem.classList.toggle('is-current', timelineItem === item));
-  if (timeline && timelineProgress) {
+  // motion.js scrubs the timeline with scroll when it is running; this is the no-motion fallback
+  if (timeline && timelineProgress && document.documentElement.dataset.motion !== 'on') {
     const progress = (item.offsetTop + item.querySelector('.timeline-marker').offsetTop + 5) / timeline.offsetHeight;
     timelineProgress.style.setProperty('--timeline-progress', String(Math.min(1, progress)));
   }

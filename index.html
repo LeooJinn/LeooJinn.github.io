@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="experience.css?v=instrument-4" />
     <link rel="stylesheet" href="hero-name.css?v=name-1" />
     <link rel="stylesheet" href="hero-logo.css?v=logo-1" />
+    <link rel="stylesheet" href="motion.css?v=motion-1" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -106,6 +107,12 @@
         </div>
       </section>
 
+      <div class="marquee" data-speed="34" aria-hidden="true">
+        <div class="marquee-track">
+          <div class="marquee-set"><span>Software</span><i></i><span class="is-solid">Systems</span><i></i><span>Products</span><i></i><span class="is-solid">Infrastructure</span><i></i></div>
+        </div>
+      </div>
+
       <section class="intro-band manifesto-scene scene-section shell reveal" id="manifesto" data-scene="manifesto" aria-label="Portfolio introduction">
         <div class="manifesto-constellation" aria-hidden="true">
           <span class="manifesto-orbit manifesto-orbit-one"></span>
@@ -116,7 +123,7 @@
           <span class="manifesto-path"></span>
         </div>
         <div class="manifesto-copy">
-          <p class="intro-statement">I like turning open-ended ideas into clear, working systems. The best projects make the underlying decisions easy to understand.</p>
+          <p class="intro-statement" data-scrub>I like turning open-ended ideas into clear, working systems. The best projects make the underlying decisions easy to understand.</p>
           <div class="intro-aside">
             <span class="aside-line" aria-hidden="true"></span>
             <p>Currently learning through shipped products, benchmarks, and experiments.</p>
@@ -344,6 +351,12 @@
         </div>
       </section>
 
+      <div class="marquee" data-speed="30" data-dir="right" aria-hidden="true">
+        <div class="marquee-track">
+          <div class="marquee-set"><span class="is-solid">Learn</span><i></i><span>Build</span><i></i><span class="is-solid">Measure</span><i></i><span>Ship</span><i></i></div>
+        </div>
+      </div>
+
       <section class="resume-callout scene-section resume-scene shell reveal" id="resume" data-scene="resume" aria-labelledby="resume-title">
         <div class="resume-ring" aria-hidden="true"><span>CV</span></div>
         <div>
@@ -383,6 +396,7 @@
             <a href="Leo_Jin_Resume.pdf" target="_blank" rel="noreferrer">Download resume</a>
           </div>
         </div>
+        <div class="footer-wordmark" aria-hidden="true" data-split data-radius="0.9" data-hot="#67e2d1">Jiaxiang Jin</div>
         <div class="shell footer-bottom">
           <span>Jiaxiang Jin</span>
           <span>© <span id="year">2026</span> Jiaxiang Jin</span>
@@ -394,5 +408,6 @@
     <script src="interaction-layer.js?v=instrument-2" defer></script>
     <script src="hero-name.js?v=name-1" defer></script>
     <script type="module" src="hero-logo.js?v=logo-1"></script>
+    <script src="motion.js?v=motion-1" defer></script>
   </body>
 </html>
