@@ -1,0 +1,146 @@
+%-------------------------
+% Resume in Latex
+% Based on Jake Gutierrez's resume format
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\hypersetup{pdfhighlight=/N, pdfborder={0 0 0}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\newcommand{\resumeItem}[1]{
+  \item\small{{#1 \vspace{-2pt}}}
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeadingWithTech}[3]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #3 \\
+      \textit{\small#2} & \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Jiaxiang (Leo) Jin} \\ \vspace{1pt}
+    \small Seeking Summer 2027 Software Engineering Internship \\ \vspace{1pt}
+    \small Livermore, CA $|$ 510-520-8129 $|$
+    \href{mailto:Jiaxiangjin213@gmail.com}{\underline{Jiaxiangjin213@gmail.com}} $|$
+    \href{https://www.linkedin.com/in/leoojin/}{\underline{linkedin.com/in/leoojin}} $|$
+    \href{https://github.com/LeooJinn}{\underline{github.com/LeooJinn}}
+\end{center}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Las Positas College (Transfer Track)}{Livermore, CA}
+      {Associate of Science in Computer Science, in progress; Major GPA: 3.35/4.0}{Anticipated B.S. Graduation: May 2030}
+      \resumeItemListStart
+        \resumeItem{Relevant coursework: C++, object-oriented programming, discrete mathematics, Calculus I--II, ethics}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeadingWithTech
+          {\textbf{\href{https://github.com/LeooJinn/cpp-search-engine}{\underline{C++ Search Engine}}} $|$ \href{https://github.com/LeooJinn/cpp-search-engine}{\underline{GitHub}}}
+          {C++17, CMake, SQLite, libcurl, multithreading}
+          {2026 -- Present}
+          \resumeItemListStart
+            \resumeItem{Built a document-search engine with a linear-scan baseline, inverted index, versioned persistent indexes, and exact, fuzzy, and synonym-aware queries.}
+            \resumeItem{Benchmarked 5,950 English Wikipedia articles (74.5 MB): optimized worker-local indexing reduced peak RSS 14.6\% from 1.04 GB to 892 MB, while parallel build improved from 496 ms to 434 ms and indexed-query p95 measured 0.026 ms.}
+            \resumeItem{Added PDF, web, and SQLite ingestion, a localhost browser UI, GitHub Actions CI on Ubuntu/macOS, and multi-size benchmark reports with mean/median timings.}
+          \resumeItemListEnd
+
+      \resumeProjectHeadingWithTech
+          {\textbf{Sonder} $|$ \href{https://imsonder.com}{\underline{imsonder.com}} $|$ \href{https://github.com/LeooJinn/Sonder}{\underline{GitHub}}}
+          {React Native, Expo, TypeScript, Supabase, PostgreSQL, Vercel}
+          {2026 -- Present}
+          \resumeItemListStart
+            \resumeItem{Built and deployed a full-stack community application; designed the PostgreSQL schema around ownership periods so vehicle history transfers between owners while preserving authorship and access boundaries.}
+            \resumeItem{Integrated the NHTSA vPIC API into VIN onboarding to populate vehicle year, make, model, engine, and trim; implemented authentication and public vehicle pages.}
+            \resumeItem{Enforced access control with PostgreSQL row-level security and automated tests for role-based read/write permissions.}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {IT Support Technician}{Feb. 2026 -- Present}
+      {\href{https://www.5starnetworking.net/}{\underline{Five Star Networking}}}{Livermore, CA}
+      \resumeItemListStart
+        \resumeItem{Selected for high-profile client assignments, providing on-site hardware, network, and infrastructure support at Meta corporate offices.}
+        \resumeItem{Provide technical support for 100+ end users across client environments, resolving hardware and software issues with a 95\%+ resolution rate.}
+        \resumeItem{Install, configure, and maintain Windows and macOS systems; troubleshoot network, printer, and VPN issues while documenting tickets through resolution.}
+        \resumeItem{Manage Active Directory accounts and access permissions across client environments.}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-----------PROGRAMMING SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: C++, Python, Java, TypeScript, JavaScript, SQL (PostgreSQL)} \\
+     \textbf{Concepts}{: Data structures, algorithms, concurrency, object-oriented programming, data modeling, REST APIs, automated testing, access control} \\
+     \textbf{Technologies}{: CMake, SQLite, libcurl, React Native, Expo, Supabase, PostgreSQL, Git, GitHub, GitHub Actions, Vercel}
+    }}
+ \end{itemize}
+
+\end{document}
