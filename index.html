@@ -206,11 +206,11 @@
             </button>
             <div class="pj-panel" id="pj-panel-rocket" role="tabpanel" aria-labelledby="pj-tab-rocket">
               <div class="pj-panel-inner">
-                <p class="pj-summary">A PPO agent, written from scratch in PyTorch, that learns to land a simulated rocket, with held-out evaluation and an honest account of where training is still unstable.</p>
+                <p class="pj-summary">A PPO agent, written from scratch in PyTorch, that learns to land a simulated rocket, with held-out evaluation and an honest account of what made training stable.</p>
                 <ul class="pj-stats" aria-label="Rocket Landing RL highlights">
-                  <li><strong>PPO</strong><span>from scratch in PyTorch</span></li><li><strong>7 of 10</strong><span>seeds match the baseline</span></li><li><strong>500</strong><span>held-out landings per seed</span></li>
+                  <li><strong>PPO</strong><span>from scratch in PyTorch</span></li><li><strong>19 of 20</strong><span>seeds land 90%+ of unseen starts</span></li><li><strong>500</strong><span>held-out landings per seed</span></li>
                 </ul>
-                <p class="pj-how">A NumPy simulator behind the Gymnasium API, a PPO agent trained from scratch, and an evaluation protocol that checks test seeds never overlap training. Seven of ten seeds land as reliably as a hand-written controller (99.8 to 100% of 500 unseen starts); the other three do not, and the repository documents why: late-training collapses traced to the policy running out of fuel.</p>
+                <p class="pj-how">A NumPy simulator behind the Gymnasium API, a PPO agent trained from scratch, and an evaluation protocol that checks test seeds never overlap training. Diagnosing why some seeds failed (policies running out of fuel before touchdown) led to a fuel-aware reward: 19 of 20 training seeds now land at least 90% of 500 unseen starts, against 12 of 20 with the original reward. A few seeds are still imperfect, and the repository documents them.</p>
                 <ul class="pj-tags" aria-label="Rocket Landing RL technologies"><li>Python</li><li>PyTorch</li><li>Gymnasium</li><li>NumPy</li></ul>
                 <div class="pj-actions">
                 <a class="button button-primary" href="https://github.com/LeooJinn/rocket-landing-rl" target="_blank" rel="noreferrer">Open repository <span aria-hidden="true">↗</span></a>

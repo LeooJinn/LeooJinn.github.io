@@ -129,9 +129,9 @@
           {Python, PyTorch, NumPy, Gymnasium, GitHub Actions}
           {Oct. 2026}
           \resumeItemListStart
-            \resumeItem{Built a deterministic 2D landing simulator and a PPO agent from scratch in PyTorch; on 500 unseen starts per seed, 7 of 10 training seeds land 99.8--100\% of episodes, matching a hand-written controller (99.6\%).}
-            \resumeItem{Diagnosed unstable training: replacing a running observation normalizer with fixed scaling raised mean held-out success from 27.6\% to 95.0\% on six seeds, and late collapses traced to greedy policies exhausting fuel before touchdown.}
-            \resumeItem{Wrote a held-out evaluation protocol that asserts test seeds never overlap training, reports 95\% Wilson intervals, and keeps failed seeds in the results; 120+ pytest tests, GitHub Actions CI, and a browser replay viewer on GitHub Pages.}
+            \resumeItem{Built a 2D landing simulator and a from-scratch PyTorch PPO agent; with a fuel-aware reward, 19 of 20 seeds land 90\%+ of 500 unseen starts (mean 98.8\%), against 12 of 20 (70.5\%) before.}
+            \resumeItem{Diagnosed unstable training: fixed observation scaling lifted success from 27.6\% to 95.0\% (six seeds); traced collapses to fuel exhaustion and fixed them with a fuel-aware reward.}
+            \resumeItem{Wrote a held-out evaluation that asserts test seeds never overlap training and keeps failed seeds in the results; 120+ tests, GitHub Actions CI, and a replay viewer on GitHub Pages.}
           \resumeItemListEnd
     \resumeSubHeadingListEnd
 
