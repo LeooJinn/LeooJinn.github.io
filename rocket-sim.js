@@ -1,7 +1,7 @@
 // Rocket landing environment used by the Build Lab demo.
 // Pure physics, no DOM, so it can be driven by the UI, a keyboard, or the autopilot below.
 // This is the *environment*: gravity, thrust, fuel, a pad, and a shaped reward. It is not
-// the reinforcement-learning agent (that project is still in progress); the autopilot is a
+// the reinforcement-learning agent (that lives in the rocket-landing-rl repository); the autopilot is a
 // hand-written controller used to show the loop end to end.
 (function (root, factory) {
   const api = factory();

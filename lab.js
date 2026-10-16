@@ -779,7 +779,7 @@
       kicker: 'Rocket landing RL / environment',
       copy: 'Gravity, thrust, fuel, and a reward for landing softly on the pad. Fly it yourself or let a hand-written autopilot try. A learning agent trains on exactly this kind of loop.',
       facts: ['state', 'action', 'reward'],
-      note: 'This is the environment, flown by you or a hand-written controller. The reinforcement-learning agent for this project is still in progress.',
+      note: 'This is the environment, flown by you or a hand-written controller. The PPO agent trained on it is replayed in the live demo on the project page.',
       tries: [
         { label: 'Fly it yourself with ↑ ← →', run: () => { setMode('manual'); } },
         { label: 'Let the autopilot land it', run: () => { setMode('auto'); } },

@@ -201,19 +201,20 @@
           <article class="pj-item" data-project="rocket" style="--pc:#5fe3d0">
             <button class="pj-tab" type="button" role="tab" id="pj-tab-rocket" aria-selected="false" aria-controls="pj-panel-rocket" tabindex="-1">
               <span class="pj-num">03</span>
-              <span class="pj-id"><span class="pj-name">Rocket Landing RL</span><span class="pj-meta">Machine learning · In progress</span></span>
+              <span class="pj-id"><span class="pj-name">Rocket Landing RL</span><span class="pj-meta">Machine learning · Live demo</span></span>
               <span class="pj-bar" aria-hidden="true"><i></i></span>
             </button>
             <div class="pj-panel" id="pj-panel-rocket" role="tabpanel" aria-labelledby="pj-tab-rocket">
               <div class="pj-panel-inner">
-                <p class="pj-summary">A reinforcement-learning environment where a simulated rocket learns to land through physics, rewards, and repeatable evaluation.</p>
+                <p class="pj-summary">A PPO agent, written from scratch in PyTorch, that learns to land a simulated rocket, with held-out evaluation and an honest account of where training is still unstable.</p>
                 <ul class="pj-stats" aria-label="Rocket Landing RL highlights">
-                  <li><strong>2D</strong><span>physics environment</span></li><li><strong>Reward</strong><span>shaped and versioned</span></li><li><strong>Eval</strong><span>held-out landings</span></li>
+                  <li><strong>PPO</strong><span>from scratch in PyTorch</span></li><li><strong>7 of 10</strong><span>seeds match the baseline</span></li><li><strong>500</strong><span>held-out landings per seed</span></li>
                 </ul>
-                <p class="pj-how">Models a 2D landing task with physics state, reward shaping, fuel constraints, crash checks, and held-out evaluation. The environment is playable in the lab; the learning agent is still in training.</p>
+                <p class="pj-how">A NumPy simulator behind the Gymnasium API, a PPO agent trained from scratch, and an evaluation protocol that checks test seeds never overlap training. Seven of ten seeds land as reliably as a hand-written controller (99.8 to 100% of 500 unseen starts); the other three do not, and the repository documents why: late-training collapses traced to the policy running out of fuel.</p>
                 <ul class="pj-tags" aria-label="Rocket Landing RL technologies"><li>Python</li><li>PyTorch</li><li>Gymnasium</li><li>NumPy</li></ul>
                 <div class="pj-actions">
                 <a class="button button-primary" href="https://github.com/LeooJinn/rocket-landing-rl" target="_blank" rel="noreferrer">Open repository <span aria-hidden="true">↗</span></a>
+                <a class="button button-secondary" href="https://jiaxiangjin.com/rocket-landing-rl/" target="_blank" rel="noreferrer">Watch the trained agent <span aria-hidden="true">↗</span></a>
                 <button class="pj-lab" type="button" data-pj-lab="rocket">Fly it in the lab <span aria-hidden="true">→</span></button>
                 </div>
               </div>
@@ -568,9 +569,9 @@
     <script src="hero-name.js?v=name-1" defer></script>
     <script type="module" src="hero-logo.js?v=logo-1"></script>
     <script src="motion.js?v=motion-4" defer></script>
-    <script src="rocket-sim.js?v=lab-3" defer></script>
-    <script src="lab.js?v=lab-3" defer></script>
-    <script src="gallery.js?v=gallery-1-c1" defer></script>
+    <script src="rocket-sim.js?v=lab-4" defer></script>
+    <script src="lab.js?v=lab-4" defer></script>
+    <script src="gallery.js?v=gallery-2" defer></script>
     <script type="module" src="manifesto-3d.js?v=m3d-1"></script>
     <script src="topbar.js?v=top-1-c1" defer></script>
     <script src="projects.js?v=pj-1" defer></script>

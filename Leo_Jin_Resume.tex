@@ -123,6 +123,16 @@
             \resumeItem{Integrated the NHTSA vPIC REST API into VIN onboarding to autofill year, make, model, engine, and trim with timeout handling; added authentication and serverless endpoints for public pages and email unsubscribe.}
             \resumeItem{Enforced access control with PostgreSQL row-level security and automated tests for role-based read/write permissions.}
           \resumeItemListEnd
+
+      \resumeProjectHeadingWithTech
+          {\textbf{Rocket Landing RL} $|$ \href{https://jiaxiangjin.com/rocket-landing-rl/}{\underline{Live demo}} $|$ \href{https://github.com/LeooJinn/rocket-landing-rl}{\underline{GitHub}}}
+          {Python, PyTorch, NumPy, Gymnasium, GitHub Actions}
+          {Oct. 2026}
+          \resumeItemListStart
+            \resumeItem{Built a deterministic 2D landing simulator and a PPO agent from scratch in PyTorch; on 500 unseen starts per seed, 7 of 10 training seeds land 99.8--100\% of episodes, matching a hand-written controller (99.6\%).}
+            \resumeItem{Diagnosed unstable training: replacing a running observation normalizer with fixed scaling raised mean held-out success from 27.6\% to 95.0\% on six seeds, and late collapses traced to greedy policies exhausting fuel before touchdown.}
+            \resumeItem{Wrote a held-out evaluation protocol that asserts test seeds never overlap training, reports 95\% Wilson intervals, and keeps failed seeds in the results; 120+ pytest tests, GitHub Actions CI, and a browser replay viewer on GitHub Pages.}
+          \resumeItemListEnd
     \resumeSubHeadingListEnd
 
 %-----------EXPERIENCE-----------
@@ -144,8 +154,8 @@
  \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
      \textbf{Languages}{: C++, Python, Java, TypeScript, JavaScript, SQL (PostgreSQL)} \\
-     \textbf{Concepts}{: Data structures, algorithms, concurrency, object-oriented programming, data modeling, REST APIs, automated testing, access control} \\
-     \textbf{Technologies}{: CMake, SQLite, libcurl, React Native, Expo, Supabase, PostgreSQL, Git, GitHub, GitHub Actions, Vercel}
+     \textbf{Concepts}{: Data structures, algorithms, concurrency, object-oriented programming, data modeling, REST APIs, automated testing, access control, reinforcement learning, experiment design} \\
+     \textbf{Technologies}{: PyTorch, NumPy, Gymnasium, CMake, SQLite, libcurl, React Native, Expo, Supabase, PostgreSQL, Git, GitHub, GitHub Actions, Vercel}
     }}
  \end{itemize}
 
