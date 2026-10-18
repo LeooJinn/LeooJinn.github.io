@@ -69,10 +69,6 @@ sectionLinks.forEach((link) => {
   link.addEventListener('click', () => setActiveSection(link.dataset.sectionLink));
 });
 
-function monoFont(size, weight = 500) {
-  return `${weight} ${size}px ui-monospace, SFMono-Regular, Menlo, monospace`;
-}
-
 const heroStory = document.querySelector('.hero-story');
 const heroStoryCanvas = document.querySelector('#hero-story-canvas');
 const heroPhase = document.querySelector('[data-hero-phase]');
@@ -106,126 +102,236 @@ function heroScrollProgress() {
   return clamp(-heroStory.getBoundingClientRect().top / travel, 0, 1);
 }
 
+// The hero backdrop: a freeway at 2 AM, seen from the driver's seat. Oncoming headlights and
+// the taillights ahead are drawn as long-exposure streaks; sodium streetlights pass overhead.
+// World units are metres-ish: x across the road, z forward from the camera.
+const freeway = {
+  cars: [],
+  seeded: false,
+  travelled: 0,
+  stars: [],
+  skyline: [],
+};
+
+function seedFreeway() {
+  let seed = 11;
+  const rand = () => {
+    seed = (seed * 16807) % 2147483647;
+    return (seed - 1) / 2147483646;
+  };
+  // Two lanes each way. Oncoming (white) on the left, same direction (red) on the right.
+  const lanes = [-5.4, -1.9, 1.9, 5.4];
+  for (let i = 0; i < 64; i += 1) {
+    const lane = lanes[i % 4];
+    freeway.cars.push({
+      x: lane + (rand() - 0.5) * 0.5,
+      z: 4 + rand() * 170,
+      oncoming: lane < 0,
+      speed: 0.6 + rand() * 0.5,
+      trail: 6 + rand() * 10,
+    });
+  }
+  for (let i = 0; i < 90; i += 1) {
+    freeway.stars.push([rand(), rand() * 0.5, 0.3 + rand() * 0.9, rand() * 6.28]);
+  }
+  // Distant city lights strung along the horizon.
+  for (let i = 0; i < 260; i += 1) {
+    const x = rand();
+    const cluster = Math.exp(-(((x - 0.78) / 0.16) ** 2)) + 0.35 * Math.exp(-(((x - 0.3) / 0.12) ** 2));
+    if (rand() > cluster + 0.12) continue;
+    freeway.skyline.push([x, rand() ** 2, rand() > 0.22, rand()]);
+  }
+  freeway.seeded = true;
+}
+
 function drawHeroSignal(ctx, width, height, progress, time) {
-  const accent = '#86adff';
-  const cyan = '#60e3d1';
-  const pale = '#d8e5ff';
-  const centerX = width * (0.67 + (heroStoryState.pointerX - 0.5) * 0.07);
-  const centerY = height * (0.51 + (heroStoryState.pointerY - 0.5) * 0.07);
-  const stage = progress * 3;
-  const breath = 1 + Math.sin(time * 0.0014) * 0.025;
-  const scale = (1.15 - progress * 0.42) * breath;
-  const drift = Math.sin(time * 0.0007) * 12;
+  if (!freeway.seeded) seedFreeway();
 
-  const background = ctx.createLinearGradient(0, 0, width, height);
-  background.addColorStop(0, '#07101d');
-  background.addColorStop(0.42, '#0c2440');
-  background.addColorStop(0.74, '#123d75');
-  background.addColorStop(1, '#07101d');
-  ctx.fillStyle = background;
+  const unit = height / 1000;
+  const vx = width * (0.75 + (heroStoryState.pointerX - 0.5) * -0.03);
+  const vy = height * (0.6 + (heroStoryState.pointerY - 0.5) * -0.02);
+  const focal = height * 0.95;
+  const camHeight = 1.25 + progress * 0.5;
+  const nearZ = 2.2;
+  const project = (x, y, z) => [vx + (x * focal) / z, vy + ((camHeight - y) * focal) / z];
+  const fade = (z) => clamp(1 - z / 180, 0, 1);
+  // Things right next to the camera would be huge and blurry; let them dissolve instead.
+  const near = (z) => clamp((z - nearZ) / 14, 0, 1);
+
+  // Faster as the hero scrolls away, as if pulling onto the freeway.
+  const speed = reduceMotion ? 0 : 0.016 * (1 + progress * 2.2);
+  const dt = Math.min(48, heroStoryState.delta || 16);
+  freeway.travelled += speed * dt;
+
+  // Sky
+  const sky = ctx.createLinearGradient(0, 0, 0, vy);
+  sky.addColorStop(0, '#04060c');
+  sky.addColorStop(0.55, '#08101f');
+  sky.addColorStop(1, '#16203a');
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, width, vy + 1);
+
+  freeway.stars.forEach(([sx, sy, size, phase]) => {
+    const twinkle = 0.55 + Math.sin(time * 0.0012 + phase) * 0.25;
+    ctx.globalAlpha = twinkle * 0.7;
+    ctx.fillStyle = '#dfe8ff';
+    ctx.fillRect(sx * width, sy * vy, size * unit * 1.4, size * unit * 1.4);
+  });
+  ctx.globalAlpha = 1;
+
+  // Hills on the horizon, then the ground.
+  const ground = ctx.createLinearGradient(0, vy - 40 * unit, 0, height);
+  ground.addColorStop(0, '#05080f');
+  ground.addColorStop(1, '#030409');
+  ctx.fillStyle = ground;
+  ctx.beginPath();
+  ctx.moveTo(0, vy);
+  for (let x = 0; x <= width; x += 20) {
+    const t = x / width;
+    const y = vy - (Math.sin(t * 5.2 + 1.3) * 0.5 + 0.6) * 26 * unit - Math.sin(t * 13 + 0.4) * 7 * unit;
+    ctx.lineTo(x, y);
+  }
+  ctx.lineTo(width, height);
+  ctx.lineTo(0, height);
+  ctx.closePath();
+  ctx.fill();
+
+  // Haze where the city meets the sky: sodium on the right, cool on the left.
+  const haze = ctx.createRadialGradient(vx, vy, 0, vx, vy, width * 0.5);
+  haze.addColorStop(0, 'rgba(255, 166, 77, 0.16)');
+  haze.addColorStop(0.4, 'rgba(120, 110, 170, 0.08)');
+  haze.addColorStop(1, 'rgba(10, 16, 30, 0)');
+  ctx.fillStyle = haze;
   ctx.fillRect(0, 0, width, height);
 
-  const glow = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, width * 0.42);
-  glow.addColorStop(0, 'rgba(119, 164, 255, 0.28)');
-  glow.addColorStop(0.42, 'rgba(45, 121, 255, 0.1)');
-  glow.addColorStop(1, 'rgba(8, 15, 27, 0)');
-  ctx.fillStyle = glow;
-  ctx.fillRect(0, 0, width, height);
+  ctx.globalCompositeOperation = 'lighter';
+  freeway.skyline.forEach(([sx, depth, warm, phase]) => {
+    const y = vy - 2 * unit - depth * 18 * unit;
+    const flicker = 0.6 + Math.sin(time * 0.002 + phase * 40) * 0.12;
+    ctx.globalAlpha = (0.25 + (1 - depth) * 0.5) * flicker;
+    ctx.fillStyle = warm ? '#ffbe73' : '#b9cdff';
+    ctx.fillRect(sx * width, y, 1.6 * unit, 1.6 * unit);
+  });
+  ctx.globalAlpha = 1;
+  ctx.globalCompositeOperation = 'source-over';
 
-  ctx.strokeStyle = 'rgba(148, 183, 255, 0.09)';
-  ctx.lineWidth = 1;
-  const gridGap = 84;
-  for (let x = 0; x < width; x += gridGap) {
-    ctx.beginPath();
-    ctx.moveTo(x + drift, 0);
-    ctx.lineTo(x + drift, height);
-    ctx.stroke();
-  }
-  for (let y = 0; y < height; y += gridGap) {
-    ctx.beginPath();
-    ctx.moveTo(0, y - drift * 0.35);
-    ctx.lineTo(width, y - drift * 0.35);
-    ctx.stroke();
-  }
+  // Road surface
+  const [lx0, ly0] = project(-8, 0, nearZ);
+  const [rx0] = project(8, 0, nearZ);
+  const road = ctx.createLinearGradient(0, vy, 0, height);
+  road.addColorStop(0, '#0b111e');
+  road.addColorStop(1, '#05070c');
+  ctx.fillStyle = road;
+  ctx.beginPath();
+  ctx.moveTo(vx, vy);
+  ctx.lineTo(rx0, ly0);
+  ctx.lineTo(lx0, ly0);
+  ctx.closePath();
+  ctx.fill();
 
-  ctx.save();
-  ctx.translate(centerX, centerY);
-  ctx.rotate((progress - 0.5) * 0.7 + Math.sin(time * 0.0005) * 0.05);
-  ctx.scale(scale, scale);
-
-  const rings = [250, 180, 110];
-  rings.forEach((radius, index) => {
+  // Lane dashes and edge lines, scrolling toward the camera.
+  const dashGap = 9;
+  const offset = freeway.travelled % dashGap;
+  ctx.lineCap = 'butt';
+  [-3.7, 3.7].forEach((x) => {
+    for (let z = dashGap - offset + nearZ; z < 150; z += dashGap) {
+      const [ax, ay] = project(x, 0, z);
+      const [bx, by] = project(x, 0, z + 3);
+      ctx.strokeStyle = `rgba(214, 222, 240, ${0.42 * fade(z) * near(z)})`;
+      ctx.lineWidth = Math.min(2.4 * unit, Math.max(0.6, (0.12 * focal) / z));
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(bx, by);
+      ctx.stroke();
+    }
+  });
+  [[-7.4, 'rgba(214, 222, 240, 0.32)'], [7.4, 'rgba(214, 222, 240, 0.32)'], [-0.25, 'rgba(255, 196, 92, 0.42)'], [0.25, 'rgba(255, 196, 92, 0.42)']].forEach(([x, color]) => {
+    const [ax, ay] = project(x, 0, nearZ);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.2 * unit;
     ctx.beginPath();
-    ctx.arc(0, 0, radius + Math.sin(time * 0.001 + index) * 5, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(123, 169, 255, ${0.08 + index * 0.03})`;
+    ctx.moveTo(vx, vy);
+    ctx.lineTo(ax, ay);
     ctx.stroke();
   });
 
-  const spread = 1 - clamp(Math.abs(progress - 0.72) * 1.8, 0, 0.68);
-  const points = [
-    [-190 * spread, -68],
-    [-70 * spread, -130 + stage * 6],
-    [82 * spread, -82],
-    [180 * spread, 42],
-    [52 * spread, 128],
-    [-96 * spread, 82],
-  ];
-  const routes = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 0], [1, 5]];
-
-  routes.forEach(([from, to], index) => {
-    const start = points[from];
-    const end = points[to];
-    ctx.beginPath();
-    ctx.moveTo(start[0], start[1]);
-    ctx.quadraticCurveTo((start[0] + end[0]) * 0.5, (start[1] + end[1]) * 0.5 + (index % 2 ? 24 : -24), end[0], end[1]);
-    ctx.strokeStyle = index % 3 === 0 ? 'rgba(96, 227, 209, 0.78)' : 'rgba(134, 173, 255, 0.78)';
-    ctx.lineWidth = index % 3 === 0 ? 4 : 3;
-    ctx.stroke();
-  });
-
-  points.forEach(([x, y], index) => {
-    const pulse = 1 + Math.sin(time * 0.002 + index) * 0.22;
-    ctx.beginPath();
-    ctx.arc(x, y, 16 * pulse, 0, Math.PI * 2);
-    ctx.fillStyle = index % 3 === 0 ? 'rgba(96, 227, 209, 0.13)' : 'rgba(134, 173, 255, 0.13)';
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(x, y, index === 1 || index === 4 ? 8 : 6, 0, Math.PI * 2);
-    ctx.fillStyle = index % 3 === 0 ? cyan : accent;
-    ctx.fill();
-  });
-
-  if (progress > 0.22 && progress < 0.84) {
-    const routeProgress = (progress - 0.22) / 0.62;
-    const routeIndex = Math.min(routes.length - 1, Math.floor(routeProgress * routes.length));
-    const localProgress = routeProgress * routes.length - routeIndex;
-    const [from, to] = routes[routeIndex];
-    const start = points[from];
-    const end = points[to];
-    const movingX = start[0] + (end[0] - start[0]) * localProgress;
-    const movingY = start[1] + (end[1] - start[1]) * localProgress;
-    ctx.beginPath();
-    ctx.arc(movingX, movingY, 13, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(216, 229, 255, 0.22)';
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(movingX, movingY, 5, 0, Math.PI * 2);
-    ctx.fillStyle = pale;
-    ctx.fill();
+  // Streetlights on both shoulders, with pools of sodium light on the road.
+  const poleGap = 26;
+  const poleOffset = freeway.travelled % poleGap;
+  const poles = [];
+  for (let z = poleGap - poleOffset + nearZ - 1; z < 170; z += poleGap) {
+    poles.push(z);
   }
+  poles.forEach((z) => {
+    [-10, 10].forEach((x) => {
+      const [bx, by] = project(x, 0, z);
+      const [tx, ty] = project(x, 9, z);
+      const [lx, ly] = project(x * 0.8, 9.2, z);
+      const w = Math.max(0.8, (0.22 * focal) / z);
+      ctx.strokeStyle = `rgba(14, 17, 26, ${0.5 + fade(z) * 0.5})`;
+      ctx.lineWidth = w;
+      ctx.beginPath();
+      ctx.moveTo(bx, by);
+      ctx.lineTo(tx, ty);
+      ctx.lineTo(lx, ly);
+      ctx.stroke();
+      ctx.globalCompositeOperation = 'lighter';
+      const glowR = Math.max(3 * unit, (1.6 * focal) / z);
+      const glow = ctx.createRadialGradient(lx, ly, 0, lx, ly, glowR);
+      glow.addColorStop(0, `rgba(255, 214, 150, ${0.95 * fade(z)})`);
+      glow.addColorStop(0.18, `rgba(255, 170, 70, ${0.5 * fade(z)})`);
+      glow.addColorStop(1, 'rgba(255, 150, 60, 0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(lx - glowR, ly - glowR, glowR * 2, glowR * 2);
+      ctx.globalCompositeOperation = 'source-over';
+    });
+  });
 
-  ctx.restore();
+  // Traffic as long-exposure streaks.
+  ctx.globalCompositeOperation = 'lighter';
+  ctx.lineCap = 'round';
+  freeway.cars.forEach((car) => {
+    // Oncoming cars close fast; cars ahead drift slowly relative to us.
+    const relative = car.oncoming ? -(1 + car.speed) : car.speed - 0.85;
+    car.z += relative * speed * dt;
+    if (car.z < nearZ) car.z += 170;
+    if (car.z > 175) car.z -= 170;
 
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.font = monoFont(18, 600);
-  ctx.fillStyle = 'rgba(216, 229, 255, 0.68)';
-  const sceneWord = progress < 0.25 ? 'QUESTION' : progress < 0.5 ? 'STRUCTURE' : progress < 0.75 ? 'ITERATE' : 'SHIP';
-  ctx.fillText(sceneWord, centerX, centerY + height * 0.29);
+    const head = car.z;
+    const tail = car.oncoming ? car.z + car.trail * (1 + progress) : car.z - car.trail * 0.55;
+    if (tail < nearZ && !car.oncoming) return;
+    const color = car.oncoming ? [236, 242, 255] : [255, 58, 72];
+    [-0.42, 0.42].forEach((dx) => {
+      const [ax, ay] = project(car.x + dx, 0.7, Math.max(nearZ, head));
+      const [bx, by] = project(car.x + dx, 0.7, Math.max(nearZ, tail));
+      const a = fade(head) * near(head);
+      const streak = ctx.createLinearGradient(ax, ay, bx, by);
+      streak.addColorStop(0, `rgba(${color}, ${0.95 * a})`);
+      streak.addColorStop(1, `rgba(${color}, 0)`);
+      ctx.strokeStyle = streak;
+      ctx.lineWidth = Math.min(2.6 * unit, Math.max(0.8, (0.16 * focal) / head));
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(bx, by);
+      ctx.stroke();
+      if (car.oncoming && head < 60) {
+        const flareR = Math.min(26 * unit, (0.9 * focal) / head);
+        const flare = ctx.createRadialGradient(ax, ay, 0, ax, ay, flareR);
+        flare.addColorStop(0, `rgba(230, 238, 255, ${0.35 * a})`);
+        flare.addColorStop(1, 'rgba(230, 238, 255, 0)');
+        ctx.fillStyle = flare;
+        ctx.fillRect(ax - flareR, ay - flareR, flareR * 2, flareR * 2);
+      }
+    });
+  });
+  ctx.globalCompositeOperation = 'source-over';
 
-  ctx.font = monoFont(12, 500);
-  ctx.fillStyle = 'rgba(180, 202, 255, 0.52)';
-  ctx.fillText('signal / path / result', centerX, centerY + height * 0.33);
+  // Settle the bottom edge into the page.
+  const floor = ctx.createLinearGradient(0, height * 0.82, 0, height);
+  floor.addColorStop(0, 'rgba(7, 16, 29, 0)');
+  floor.addColorStop(1, 'rgba(7, 16, 29, 0.9)');
+  ctx.fillStyle = floor;
+  ctx.fillRect(0, height * 0.82, width, height * 0.18);
 }
 
 function updateHeroStory() {
@@ -241,6 +347,13 @@ function updateHeroStory() {
   heroStoryLabels.forEach((label, index) => {
     label.style.opacity = labels[index] ? '0.72' : '0.2';
   });
+  const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+  const boxWidth = Math.round(heroStoryCanvas.clientWidth * ratio);
+  const boxHeight = Math.round(heroStoryCanvas.clientHeight * ratio);
+  if (boxWidth && (heroStoryCanvas.width !== boxWidth || heroStoryCanvas.height !== boxHeight)) {
+    heroStoryCanvas.width = boxWidth;
+    heroStoryCanvas.height = boxHeight;
+  }
   const ctx = heroStoryCanvas.getContext('2d');
   if (ctx) drawHeroSignal(ctx, heroStoryCanvas.width, heroStoryCanvas.height, progress, heroStoryState.time);
 }
@@ -249,6 +362,7 @@ function animateHeroStory(now) {
   if (!heroStoryState.visible || reduceMotion) return;
   const delta = Math.min(48, now - heroStoryState.lastTime);
   heroStoryState.lastTime = now;
+  heroStoryState.delta = delta;
   heroStoryState.time += delta;
   updateHeroStory();
   window.requestAnimationFrame(animateHeroStory);

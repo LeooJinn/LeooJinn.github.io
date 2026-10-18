@@ -1,0 +1,573 @@
+/* Night drive layer. Loaded last; keeps the site's type, dock and layout, and adds the
+   2 AM freeway: the hero road, a trip meter in the top bar, exit tags on section headings,
+   and the "Off the clock" chapter (the San Diego drive and the car club). */
+
+:root {
+  --sodium: #ffb14e;
+  --sodium-soft: rgba(255, 177, 78, 0.14);
+  --tail: #ff3a48;
+  --road-mono: "Overpass Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --road-sign: "Overpass", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ------------------------------------------------------------------ hero */
+
+.hero-story #hero-story-canvas {
+  opacity: 1;
+}
+
+.hero-story-sticky {
+  background: #04060c;
+}
+
+.hero-story-grid,
+.hero-story-object-label,
+.hero-glow {
+  display: none;
+}
+
+.hero-story-vignette {
+  background:
+    linear-gradient(90deg, rgba(4, 6, 12, 0.86) 0%, rgba(4, 6, 12, 0.5) 34%, rgba(4, 6, 12, 0) 58%),
+    radial-gradient(ellipse at 75% 55%, transparent 40%, rgba(2, 3, 8, 0.5) 100%);
+}
+
+.hero-story-kicker {
+  color: rgba(255, 196, 120, 0.82);
+}
+
+.hero-story-bottom strong {
+  color: #ffd29a;
+}
+
+.hero-story-line::after {
+  background: linear-gradient(90deg, var(--sodium), #ffd8a1);
+}
+
+/* ------------------------------------------------------------------ trip meter */
+
+.trip {
+  position: fixed;
+  top: 22px;
+  right: clamp(16px, 3.6vw, 50px);
+  z-index: 60;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  background: rgba(10, 14, 24, 0.62);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 18px 40px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px) saturate(140%);
+  color: #dfe6f4;
+  font-family: var(--road-mono);
+  pointer-events: none;
+}
+
+.trip-cell {
+  display: grid;
+  min-width: 78px;
+  padding: 9px 14px 8px;
+  gap: 1px;
+}
+
+.trip-cell + .trip-cell {
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.trip-cell b {
+  color: #ffcf8f;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  text-shadow: 0 0 14px rgba(255, 177, 78, 0.45);
+}
+
+.trip-cell small {
+  color: rgba(214, 222, 240, 0.48);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1100px) {
+  .trip-cell.trip-route {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .trip {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ exit tags */
+
+.exit-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  color: rgba(214, 222, 240, 0.62);
+  font: 600 12px/1 var(--road-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.exit-tag b {
+  padding: 5px 8px 3px;
+  border-radius: 4px;
+  background: #ffd23f;
+  color: #15130a;
+  font: 800 11px/1 var(--road-sign);
+  letter-spacing: 0.08em;
+}
+
+/* ------------------------------------------------------------------ section rail as mile markers */
+
+.section-rail-fill {
+  background: linear-gradient(180deg, #ffd8a1, var(--sodium));
+}
+
+.section-rail a[aria-current] span {
+  color: var(--sodium);
+}
+
+/* ------------------------------------------------------------------ chapter: off the clock */
+
+.drive {
+  position: relative;
+  height: 340vh;
+  background: #04060c;
+  color: #eef2fa;
+}
+
+.drive-sticky {
+  position: sticky;
+  top: 0;
+  display: grid;
+  min-height: 100dvh;
+  overflow: hidden;
+  align-items: center;
+  isolation: isolate;
+}
+
+/* Passing streetlights wash over the whole chapter as it scrolls. */
+.drive-sticky::before {
+  position: absolute;
+  inset: -20% -10%;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 30% 55% at var(--lamp-x, 120%) 8%, rgba(255, 168, 70, 0.16), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 70% 100%, rgba(255, 58, 72, 0.06), transparent 70%);
+  content: "";
+}
+
+.drive-sticky::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, #04060c 0%, transparent 22%, transparent 78%, #04060c 100%);
+  content: "";
+}
+
+.drive-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: center;
+  padding-block: 96px 40px;
+}
+
+.drive-copy h2 {
+  max-width: 9ch;
+  margin: 0 0 22px;
+  font-size: clamp(3rem, min(6.4vw, 10.5vh), 6.4rem);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 0.86;
+}
+
+.drive-copy h2 span {
+  color: var(--sodium);
+}
+
+.drive-lede {
+  max-width: 40ch;
+  margin: 0 0 min(30px, 3vh);
+  color: rgba(222, 231, 245, 0.72);
+  font-size: 1.06rem;
+  line-height: 1.65;
+}
+
+.drive-log {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0 0 0 26px;
+  list-style: none;
+}
+
+.drive-log::before {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 4px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  content: "";
+}
+
+.drive-log li {
+  position: relative;
+  padding: min(10px, 1.2vh) 0;
+  color: rgba(222, 231, 245, 0.34);
+  transition: color 500ms var(--ease, ease);
+}
+
+.drive-log li::before {
+  position: absolute;
+  top: calc(min(10px, 1.2vh) + 6px);
+  left: -26px;
+  width: 9px;
+  height: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: #04060c;
+  content: "";
+  transition: background 400ms, border-color 400ms, box-shadow 400ms;
+}
+
+.drive-log li.is-lit {
+  color: #eef2fa;
+}
+
+.drive-log li.is-lit::before {
+  border-color: var(--sodium);
+  background: var(--sodium);
+  box-shadow: 0 0 14px rgba(255, 177, 78, 0.7);
+}
+
+.drive-log small {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--sodium);
+  font: 500 11px/1.3 var(--road-mono);
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+  text-transform: uppercase;
+  transition: opacity 400ms;
+}
+
+.drive-log li.is-lit small {
+  opacity: 1;
+}
+
+.drive-log p {
+  max-width: 44ch;
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.drive-log q {
+  color: #ffd8a1;
+  font-style: italic;
+}
+
+/* The instrument cluster: odometer plus the four air-suspension corners. */
+.cluster {
+  position: relative;
+  padding: clamp(22px, 3vw, 34px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 28px;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(255, 177, 78, 0.07), transparent 60%),
+    linear-gradient(180deg, rgba(17, 22, 36, 0.92), rgba(8, 11, 19, 0.96));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 40px 90px rgba(0, 0, 0, 0.5);
+}
+
+.cluster-top {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(214, 222, 240, 0.5);
+  font: 500 10.5px/1.3 var(--road-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cluster-top b {
+  color: #ffcf8f;
+  font-weight: 500;
+}
+
+.odo {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: min(24px, 2.6vh) 0 6px;
+}
+
+.odo-digit {
+  position: relative;
+  width: clamp(44px, 5.4vw, 66px);
+  height: clamp(64px, 7.6vw, 92px);
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #020306, #10141f 50%, #020306);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06), inset 0 10px 18px rgba(0, 0, 0, 0.8), inset 0 -10px 18px rgba(0, 0, 0, 0.8);
+}
+
+.odo-reel {
+  display: grid;
+  transform: translateY(calc(var(--d, 0) * -10%));
+  transition: transform 260ms cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+.odo-reel span {
+  display: grid;
+  height: clamp(64px, 7.6vw, 92px);
+  place-items: center;
+  color: #f4f6fb;
+  font: 500 clamp(2.4rem, 4.6vw, 3.6rem)/1 var(--road-mono);
+}
+
+.odo-unit {
+  margin: 0 0 min(24px, 2.6vh);
+  color: rgba(214, 222, 240, 0.48);
+  font: 500 10.5px/1 var(--road-mono);
+  letter-spacing: 0.22em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.chassis {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 14px 18px;
+  align-items: center;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.chassis svg {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  width: clamp(64px, 7vw, 86px);
+  height: auto;
+}
+
+.corner {
+  font-family: var(--road-mono);
+}
+
+.corner:nth-of-type(2n) {
+  text-align: right;
+}
+
+.corner b {
+  display: block;
+  color: var(--tail);
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.1;
+  text-shadow: 0 0 16px rgba(255, 58, 72, 0.5);
+}
+
+.corner small {
+  color: rgba(214, 222, 240, 0.48);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cluster-warn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: min(20px, 2.2vh) 0 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 58, 72, 0.08);
+  color: #ffb3b9;
+  font: 500 11px/1.4 var(--road-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cluster-warn i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--tail);
+  box-shadow: 0 0 10px var(--tail);
+  animation: warn-blink 1.4s steps(2, jump-none) infinite;
+}
+
+@keyframes warn-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* Car club */
+.club {
+  position: relative;
+  padding-block: clamp(90px, 14vw, 170px);
+  background: #04060c;
+  color: #eef2fa;
+}
+
+.club-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: center;
+}
+
+.club h2 {
+  margin: 0 0 22px;
+  font-size: clamp(2.8rem, 5.6vw, 5.2rem);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+}
+
+.club-count {
+  display: block;
+  margin: 0 0 18px;
+  color: #f4f6fb;
+  font-size: clamp(5rem, 12vw, 10.5rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: -0.07em;
+  line-height: 0.8;
+}
+
+.club-count em {
+  color: var(--sodium);
+  font-style: normal;
+}
+
+.club h2 {
+  max-width: 21ch;
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+}
+
+.club p {
+  max-width: 42ch;
+  color: rgba(222, 231, 245, 0.72);
+  font-size: 1.06rem;
+  line-height: 1.65;
+}
+
+.club p strong {
+  color: #eef2fa;
+  font-weight: 600;
+}
+
+.crowd {
+  display: grid;
+  grid-template-columns: repeat(40, 1fr);
+  gap: clamp(3px, 0.45vw, 6px);
+}
+
+.crowd i {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  transform: scale(0.5);
+  transition: background 400ms, box-shadow 400ms, transform 400ms, opacity 400ms;
+}
+
+/* Lit members read like headlights at a meet seen from above: warm, uneven, a few brighter. */
+.crowd i.on {
+  background: var(--sodium);
+  opacity: var(--glow, 0.7);
+  transform: scale(0.62);
+}
+
+.crowd i.on:nth-child(11n) {
+  background: #fff1dc;
+  box-shadow: 0 0 8px rgba(255, 226, 180, 0.7);
+  transform: scale(0.72);
+}
+
+.crowd i.on:nth-child(23n + 5) {
+  background: var(--tail);
+  box-shadow: 0 0 6px rgba(255, 58, 72, 0.6);
+}
+
+.club .crowd-caption {
+  max-width: none;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+  color: rgba(214, 222, 240, 0.48);
+  font: 500 10.5px/1.3 var(--road-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .drive {
+    height: auto;
+  }
+
+  .drive-sticky {
+    position: relative;
+  }
+
+  .drive-grid,
+  .club-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .drive-log li {
+    color: #eef2fa;
+  }
+
+  .drive-log li::before {
+    border-color: var(--sodium);
+    background: var(--sodium);
+  }
+
+  .drive-log small {
+    opacity: 1;
+  }
+
+  .crowd {
+    grid-template-columns: repeat(25, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drive {
+    height: auto;
+  }
+
+  .drive-sticky {
+    position: relative;
+  }
+
+  .drive-log li {
+    color: #eef2fa;
+  }
+
+  .odo-reel,
+  .crowd i,
+  .drive-log li,
+  .drive-log li::before {
+    transition: none;
+  }
+
+  .cluster-warn i {
+    animation: none;
+  }
+}

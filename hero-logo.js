@@ -31,10 +31,11 @@ async function boot() {
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50);
   camera.position.set(0, 0, 13);
 
-  // Studio-style reflections: a few bright panels baked into an environment map.
-  const pmrem = new THREE.PMREMGenerator(renderer);
+  // Reflections come from a small "studio" scene rendered into a cube map. Most of it is
+  // fixed soft panels; a pair of sodium streetlights sweeps overhead on a loop, so the chrome
+  // catches them the way car paint does on the freeway at night.
   const studio = new THREE.Scene();
-  studio.background = new THREE.Color(0x0a1530);
+  studio.background = new THREE.Color(0x070d1c);
   const panel = (color, strength, width, height, position) => {
     const mesh = new THREE.Mesh(
       new THREE.PlaneGeometry(width, height),
@@ -43,13 +44,29 @@ async function boot() {
     mesh.position.set(...position);
     mesh.lookAt(0, 0, 0);
     studio.add(mesh);
+    return mesh;
   };
-  panel(0xffffff, 7, 9, 3, [0, 6, 4]);
-  panel(0x6fa4ff, 4, 3, 9, [-6, 0, 3]);
-  panel(0xd6e4ff, 3.2, 3, 9, [6, 1, 2]);
-  panel(0x39e0ca, 1.6, 7, 2, [0, -5, 3]);
-  scene.environment = pmrem.fromScene(studio, 0.04).texture;
-  pmrem.dispose();
+  panel(0xdfe8ff, 3.2, 9, 2.4, [0, 6, 4]);
+  panel(0x6fa4ff, 3.4, 3, 9, [-6, 0, 3]);
+  panel(0xd6e4ff, 2.2, 3, 9, [6, 1, 2]);
+  panel(0xff3b4a, 1.4, 6, 1.2, [3, -5, 3]);
+  panel(0xe8eeff, 1.2, 6, 1.2, [-3, -5, 3]);
+  const lamps = [panel(0xffa94d, 14, 1.6, 6, [0, 6, 0]), panel(0xffa94d, 14, 1.6, 6, [0, 6, 0])];
+
+  const cubeTarget = new THREE.WebGLCubeRenderTarget(128, { type: THREE.HalfFloatType });
+  const cubeCamera = new THREE.CubeCamera(0.1, 40, cubeTarget);
+  scene.environment = cubeTarget.texture;
+
+  function sweepLamps(t) {
+    lamps.forEach((lamp, index) => {
+      // Each lamp travels from in front of the logo, over the top, to behind it.
+      const phase = ((t * 0.42 + index * 0.5) % 1) * 2 - 1;
+      lamp.position.set(1.2, 5.5 - Math.abs(phase) * 1.5, -phase * 9);
+      lamp.lookAt(0, 0, 0);
+    });
+    cubeCamera.update(renderer, studio);
+    cubeTarget.texture.needsPMREMUpdate = true;
+  }
 
   const key = new THREE.DirectionalLight(0xffffff, 1.6);
   key.position.set(3, 4, 7);
@@ -152,6 +169,7 @@ async function boot() {
     const scale = 1 - progress * 0.22;
     logo.scale.setScalar(scale);
 
+    sweepLamps(t * (1 + progress * 1.5));
     renderer.render(scene, camera);
     if (!revealed) {
       revealed = true;
