@@ -1388,3 +1388,313 @@ body .section-rail li.is-passed a span {
 .trip.is-arrived .trip-route b {
   color: #fff1dc;
 }
+
+/* ------------------------------------------------------------------ the GR86 in the cluster */
+
+.profile {
+  position: relative;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.gr86 {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
+}
+
+.profile-note {
+  position: absolute;
+  top: 18px;
+  left: 0;
+  color: rgba(214, 222, 240, 0.48);
+  font: 500 10px/1.3 var(--road-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.corners {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.corners .corner {
+  padding: 8px 10px 7px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #020306, #0b0f19);
+  box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+.corners .corner:nth-of-type(2n) {
+  text-align: center;
+}
+
+.corners .corner b {
+  font-size: 1.15rem;
+}
+
+/* ------------------------------------------------------------------ experience: repair orders */
+
+.ro-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 2.4vw, 28px);
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+.ro {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 18px;
+  padding: clamp(22px, 2.6vw, 30px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 6px 6px 22px 22px;
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgba(255, 177, 78, 0.06), transparent 60%),
+    linear-gradient(180deg, rgba(17, 22, 36, 0.92), rgba(8, 11, 19, 0.96));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 40px 90px rgba(0, 0, 0, 0.45);
+}
+
+/* Tear-off perforation along the top, like a shop ticket. */
+.ro::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 6px;
+  background: radial-gradient(circle at 6px 0, #04060c 3px, transparent 3.5px) 0 0 / 12px 6px repeat-x;
+  content: "";
+}
+
+.ro-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.14);
+}
+
+.ro-logo {
+  display: grid;
+  height: 54px;
+  padding: 8px 12px;
+  place-items: center;
+  border-radius: 10px;
+  background: #f3f1ea;
+}
+
+.ro-logo img {
+  width: auto;
+  max-width: 150px;
+  max-height: 38px;
+}
+
+.ro-meta {
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  text-align: right;
+}
+
+.ro-meta dt,
+.ro-concern span {
+  color: rgba(214, 222, 240, 0.45);
+  font: 500 9.5px/1.3 var(--road-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ro-meta dd {
+  margin: 3px 0 0;
+  color: #ffd29a;
+  font: 500 13px/1.2 var(--road-mono);
+}
+
+.ro-title h3 {
+  margin: 0 0 4px;
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.ro-title p {
+  margin: 0;
+  color: rgba(222, 231, 245, 0.6);
+  font-size: 0.95rem;
+}
+
+.ro-concern {
+  margin: 0;
+  color: rgba(222, 231, 245, 0.78);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.ro-concern span {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.ro-lines {
+  display: grid;
+  align-content: start;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ro-lines li {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.94rem;
+}
+
+.ro-lines i {
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid rgba(255, 177, 78, 0.7);
+  border-radius: 3px;
+  background:
+    linear-gradient(45deg, transparent 45%, var(--sodium) 45% 58%, transparent 58%) 2px 4px / 5px 6px no-repeat,
+    linear-gradient(-45deg, transparent 42%, var(--sodium) 42% 56%, transparent 56%) 5px 1px / 7px 10px no-repeat;
+}
+
+.ro-lines b {
+  color: rgba(214, 222, 240, 0.45);
+  font: 500 10px/1 var(--road-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ro-totals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ro-totals div {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #020306, #0b0f19);
+  box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.6);
+}
+
+.ro-totals strong {
+  color: #ffd29a;
+  font: 500 clamp(1.3rem, 2.2vw, 1.7rem)/1 var(--road-mono);
+  text-shadow: 0 0 16px rgba(255, 177, 78, 0.4);
+}
+
+.ro-totals span {
+  color: rgba(214, 222, 240, 0.5);
+  font: 11px/1.3 var(--road-mono);
+}
+
+/* Rubber stamp */
+.ro-stamp {
+  position: absolute;
+  top: 92px;
+  right: 22px;
+  padding: 5px 12px 3px;
+  border: 2px solid rgba(255, 177, 78, 0.75);
+  border-radius: 6px;
+  color: rgba(255, 196, 120, 0.85);
+  font: 800 13px/1 var(--road-sign);
+  letter-spacing: 0.16em;
+  opacity: 0.85;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+  mix-blend-mode: screen;
+}
+
+/* ------------------------------------------------------------------ about: parts catalog */
+
+body .cap-tile {
+  border-radius: 6px 6px 16px 16px;
+}
+
+.cap-pn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: rgba(214, 222, 240, 0.38);
+  font: 500 9.5px/1 var(--road-mono);
+  letter-spacing: 0.08em;
+}
+
+body .cap-tile.is-active .cap-pn {
+  color: var(--sodium);
+}
+
+body .cap-group h4 span::before {
+  margin-right: 8px;
+  color: var(--sodium);
+  content: attr(data-section) " ·";
+}
+
+body .cap-detail {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px) 0 0 / 18px 18px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px) 0 0 / 18px 18px;
+}
+
+.cap-detail-pn {
+  margin: 0 0 14px;
+  color: rgba(214, 222, 240, 0.45);
+  font: 500 10px/1.3 var(--road-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.cap-detail-pn b {
+  color: var(--sodium);
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .ro-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .ro-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ro-meta {
+    text-align: left;
+  }
+
+  .ro-stamp {
+    top: 22px;
+  }
+
+  .ro-lines li {
+    grid-template-columns: 18px 1fr;
+  }
+
+  .ro-lines b {
+    display: none;
+  }
+
+  .corners {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

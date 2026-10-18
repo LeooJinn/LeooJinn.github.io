@@ -129,6 +129,35 @@
   window.addEventListener('resize', requestUpdate);
   update();
 
+  // ---- parts catalog: part numbers on the tool tiles and the selected part
+  const families = { language: ['A', 'LG'], product: ['B', 'PR'], systems: ['C', 'SY'], infra: ['D', 'IN'] };
+  document.querySelectorAll('.cap-group').forEach((group) => {
+    const [section, prefix] = families[group.dataset.family] || ['', 'XX'];
+    group.querySelector('h4 span')?.setAttribute('data-section', section);
+    group.querySelectorAll('.cap-tile').forEach((tile, index) => {
+      const pn = document.createElement('span');
+      pn.className = 'cap-pn';
+      pn.setAttribute('aria-hidden', 'true');
+      pn.textContent = `${prefix}-${String(index + 1).padStart(3, '0')}`;
+      tile.dataset.pn = pn.textContent;
+      tile.append(pn);
+    });
+  });
+  const capTitle = document.querySelector('[data-cap-title]');
+  const capDetail = document.querySelector('[data-cap-detail]');
+  if (capTitle && capDetail) {
+    const line = document.createElement('p');
+    line.className = 'cap-detail-pn';
+    line.setAttribute('aria-hidden', 'true');
+    capDetail.prepend(line);
+    const syncPart = () => {
+      const tile = document.querySelector('.cap-tile.is-active') || document.querySelector('.cap-tile');
+      line.innerHTML = `Part no. <b>${tile?.dataset.pn || ''}</b> · in stock`;
+    };
+    new MutationObserver(syncPart).observe(capTitle, { childList: true, characterData: true, subtree: true });
+    syncPart();
+  }
+
   // ---- car club: one dot per member, filled in when the section comes into view
   const crowd = document.querySelector('[data-crowd]');
   const crowdLabel = document.querySelector('[data-crowd-label]');
