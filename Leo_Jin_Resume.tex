@@ -129,9 +129,11 @@
           {React Native, Expo, TypeScript, Supabase, PostgreSQL, Vercel}
           {Aug. 2026 -- Present (live)}
           \resumeItemListStart
-            \resumeItem{Built and deployed a full-stack community app; designed the PostgreSQL schema around ownership periods so vehicle history transfers between owners without losing authorship.}
+            \resumeItem{Built and shipped a full-stack car-history app solo; designed the PostgreSQL schema around ownership periods so a car's history transfers to each new owner while sellers keep authorship.}
             \resumeItem{Integrated the NHTSA vPIC API into VIN onboarding to autofill year, make, model, engine, and trim; added authentication and serverless endpoints.}
             \resumeItem{Enforced access control with 70+ row-level security policies across 21 tables, verified by 41 automated permission checks that run after every migration.}
+            \resumeItem{Found and closed a security hole where anyone could claim a just-sold car by its VIN and read the seller's history; history now moves only through a seller-initiated hand-over.}
+            \resumeItem{Built unread-message email alerts entirely inside Postgres (pg\_cron, pg\_net, Resend), with rate limits and one-click unsubscribe tokens.}
           \resumeItemListEnd
 
     \resumeSubHeadingListEnd
@@ -143,10 +145,8 @@
       {IT Support Technician}{Feb. 2026 -- Present}
       {\href{https://www.5starnetworking.net/}{\underline{Five Star Networking}}}{Livermore, CA}
       \resumeItemListStart
-        \resumeItem{Resolve 95\%+ of hardware and software issues for 100+ end users across client environments.}
-        \resumeItem{Handle on-site hardware, network, and infrastructure issues for client assignments at Meta corporate offices.}
-        \resumeItem{Install, configure, and maintain Windows and macOS systems; troubleshoot network, printer, and VPN issues and document tickets.}
-        \resumeItem{Manage Active Directory accounts and access permissions across client environments.}
+        \resumeItem{Deployed on-site at Meta corporate offices, resolving hardware, network, and infrastructure issues.}
+        \resumeItem{Resolve 95\%+ of issues for 100+ end users: Windows and macOS systems, VPN, printers, and Active Directory access.}
       \resumeItemListEnd
   \resumeSubHeadingListEnd
 
