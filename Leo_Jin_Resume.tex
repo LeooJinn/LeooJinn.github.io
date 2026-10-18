@@ -88,7 +88,8 @@
     \href{mailto:Jiaxiangjin213@gmail.com}{\underline{Jiaxiangjin213@gmail.com}} \\ \vspace{1pt}
     \small \href{https://www.linkedin.com/in/leoojin/}{\underline{linkedin.com/in/leoojin}} $|$
     \href{https://github.com/LeooJinn}{\underline{github.com/LeooJinn}} $|$
-    \href{https://jiaxiangjin.com}{\underline{jiaxiangjin.com}}
+    \href{https://jiaxiangjin.com}{\underline{jiaxiangjin.com}} \\ \vspace{2pt}
+    \small \textit{Seeking a Summer 2027 software engineering internship}
 \end{center}
 
 %-----------EDUCATION-----------
@@ -96,7 +97,7 @@
   \resumeSubHeadingListStart
     \resumeSubheading
       {Las Positas College}{Livermore, CA}
-      {Associate of Science in Computer Science}{Anticipated B.S. Graduation: May 2030}
+      {A.S. in Computer Science (in progress); transfer toward a B.S.}{Expected B.S.: May 2030}
       \resumeSubSubheading
         {Coursework: C++, object-oriented programming, discrete math, Calculus I--II}{}
   \resumeSubHeadingListEnd
@@ -105,11 +106,20 @@
 \section{Projects}
     \resumeSubHeadingListStart
       \resumeProjectHeadingWithTech
+          {\textbf{Rocket Landing RL} $|$ \href{https://jiaxiangjin.com/rocket-landing-rl/}{\underline{Live demo}} $|$ \href{https://github.com/LeooJinn/rocket-landing-rl}{\underline{GitHub}}}
+          {Python, PyTorch, NumPy, Gymnasium, GitHub Actions}
+          {Oct. 2026}
+          \resumeItemListStart
+            \resumeItem{Trained a from-scratch PyTorch PPO agent that lands \textbf{98.8\%} of 500 unseen starts (mean of 20 seeds; 19 of 20 above 90\%), up from 70.5\% with a fuel-aware reward.}
+            \resumeItem{Fixed unstable training: observation scaling lifted success from 27.6\% to 95.0\% (six seeds); traced late-training collapses to fuel exhaustion.}
+            \resumeItem{Built the 2D simulator, a leak-proof held-out evaluation that reports failed seeds too, 120+ tests with CI, and a live replay viewer.}
+          \resumeItemListEnd
+      \resumeProjectHeadingWithTech
           {\textbf{\href{https://github.com/LeooJinn/cpp-search-engine}{\underline{C++ Search Engine}}} $|$ \href{https://github.com/LeooJinn/cpp-search-engine}{\underline{GitHub}}}
           {C++17, CMake, SQLite, libcurl, multithreading}
           {Oct. 2026}
           \resumeItemListStart
-            \resumeItem{Built a document-search engine with a linear-scan baseline, inverted index, versioned persistent indexes, and exact, fuzzy, and synonym-aware queries.}
+            \resumeItem{Built a document-search engine with an inverted index, versioned persistent indexes, and exact, fuzzy, and synonym-aware queries, benchmarked against a linear-scan baseline.}
             \resumeItem{Benchmarked on 5,950 Wikipedia articles (74.5 MB): worker-local indexing cut peak RSS 14.6\% (1.04 GB to 892 MB) and parallel build time from 496 ms to 434 ms.}
             \resumeItem{Added PDF, web, and SQLite ingestion, a localhost browser UI, and GitHub Actions CI on Ubuntu and macOS.}
           \resumeItemListEnd
@@ -117,22 +127,13 @@
       \resumeProjectHeadingWithTech
           {\textbf{Sonder} $|$ \href{https://imsonder.com}{\underline{imsonder.com}} $|$ \href{https://github.com/LeooJinn/Sonder}{\underline{GitHub}}}
           {React Native, Expo, TypeScript, Supabase, PostgreSQL, Vercel}
-          {Aug. 2026 -- Present}
+          {Aug. 2026 -- Present (live)}
           \resumeItemListStart
             \resumeItem{Built and deployed a full-stack community app; designed the PostgreSQL schema around ownership periods so vehicle history transfers between owners without losing authorship.}
             \resumeItem{Integrated the NHTSA vPIC API into VIN onboarding to autofill year, make, model, engine, and trim; added authentication and serverless endpoints.}
-            \resumeItem{Enforced access control with PostgreSQL row-level security, verified by automated role-based permission tests.}
+            \resumeItem{Enforced access control with 70+ row-level security policies across 21 tables, verified by 41 automated permission checks that run after every migration.}
           \resumeItemListEnd
 
-      \resumeProjectHeadingWithTech
-          {\textbf{Rocket Landing RL} $|$ \href{https://jiaxiangjin.com/rocket-landing-rl/}{\underline{Live demo}} $|$ \href{https://github.com/LeooJinn/rocket-landing-rl}{\underline{GitHub}}}
-          {Python, PyTorch, NumPy, Gymnasium, GitHub Actions}
-          {Oct. 2026}
-          \resumeItemListStart
-            \resumeItem{Built a 2D landing simulator and a from-scratch PyTorch PPO agent; with a fuel-aware reward, 19 of 20 seeds land 90\%+ of 500 unseen starts (mean 98.8\%), against 12 of 20 (70.5\%) before.}
-            \resumeItem{Diagnosed unstable training: fixed observation scaling lifted success from 27.6\% to 95.0\% (six seeds); traced collapses to fuel exhaustion and fixed them with a fuel-aware reward.}
-            \resumeItem{Wrote a held-out evaluation that asserts test seeds never overlap training and keeps failed seeds in the results; 120+ tests, GitHub Actions CI, and a replay viewer on GitHub Pages.}
-          \resumeItemListEnd
     \resumeSubHeadingListEnd
 
 %-----------EXPERIENCE-----------
@@ -142,8 +143,8 @@
       {IT Support Technician}{Feb. 2026 -- Present}
       {\href{https://www.5starnetworking.net/}{\underline{Five Star Networking}}}{Livermore, CA}
       \resumeItemListStart
-        \resumeItem{Supported high-profile client assignments at Meta corporate offices, resolving on-site hardware, network, and infrastructure issues.}
-        \resumeItem{Support 100+ end users across client environments with a 95\%+ resolution rate on hardware and software issues.}
+        \resumeItem{Resolve 95\%+ of hardware and software issues for 100+ end users across client environments.}
+        \resumeItem{Handle on-site hardware, network, and infrastructure issues for client assignments at Meta corporate offices.}
         \resumeItem{Install, configure, and maintain Windows and macOS systems; troubleshoot network, printer, and VPN issues and document tickets.}
         \resumeItem{Manage Active Directory accounts and access permissions across client environments.}
       \resumeItemListEnd
