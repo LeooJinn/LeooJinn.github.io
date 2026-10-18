@@ -108,6 +108,7 @@ function heroScrollProgress() {
 const freeway = {
   cars: [],
   seeded: false,
+  curve: 0,
   travelled: 0,
   stars: [],
   skyline: [],
@@ -148,12 +149,26 @@ function drawHeroSignal(ctx, width, height, progress, time) {
   if (!freeway.seeded) seedFreeway();
 
   const unit = height / 1000;
-  const vx = width * (0.75 + (heroStoryState.pointerX - 0.5) * -0.03);
+  const vx = width * 0.75;
   const vy = height * (0.6 + (heroStoryState.pointerY - 0.5) * -0.02);
   const focal = height * 0.95;
   const camHeight = 1.25 + progress * 0.5;
   const nearZ = 2.2;
-  const project = (x, y, z) => [vx + (x * focal) / z, vy + ((camHeight - y) * focal) / z];
+  // Steering: the pointer bends the road ahead (far points shift more than near ones),
+  // with a slow idle drift so it never sits perfectly straight.
+  const steer = (heroStoryState.pointerX - 0.5) * 1.6 + Math.sin(time * 0.00025) * 0.25;
+  freeway.curve += (steer - freeway.curve) * (reduceMotion ? 1 : 0.04);
+  const bend = (z) => freeway.curve * (z - nearZ) * (z - nearZ) * 0.0009;
+  const project = (x, y, z) => [vx + ((x + bend(z)) * focal) / z, vy + ((camHeight - y) * focal) / z];
+  const FAR = 170;
+  const traceLine = (x) => {
+    ctx.beginPath();
+    for (let z = nearZ; z <= FAR; z *= 1.12) {
+      const [px, py] = project(x, 0, z);
+      if (z === nearZ) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+  };
   const fade = (z) => clamp(1 - z / 180, 0, 1);
   // Things right next to the camera would be huge and blurry; let them dissolve instead.
   const near = (z) => clamp((z - nearZ) / 14, 0, 1);
@@ -216,16 +231,13 @@ function drawHeroSignal(ctx, width, height, progress, time) {
   ctx.globalCompositeOperation = 'source-over';
 
   // Road surface
-  const [lx0, ly0] = project(-8, 0, nearZ);
-  const [rx0] = project(8, 0, nearZ);
   const road = ctx.createLinearGradient(0, vy, 0, height);
   road.addColorStop(0, '#0b111e');
   road.addColorStop(1, '#05070c');
   ctx.fillStyle = road;
   ctx.beginPath();
-  ctx.moveTo(vx, vy);
-  ctx.lineTo(rx0, ly0);
-  ctx.lineTo(lx0, ly0);
+  for (let z = nearZ; z <= FAR; z *= 1.12) ctx.lineTo(...project(-8, 0, z));
+  for (let z = FAR; z >= nearZ; z /= 1.12) ctx.lineTo(...project(8, 0, z));
   ctx.closePath();
   ctx.fill();
 
@@ -246,12 +258,9 @@ function drawHeroSignal(ctx, width, height, progress, time) {
     }
   });
   [[-7.4, 'rgba(214, 222, 240, 0.32)'], [7.4, 'rgba(214, 222, 240, 0.32)'], [-0.25, 'rgba(255, 196, 92, 0.42)'], [0.25, 'rgba(255, 196, 92, 0.42)']].forEach(([x, color]) => {
-    const [ax, ay] = project(x, 0, nearZ);
     ctx.strokeStyle = color;
     ctx.lineWidth = 1.2 * unit;
-    ctx.beginPath();
-    ctx.moveTo(vx, vy);
-    ctx.lineTo(ax, ay);
+    traceLine(x);
     ctx.stroke();
   });
 

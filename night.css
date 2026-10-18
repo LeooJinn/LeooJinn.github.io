@@ -1270,3 +1270,121 @@ html,
 body {
   overflow-x: clip;
 }
+
+/* ------------------------------------------------------------------ headlines: headlights pass over */
+
+html.js [data-split].is-in .sc {
+  animation: sc-headlight 1500ms ease-out both;
+  animation-delay: calc(var(--i, 0) * 24ms + 250ms);
+}
+
+@keyframes sc-headlight {
+  0% {
+    text-shadow: none;
+  }
+
+  30% {
+    color: #fff6e6;
+    text-shadow: 0 0 22px rgba(255, 177, 78, 0.85), 0 0 2px rgba(255, 240, 220, 0.9);
+  }
+
+  100% {
+    text-shadow: none;
+  }
+}
+
+/* ------------------------------------------------------------------ section rail as a GPS route */
+
+body .section-rail {
+  grid-template-columns: auto;
+}
+
+body .section-rail-track {
+  display: none;
+}
+
+body .section-rail ol {
+  position: relative;
+  gap: 14px;
+  padding-left: 22px;
+  --route: 0;
+}
+
+/* The road, then the stretch already driven. */
+body .section-rail ol::before,
+body .section-rail ol::after {
+  position: absolute;
+  top: 8px;
+  left: 4px;
+  width: 2px;
+  content: "";
+}
+
+body .section-rail ol::before {
+  bottom: 8px;
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0 5px, transparent 5px 10px);
+}
+
+body .section-rail ol::after {
+  height: calc((100% - 16px) * var(--route));
+  background: linear-gradient(180deg, rgba(255, 177, 78, 0.35), var(--sodium));
+  box-shadow: 0 0 10px rgba(255, 177, 78, 0.5);
+}
+
+body .section-rail a {
+  position: relative;
+}
+
+/* Exit markers on the route */
+body .section-rail a::before {
+  position: absolute;
+  top: 50%;
+  left: -22px;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  background: #04060c;
+  content: "";
+  transition: border-color 300ms, background 300ms, box-shadow 300ms;
+}
+
+body .section-rail li.is-passed a::before {
+  border-color: var(--sodium);
+  background: var(--sodium);
+}
+
+body .section-rail a[aria-current]::before {
+  box-shadow: 0 0 0 4px rgba(255, 177, 78, 0.18), 0 0 14px rgba(255, 177, 78, 0.7);
+}
+
+body .section-rail li.is-passed a span {
+  color: rgba(255, 214, 170, 0.75);
+}
+
+/* The car: a small headlight arrow riding the route. */
+.rail-car {
+  position: absolute;
+  top: calc(8px + (100% - 16px) * var(--route));
+  left: 5px;
+  z-index: 1;
+  width: 14px;
+  height: 18px;
+  margin: -9px 0 0 -7px;
+  background: linear-gradient(180deg, #fff6e6, var(--sodium));
+  clip-path: polygon(50% 100%, 100% 20%, 78% 0, 50% 18%, 22% 0, 0 20%);
+  filter: drop-shadow(0 0 6px rgba(255, 177, 78, 0.9));
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ arrival */
+
+.trip.is-arrived {
+  border-color: rgba(255, 177, 78, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 30px rgba(255, 160, 60, 0.25);
+}
+
+.trip.is-arrived .trip-route b {
+  color: #fff1dc;
+}

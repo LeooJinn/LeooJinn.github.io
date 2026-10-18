@@ -17,6 +17,33 @@
 
   const pad = (value) => String(value).padStart(3, '0');
 
+  // Section rail as a route: a car marker moves continuously between the exits.
+  const railList = document.querySelector('.section-rail ol');
+  const railItems = railList ? [...railList.children] : [];
+  const railTargets = railItems.map((li) => document.getElementById(li.querySelector('a')?.dataset.sectionLink));
+  const trip = document.querySelector('.trip');
+  const tripRoute = document.querySelector('.trip-route b');
+  if (railList) {
+    const car = document.createElement('span');
+    car.className = 'rail-car';
+    car.setAttribute('aria-hidden', 'true');
+    railList.append(car);
+  }
+
+  function updateRoute() {
+    if (!railList || railTargets.some((target) => !target)) return;
+    const probe = window.scrollY + window.innerHeight * 0.4;
+    const tops = railTargets.map((target) => target.getBoundingClientRect().top + window.scrollY);
+    let index = 0;
+    while (index < tops.length - 1 && probe >= tops[index + 1]) index += 1;
+    const next = tops[index + 1];
+    const fraction = next === undefined ? 0 : clamp((probe - tops[index]) / (next - tops[index]), 0, 1);
+    const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+    const route = atEnd ? 1 : (index + fraction) / (tops.length - 1);
+    railList.style.setProperty('--route', route.toFixed(4));
+    railItems.forEach((li, i) => li.classList.toggle('is-passed', i <= index || atEnd));
+  }
+
   // Streetlight sweep: one pass across the screen for every ~1.1 screens scrolled.
   const sweep = document.createElement('div');
   sweep.className = 'sweep';
@@ -76,6 +103,10 @@
     const pageMiles = Math.round(clamp(window.scrollY / max, 0, 1) * TRIP_MILES);
     if (tripMiles) tripMiles.textContent = pad(pageMiles);
     if (tripClock) tripClock.textContent = clockAt(pageMiles);
+    const arrived = pageMiles >= TRIP_MILES;
+    trip?.classList.toggle('is-arrived', arrived);
+    if (tripRoute) tripRoute.textContent = arrived ? 'ARRIVED' : 'SD → BAY';
+    updateRoute();
     if (!reduceMotion) sweep.style.setProperty('--sweep', ((window.scrollY / (window.innerHeight * 1.1)) % 1).toFixed(4));
 
     if (!drive) return;
