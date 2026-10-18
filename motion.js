@@ -122,14 +122,15 @@
   // The ambient colours drift as you move from section to section.
   safely(() => {
     const tints = {
-      top: ['#3f7cff', '#39e0ca'],
-      manifesto: ['#6a5cff', '#3f7cff'],
-      work: ['#3f7cff', '#67e2d1'],
-      lab: ['#2fb8d8', '#5b6cff'],
-      experience: ['#5b6cff', '#39e0ca'],
-      about: ['#39b8a8', '#3f7cff'],
-      resume: ['#3f7cff', '#8b5cff'],
-      contact: ['#2f6bd8', '#39e0ca'],
+      top: ['#16306e', '#ff9a3c'],
+      manifesto: ['#1b2a66', '#ff9a3c'],
+      work: ['#16306e', '#ffb14e'],
+      lab: ['#122a5e', '#ff9a3c'],
+      experience: ['#1b2a66', '#ffb14e'],
+      about: ['#16306e', '#ff7a3c'],
+      drive: ['#0d1430', '#ff3a48'],
+      resume: ['#1b2a66', '#ffb14e'],
+      contact: ['#3a2a5e', '#ff9a5c'],
     };
     const targets = $$('main > section[id], footer[id]');
     const observer = new IntersectionObserver(

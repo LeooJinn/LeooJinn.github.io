@@ -17,6 +17,38 @@
 
   const pad = (value) => String(value).padStart(3, '0');
 
+  // Streetlight sweep: one pass across the screen for every ~1.1 screens scrolled.
+  const sweep = document.createElement('div');
+  sweep.className = 'sweep';
+  sweep.setAttribute('aria-hidden', 'true');
+  document.body.append(sweep);
+
+  // Out-of-focus city lights behind the manifesto, as if seen through the windshield.
+  const bokeh = document.querySelector('[data-bokeh]');
+  if (bokeh) {
+    const colors = ['255, 177, 78', '255, 177, 78', '255, 214, 160', '255, 58, 72', '150, 180, 255', '236, 242, 255'];
+    let seed = 5;
+    const rand = () => {
+      seed = (seed * 16807) % 2147483647;
+      return (seed - 1) / 2147483646;
+    };
+    for (let i = 0; i < 26; i += 1) {
+      const light = document.createElement('span');
+      const size = 30 + rand() ** 2 * 170;
+      light.style.cssText = [
+        `width:${size}px`,
+        `height:${size}px`,
+        `left:${(rand() * 100).toFixed(1)}%`,
+        `top:${(rand() * 100).toFixed(1)}%`,
+        `--c:rgba(${colors[Math.floor(rand() * colors.length)]}, 0.55)`,
+        `--o:${(0.15 + rand() * 0.35).toFixed(2)}`,
+        `--b:${(1 + rand() * 4).toFixed(1)}px`,
+        `--drift:${Math.round(40 + size * 0.8)}`,
+      ].join(';');
+      bokeh.append(light);
+    }
+  }
+
   // 2:00 AM plus the time it takes to cover the miles at a steady 70 mph.
   function clockAt(miles) {
     const minutes = 120 + (miles / MPH) * 60;
@@ -44,6 +76,7 @@
     const pageMiles = Math.round(clamp(window.scrollY / max, 0, 1) * TRIP_MILES);
     if (tripMiles) tripMiles.textContent = pad(pageMiles);
     if (tripClock) tripClock.textContent = clockAt(pageMiles);
+    if (!reduceMotion) sweep.style.setProperty('--sweep', ((window.scrollY / (window.innerHeight * 1.1)) % 1).toFixed(4));
 
     if (!drive) return;
     // The chapter is pinned on wide screens; on narrow ones it scrolls normally and shows everything.

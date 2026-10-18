@@ -35,13 +35,12 @@
     <link rel="stylesheet" href="lab.css?v=lab-2-c1" />
     <link rel="stylesheet" href="gallery.css?v=gallery-1" />
     <link rel="stylesheet" href="exp.css?v=exp-2-c1" />
-    <link rel="stylesheet" href="manifesto-3d.css?v=m3d-2" />
     <link rel="stylesheet" href="topbar.css?v=top-3" />
     <link rel="stylesheet" href="projects.css?v=pj-3" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Overpass+Mono:wght@400;500;600&family=Overpass:wght@800&display=swap" />
-    <link rel="stylesheet" href="night.css?v=night-1" />
+    <link rel="stylesheet" href="night.css?v=night-2" />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -137,15 +136,7 @@
       </div>
 
       <section class="intro-band manifesto-scene scene-section shell reveal" id="manifesto" data-scene="manifesto" aria-label="Portfolio introduction">
-        <div class="manifesto-constellation" aria-hidden="true">
-          <span class="manifesto-orbit manifesto-orbit-one"></span>
-          <span class="manifesto-orbit manifesto-orbit-two"></span>
-          <span class="manifesto-node manifesto-node-one"></span>
-          <span class="manifesto-node manifesto-node-two"></span>
-          <span class="manifesto-node manifesto-node-three"></span>
-          <span class="manifesto-path"></span>
-        </div>
-        <div class="manifesto-3d" data-manifesto-3d aria-hidden="true"></div>
+        <div class="bokeh" data-bokeh aria-hidden="true"></div>
         <div class="manifesto-copy">
           <p class="intro-statement" data-scrub>I like turning open-ended ideas into clear, working systems. The best projects make the underlying decisions easy to understand.</p>
           <div class="intro-aside">
@@ -153,11 +144,9 @@
             <p>Currently learning through shipped products, benchmarks, and experiments.</p>
           </div>
         </div>
-        <div class="manifesto-footer" aria-hidden="true"><span>signal</span><span>structure</span><span>useful result</span></div>
       </section>
 
       <section class="section scene-section work-scene shell" id="work" data-scene="work" aria-labelledby="work-title">
-        <div class="work-atmosphere" aria-hidden="true"><span class="work-beam work-beam-one"></span><span class="work-beam work-beam-two"></span><span class="work-crosshair"></span></div>
         <div class="pj-head">
           <div class="section-heading reveal">
             <p class="exit-tag"><b>EXIT 2</b>Work</p>
@@ -455,7 +444,6 @@
       </section>
 
       <section class="section toolkit scene-section about-scene shell" id="about" data-scene="about" aria-labelledby="about-title">
-        <div class="about-signal" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
         <div class="about-head">
           <div class="toolkit-copy reveal">
             <p class="exit-tag"><b>EXIT 5</b>About</p>
@@ -603,13 +591,68 @@
         </div>
       </div>
 
-      <section class="resume-callout scene-section resume-scene shell reveal" id="resume" data-scene="resume" aria-labelledby="resume-title">
-        <div class="resume-ring" aria-hidden="true"><span>CV</span></div>
-        <div>
-          <h2 id="resume-title">The one-page version.</h2>
-          <p>Projects, education, experience, and the technical details behind my software engineering search.</p>
+      <section class="sticker-scene shell" id="resume" aria-labelledby="resume-title">
+        <div class="sticker-copy reveal">
+          <p class="exit-tag"><b>RESUME</b>The one-page version</p>
+          <h2 class="sticker-heading">Read the window sticker.</h2>
+          <p>Every new car has a spec sheet in the window. Here's mine. The full PDF has the details.</p>
+          <a class="button button-primary" href="Leo_Jin_Resume.pdf" target="_blank" rel="noreferrer">Open resume <span aria-hidden="true">↗</span></a>
         </div>
-        <a class="button button-primary" href="Leo_Jin_Resume.pdf" target="_blank" rel="noreferrer">Open resume <span aria-hidden="true">↗</span></a>
+
+        <article class="sticker reveal" aria-labelledby="resume-title">
+          <header class="sticker-head">
+            <div>
+              <p class="sticker-kicker">Software engineer · Summer 2027 internship</p>
+              <h3 id="resume-title">Jiaxiang Jin (Leo)</h3>
+            </div>
+            <dl class="sticker-id">
+              <div><dt>Assembly point</dt><dd>Livermore, CA</dd></div>
+              <div><dt>Status</dt><dd>Available</dd></div>
+            </dl>
+          </header>
+
+          <div class="sticker-body">
+            <section class="sticker-col">
+              <h4>Standard equipment</h4>
+              <dl class="sticker-list">
+                <div><dt>Languages</dt><dd>C++, Python, Java, TypeScript, JavaScript</dd></div>
+                <div><dt>Product</dt><dd>React Native, Expo, Supabase, PostgreSQL</dd></div>
+                <div><dt>Systems</dt><dd>CMake, SQLite, libcurl, PyTorch</dd></div>
+                <div><dt>Infrastructure</dt><dd>GitHub Actions, Vercel</dd></div>
+              </dl>
+              <h4>Installed options</h4>
+              <ul class="sticker-options">
+                <li><span>Sonder</span><b>full-stack product, live</b></li>
+                <li><span>C++ Search Engine</span><b>systems, benchmarked</b></li>
+                <li><span>Rocket Landing RL</span><b>PPO from scratch</b></li>
+              </ul>
+            </section>
+
+            <section class="sticker-col">
+              <div class="sticker-epa">
+                <p class="sticker-epa-title">Performance</p>
+                <div class="sticker-epa-main">
+                  <strong>0.026<small>ms</small></strong>
+                  <span>p95 query time, C++ search engine</span>
+                </div>
+                <div class="sticker-epa-row">
+                  <div><strong>19/20</strong><span>RL seeds land 90%+</span></div>
+                  <div><strong>95%+</strong><span>IT issue resolution</span></div>
+                </div>
+              </div>
+              <h4>Service history</h4>
+              <dl class="sticker-list">
+                <div><dt>Feb 2026 – now</dt><dd>IT Support Technician, Five Star Networking. 100+ end users.</dd></div>
+                <div><dt>In progress</dt><dd>A.S. Computer Science, Las Positas College. 3.35 major GPA; B.S. anticipated May 2030.</dd></div>
+              </dl>
+            </section>
+          </div>
+
+          <footer class="sticker-foot">
+            <span class="sticker-barcode" aria-hidden="true"></span>
+            <span>This label is to remain affixed until delivery to the ultimate employer.</span>
+          </footer>
+        </article>
       </section>
     </main>
 
@@ -632,6 +675,7 @@
             <a href="#lab">Build Lab</a>
             <a href="#experience">Experience</a>
             <a href="#about">About</a>
+            <a href="#drive">Off the clock</a>
             <a href="#resume">Resume</a>
           </div>
           <div class="footer-nav-group">
@@ -642,7 +686,8 @@
             <a href="Leo_Jin_Resume.pdf" target="_blank" rel="noreferrer">Download resume</a>
           </div>
         </div>
-        <div class="footer-wordmark" aria-hidden="true" data-split data-radius="0.9" data-hot="#67e2d1">Jiaxiang Jin</div>
+        <div class="dawn" aria-hidden="true"><span class="dawn-sun"></span><span class="dawn-ridge"></span></div>
+        <div class="footer-wordmark" aria-hidden="true" data-split data-radius="0.9" data-hot="#ffb14e">Jiaxiang Jin</div>
         <div class="shell footer-bottom">
           <span>Jiaxiang Jin</span>
           <span>© <span id="year">2026</span> Jiaxiang Jin</span>
@@ -654,12 +699,11 @@
     <script src="interaction-layer.js?v=instrument-6" defer></script>
     <script src="hero-name.js?v=name-1" defer></script>
     <script type="module" src="hero-logo.js?v=logo-2"></script>
-    <script src="motion.js?v=motion-4" defer></script>
+    <script src="motion.js?v=motion-5" defer></script>
     <script src="rocket-sim.js?v=lab-4" defer></script>
     <script src="lab.js?v=lab-4" defer></script>
     <script src="gallery.js?v=gallery-2" defer></script>
-    <script type="module" src="manifesto-3d.js?v=m3d-1"></script>
-    <script src="night.js?v=night-1" defer></script>
+    <script src="night.js?v=night-2" defer></script>
     <script src="topbar.js?v=top-1-c1" defer></script>
     <script src="projects.js?v=pj-1" defer></script>
   </body>

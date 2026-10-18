@@ -571,3 +571,527 @@
     animation: none;
   }
 }
+
+/* ================================================================== whole-site pass */
+
+body {
+  background: #04060c;
+}
+
+/* The old drifting colour blobs become a faint night sky: deep blue up top, city glow below. */
+body .ambient .amb-a {
+  opacity: 0.22;
+}
+
+body .ambient .amb-b {
+  opacity: 0.1;
+}
+
+/* A streetlight sweeping through the cabin as you scroll (position set in night.js). */
+.sweep {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent calc(var(--sweep, 0) * 160% - 40%), rgba(255, 170, 70, 0.05) calc(var(--sweep, 0) * 160% - 22%), rgba(255, 196, 120, 0.075) calc(var(--sweep, 0) * 160% - 18%), rgba(255, 170, 70, 0.05) calc(var(--sweep, 0) * 160% - 14%), transparent calc(var(--sweep, 0) * 160% + 4%));
+  mix-blend-mode: screen;
+}
+
+/* Shared surface for panels: the same dark, warm-lit glass as the instrument cluster. */
+body .lab-stage,
+body .exp-card,
+body .cap {
+  border-color: rgba(255, 255, 255, 0.09);
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgba(255, 177, 78, 0.06), transparent 60%),
+    linear-gradient(180deg, rgba(17, 22, 36, 0.9), rgba(8, 11, 19, 0.94));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 40px 90px rgba(0, 0, 0, 0.45);
+}
+
+body .exp-card::before {
+  background: linear-gradient(90deg, transparent, var(--sodium), transparent);
+}
+
+/* ------------------------------------------------------------------ marquee reflectors */
+
+body .marquee-set i {
+  width: clamp(16px, 2.2vw, 30px);
+  height: clamp(8px, 1vw, 13px);
+  border-radius: 3px;
+  background: linear-gradient(180deg, #fff2d6, var(--sodium));
+  box-shadow: 0 0 18px rgba(255, 177, 78, 0.75), 0 0 2px #fff;
+}
+
+/* ------------------------------------------------------------------ manifesto: through the windshield */
+
+body .manifesto-scene {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.bokeh {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(90deg, transparent, #000 30%, #000 85%, transparent);
+}
+
+.bokeh span {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--c) 0%, var(--c) 52%, transparent 72%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  opacity: var(--o);
+  filter: blur(var(--b));
+  mix-blend-mode: screen;
+  transform: translate3d(0, calc(var(--scene-progress, 0) * var(--drift) * -1px), 0);
+  transition: transform 300ms linear;
+}
+
+/* ------------------------------------------------------------------ work: showroom lighting */
+
+.pj-stage::before {
+  position: absolute;
+  top: -150px;
+  left: 50%;
+  z-index: -1;
+  width: 120%;
+  height: 150%;
+  background: linear-gradient(180deg, rgba(255, 214, 160, 0.16), rgba(255, 190, 120, 0.04) 55%, transparent 80%);
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+  content: "";
+  filter: blur(14px);
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+/* A glossy floor under the screen, with the screen reflected in it. */
+.pj-stage::after {
+  position: absolute;
+  right: -6%;
+  bottom: -90px;
+  left: -6%;
+  z-index: -1;
+  height: 140px;
+  background: radial-gradient(ellipse 50% 40% at 50% 30%, rgba(255, 190, 120, 0.12), transparent 70%);
+  content: "";
+  pointer-events: none;
+}
+
+.pj-views {
+  -webkit-box-reflect: below 10px linear-gradient(transparent 72%, rgba(255, 255, 255, 0.16));
+}
+
+body .pj-glow {
+  opacity: 0.4;
+}
+
+body .pj-stats li {
+  border-color: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  background: linear-gradient(180deg, #020306, #0b0f19);
+  box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.6);
+}
+
+body .pj-stats strong {
+  font-family: var(--road-mono);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 16px color-mix(in srgb, var(--pc) 55%, transparent);
+}
+
+body .pj-num {
+  font-family: var(--road-mono);
+}
+
+/* ------------------------------------------------------------------ about */
+
+body .cap-tile.is-active {
+  border-color: rgba(255, 177, 78, 0.55);
+  background: linear-gradient(150deg, rgba(255, 177, 78, 0.16), rgba(255, 177, 78, 0.03));
+  box-shadow: 0 14px 40px rgba(255, 140, 40, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+body .cap-tile.is-active .cap-icon {
+  border-color: rgba(255, 177, 78, 0.5);
+  background: rgba(255, 177, 78, 0.12);
+}
+
+body .cap-chip.is-active {
+  border-color: rgba(255, 177, 78, 0.55);
+}
+
+/* ------------------------------------------------------------------ resume: window sticker */
+
+.sticker-scene {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(32px, 6vw, 90px);
+  align-items: center;
+  padding-block: clamp(100px, 12vw, 170px);
+}
+
+.sticker-heading {
+  margin: 0 0 18px;
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 0.92;
+}
+
+.sticker-copy p:not(.exit-tag) {
+  max-width: 36ch;
+  margin: 0 0 28px;
+  color: rgba(222, 231, 245, 0.72);
+  font-size: 1.04rem;
+  line-height: 1.65;
+}
+
+.sticker {
+  --paper: #f3f1ea;
+  --ink-p: #15161a;
+  --rule: #15161a;
+  position: relative;
+  padding: clamp(18px, 2.4vw, 28px);
+  background:
+    radial-gradient(120% 90% at 20% 0%, rgba(255, 210, 150, 0.35), transparent 55%),
+    var(--paper);
+  color: var(--ink-p);
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2), 0 40px 80px rgba(0, 0, 0, 0.55), 0 0 120px rgba(255, 170, 70, 0.12);
+  transform: rotate(-1.2deg);
+  transition: transform 600ms var(--ease, ease);
+}
+
+.sticker:hover {
+  transform: rotate(0deg) translateY(-4px);
+}
+
+/* Sticker glare from the overhead light. */
+.sticker::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.35) 48%, transparent 56%);
+  content: "";
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+.sticker-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--rule);
+}
+
+.sticker-kicker {
+  margin: 0 0 4px;
+  font: 700 10.5px/1.3 var(--road-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sticker-head h3 {
+  margin: 0;
+  color: var(--ink-p);
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.sticker-id {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  text-align: right;
+}
+
+.sticker-id dt,
+.sticker-list dt {
+  font: 700 9.5px/1.3 var(--road-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.sticker-id dd {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.sticker-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  padding: 16px 0;
+}
+
+.sticker-col h4 {
+  margin: 0 0 8px;
+  padding: 4px 0 3px;
+  border-top: 1.5px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  font: 700 10.5px/1.3 var(--road-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sticker-col h4 + * {
+  margin-bottom: 16px;
+}
+
+.sticker-list {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+}
+
+.sticker-list dd {
+  margin: 1px 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.sticker-options {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sticker-options li {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px dotted rgba(21, 22, 26, 0.4);
+  font-size: 13px;
+}
+
+.sticker-options span {
+  font-weight: 700;
+}
+
+.sticker-options b {
+  font-weight: 400;
+  opacity: 0.7;
+  text-align: right;
+}
+
+.sticker-epa {
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 2.5px solid var(--rule);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.sticker-epa-title {
+  margin: 0 0 6px;
+  font: 800 11px/1 var(--road-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sticker-epa-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.sticker-epa-main strong {
+  font-size: clamp(2.2rem, 3.6vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.sticker-epa-main small {
+  margin-left: 2px;
+  font-size: 0.4em;
+  letter-spacing: 0;
+}
+
+.sticker-epa-main span,
+.sticker-epa-row span {
+  font-size: 11.5px;
+  line-height: 1.3;
+}
+
+.sticker-epa-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.sticker-epa-row div {
+  display: grid;
+}
+
+.sticker-epa-row strong {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.sticker-foot {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 12px;
+  border-top: 3px solid var(--rule);
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+
+.sticker-barcode {
+  flex: none;
+  width: 120px;
+  height: 34px;
+  background: repeating-linear-gradient(90deg, var(--rule) 0 2px, transparent 2px 3px, var(--rule) 3px 4px, transparent 4px 7px, var(--rule) 7px 10px, transparent 10px 11px, var(--rule) 11px 12px, transparent 12px 15px);
+}
+
+/* ------------------------------------------------------------------ contact: arriving at dawn */
+
+body .footer-scene {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(180deg, #04060c 0%, #0b1026 35%, #261d3d 62%, #5c3a4a 82%, #a8604a 100%);
+}
+
+.dawn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  height: 60%;
+  pointer-events: none;
+}
+
+.dawn-sun {
+  position: absolute;
+  bottom: -18%;
+  left: 50%;
+  width: min(90vw, 1100px);
+  aspect-ratio: 2.2;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 60%, rgba(255, 214, 160, 0.75), rgba(255, 150, 90, 0.35) 30%, transparent 65%);
+  filter: blur(10px);
+  transform: translateX(-50%);
+}
+
+.dawn-ridge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 70px;
+  background: #0b0a14;
+  clip-path: polygon(0 60%, 8% 42%, 17% 55%, 28% 30%, 37% 48%, 48% 36%, 58% 52%, 69% 28%, 80% 46%, 90% 34%, 100% 50%, 100% 100%, 0 100%);
+}
+
+body .footer-scene .footer-heading h2 span:not(.sr-only) {
+  color: #ffd29a;
+}
+
+body .footer-scene .footer-email {
+  border-color: rgba(255, 210, 154, 0.5);
+  color: #ffe3bd;
+}
+
+body .footer-scene .footer-bottom {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 236, 214, 0.7);
+}
+
+@media (max-width: 900px) {
+  .sticker-scene,
+  .sticker-body {
+    grid-template-columns: 1fr;
+  }
+
+  .sticker {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sweep {
+    display: none;
+  }
+
+  .bokeh span,
+  .sticker {
+    transition: none;
+  }
+}
+
+/* Experience: same instrument readouts as the projects, logos on a softer plate. */
+body .exp-stats li {
+  border-color: rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, #020306, #0b0f19);
+  box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.6);
+}
+
+body .exp-stats strong {
+  color: #ffd29a;
+  font-family: var(--road-mono);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 16px rgba(255, 177, 78, 0.4);
+}
+
+body .exp-dates {
+  font-family: var(--road-mono);
+}
+
+body .exp-dates i {
+  background: var(--sodium);
+  box-shadow: 0 0 10px rgba(255, 177, 78, 0.7);
+}
+
+body .exp-logo {
+  background: #f3f1ea;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+body .cap-detail-kicker,
+body .cap-kicker {
+  color: var(--sodium);
+}
+
+body .cap-proof {
+  border-left-color: var(--sodium);
+  background: rgba(255, 177, 78, 0.06);
+}
+
+@media (max-width: 640px) {
+  .sticker-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sticker-id {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    text-align: left;
+  }
+
+  body .footer-scene .footer-bottom {
+    padding-bottom: 96px;
+  }
+}
