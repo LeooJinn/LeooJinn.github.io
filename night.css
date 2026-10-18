@@ -1095,3 +1095,178 @@ body .cap-proof {
     padding-bottom: 96px;
   }
 }
+
+/* ================================================================== global theme
+   Blue stays as the identity colour (the JJ, "(Leo)"). Light in the world is sodium amber,
+   warnings are taillight red, and everything that was teal or pale blue follows that. */
+
+:root {
+  --signal: #ffb14e;
+  --accent: #ffc88f;
+  --accent-deep: #ffd9ad;
+  --accent-soft: rgba(255, 177, 78, 0.14);
+  --leo: #92b7ff;
+  --mono: var(--road-mono);
+}
+
+::selection {
+  background: rgba(255, 177, 78, 0.35);
+  color: #fff;
+}
+
+/* Buttons: primary is a warm headlight, secondary is dark glass. */
+body .button-primary,
+body .hero-story .button-primary {
+  background: #f4ecdc;
+  color: #140f07;
+  box-shadow: 0 10px 30px rgba(255, 177, 78, 0.16), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+}
+
+body .button-primary:hover,
+body .button-primary:focus-visible,
+body .hero-story .button-primary:hover,
+body .hero-story .button-primary:focus-visible {
+  background: #ffe2b8;
+  color: #140f07;
+  box-shadow: 0 14px 40px rgba(255, 177, 78, 0.32);
+}
+
+body .button-secondary:hover,
+body .button-secondary:focus-visible,
+body .hero-story .button-secondary:hover,
+body .hero-story .button-secondary:focus-visible {
+  border-color: rgba(255, 200, 143, 0.7);
+  color: #fff;
+}
+
+/* Top chrome */
+body .scroll-progress {
+  background: linear-gradient(90deg, #ff3a48, var(--sodium) 45%, #fff1dc);
+  box-shadow: 0 0 14px rgba(255, 177, 78, 0.55);
+}
+
+body .brand-tag {
+  color: var(--leo);
+}
+
+body .brand-tag i {
+  background: var(--sodium);
+}
+
+body .dock-pill {
+  background: radial-gradient(circle at 30% 18%, rgba(255, 236, 210, 0.42), rgba(255, 177, 78, 0.18) 70%);
+  box-shadow: 0 0 24px rgba(255, 160, 60, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Cursor: a small headlight with a warm ring. */
+body .cursor-glow {
+  background: radial-gradient(circle closest-side, rgba(255, 190, 120, 0.05), transparent 72%);
+}
+
+body .cursor-orb {
+  background: #fff1dc;
+  box-shadow: 0 0 0 5px rgba(255, 177, 78, 0.14), 0 0 20px rgba(255, 177, 78, 0.55);
+}
+
+body .cursor-ring {
+  border-color: rgba(255, 214, 170, 0.6);
+}
+
+body .cursor-cross {
+  color: rgba(255, 214, 170, 0.7);
+}
+
+body .cursor-hover .cursor-ring {
+  background: rgba(255, 177, 78, 0.06);
+  border-color: var(--sodium);
+}
+
+body .cursor-press .cursor-ring {
+  background: rgba(255, 58, 72, 0.12);
+}
+
+/* Hero bottom strip reads as the trip computer. */
+body .hero-story-bottom {
+  color: rgba(255, 226, 190, 0.55);
+}
+
+body .hero-story-bottom strong {
+  color: #ffd29a;
+}
+
+body .hero-story-line {
+  height: 2px;
+  background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0 14px, transparent 14px 26px);
+}
+
+/* ------------------------------------------------------------------ marquee painted on the road */
+
+body .marquee {
+  padding-block: clamp(24px, 3vw, 40px);
+  border: 0;
+  background:
+    linear-gradient(180deg, transparent 0 7px, rgba(255, 210, 63, 0.75) 7px 10px, transparent 10px calc(100% - 10px), rgba(240, 240, 248, 0.6) calc(100% - 10px) calc(100% - 7px), transparent calc(100% - 7px)),
+    radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1.5px) 0 0 / 5px 5px,
+    linear-gradient(180deg, #0c0e14, #12141c 50%, #0c0e14);
+  transform: perspective(900px) rotateX(48deg);
+  transform-origin: 50% 60%;
+  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
+}
+
+/* Road lettering is painted stretched so it reads correctly from a low angle. */
+body .marquee-set span,
+body .marquee-set span.is-solid {
+  display: inline-block;
+  color: rgba(242, 240, 232, 0.88);
+  font-family: var(--road-sign);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transform: scaleY(1.7);
+  -webkit-text-stroke: 0;
+}
+
+body .marquee-set span:not(.is-solid) {
+  color: rgba(242, 240, 232, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body .marquee {
+    transform: none;
+  }
+}
+
+/* A sheen of light passes over the project screen when it changes. */
+.pj-view.is-active .pj-frame::after {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 236, 210, 0.22) 47%, rgba(255, 255, 255, 0.3) 50%, transparent 62%);
+  background-size: 260% 100%;
+  content: "";
+  pointer-events: none;
+  animation: pj-glare 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes pj-glare {
+  from {
+    background-position: 130% 0;
+  }
+
+  to {
+    background-position: -40% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pj-view.is-active .pj-frame::after {
+    display: none;
+  }
+}
+
+/* The tilted road marquee projects slightly past the viewport edges; clip, don't scroll.
+   (clip rather than hidden so sticky sections keep working.) */
+html,
+body {
+  overflow-x: clip;
+}

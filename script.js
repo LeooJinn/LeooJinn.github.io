@@ -275,11 +275,15 @@ function drawHeroSignal(ctx, width, height, progress, time) {
       ctx.lineTo(tx, ty);
       ctx.lineTo(lx, ly);
       ctx.stroke();
+      // On load the lamps power up one after another down the road, with a sodium flicker.
+      const warm = reduceMotion ? 1 : clamp((time - 250 - z * 14) / 420, 0, 1);
+      const power = warm < 1 ? warm * (0.55 + 0.45 * Math.abs(Math.sin(time * 0.05 + z))) : 1;
+      if (power <= 0) return;
       ctx.globalCompositeOperation = 'lighter';
       const glowR = Math.max(3 * unit, (1.6 * focal) / z);
       const glow = ctx.createRadialGradient(lx, ly, 0, lx, ly, glowR);
-      glow.addColorStop(0, `rgba(255, 214, 150, ${0.95 * fade(z)})`);
-      glow.addColorStop(0.18, `rgba(255, 170, 70, ${0.5 * fade(z)})`);
+      glow.addColorStop(0, `rgba(255, 214, 150, ${0.95 * fade(z) * power})`);
+      glow.addColorStop(0.18, `rgba(255, 170, 70, ${0.5 * fade(z) * power})`);
       glow.addColorStop(1, 'rgba(255, 150, 60, 0)');
       ctx.fillStyle = glow;
       ctx.fillRect(lx - glowR, ly - glowR, glowR * 2, glowR * 2);
