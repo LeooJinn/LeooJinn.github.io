@@ -107,11 +107,11 @@
     \resumeSubHeadingListStart
       \resumeProjectHeadingWithTech
           {\textbf{Rocket Landing RL} $|$ \href{https://jiaxiangjin.com/rocket-landing-rl/}{\underline{Live demo}} $|$ \href{https://github.com/LeooJinn/rocket-landing-rl}{\underline{GitHub}}}
-          {Python, PyTorch, NumPy, Gymnasium, GitHub Actions}
+          {Python, PyTorch, NumPy, Gymnasium, reinforcement learning (PPO), GitHub Actions}
           {Oct. 2026}
           \resumeItemListStart
-            \resumeItem{Trained a from-scratch PyTorch PPO agent that lands \textbf{98.8\%} of 500 unseen starts (mean of 20 seeds; 19 of 20 above 90\%), up from 70.5\% with a fuel-aware reward.}
-            \resumeItem{Raised training success from 27.6\% to 95.0\% by fixing observation scaling, then traced the remaining collapses to fuel exhaustion.}
+            \resumeItem{Trained a machine-learning agent (PPO, implemented from scratch in PyTorch) that lands \textbf{98.8\%} of a held-out test set of 500 unseen starts (mean of 20 seeds; 19 of 20 above 90\%), up from 70.5\% with a fuel-aware reward.}
+            \resumeItem{Diagnosed failure modes from training metrics: fixing observation scaling raised success from 27.6\% to 95.0\%, and the remaining collapses traced to fuel exhaustion.}
             \resumeItem{Built the 2D physics simulator from scratch, plus a leak-proof held-out evaluation that reports failed seeds too, 120+ tests with CI, and a live replay viewer.}
           \resumeItemListEnd
       \resumeProjectHeadingWithTech
@@ -131,7 +131,7 @@
           \resumeItemListStart
             \resumeItem{Built and shipped a full-stack car-history app solo; designed the PostgreSQL schema around ownership periods so a car's history transfers to each new owner while sellers keep authorship.}
             \resumeItem{Integrated the NHTSA vPIC API into VIN onboarding to autofill year, make, model, engine, and trim; added authentication and serverless endpoints.}
-            \resumeItem{Enforced access control with 70+ row-level security policies across 21 tables, verified by 41 automated permission checks that run after every migration.}
+            \resumeItem{Built with AI coding agents (Claude Code, Codex) and verified their output: 70+ row-level security policies across 21 tables are checked by 41 automated permission tests after every migration.}
             \resumeItem{Found and closed a security hole where anyone could claim a just-sold car by its VIN and read the seller's history; history now moves only through a seller-initiated hand-over.}
             \resumeItem{Built unread-message email alerts entirely inside Postgres (pg\_cron, pg\_net, Resend), with rate limits and one-click unsubscribe tokens.}
           \resumeItemListEnd
@@ -155,7 +155,7 @@
  \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
      \textbf{Languages}{: C++, Python, TypeScript, JavaScript, SQL (PostgreSQL)} \\
-     \textbf{Concepts}{: Concurrency, performance benchmarking, data modeling, REST APIs, automated testing, access control, reinforcement learning, experiment design} \\
+     \textbf{Concepts}{: Concurrency, performance benchmarking, data modeling, REST APIs, automated testing, access control, reinforcement learning, model evaluation, experiment design} \\
      \textbf{Technologies}{: PyTorch, NumPy, Gymnasium, CMake, SQLite, libcurl, React Native, Expo, Supabase, PostgreSQL, Git, GitHub, GitHub Actions, Vercel} \\
      \textbf{AI-assisted development}{: Claude Code, Codex, Cursor, Weave Router}
     }}
